@@ -5,9 +5,9 @@
 <div class="sidebar">
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
-    <a href="#contact" class="active btn navbar">My Request</a>
-    <a href="#contact" class=" btn navbar">My Assigment</a>
-    <a href="#contact" class=" btn navbar">My Resolution</a>
+    <a href="<?= base_url(); ?>/admin/my_request" class="active btn navbar">My Request</a>
+    <a href="<?= base_url(); ?>/admin/my_assigment_a" class=" btn navbar">My Assigment</a>
+    <a href="<?= base_url(); ?>/admin/my_resolution" class=" btn navbar">My Resolution</a>
     <a href="#contact" class=" btn navbar">Waiting for Close</a>
     <a href="#contact" class=" btn navbar">View All Tickets</a>
     <a href="#contact" class=" btn navbar">Popular Solution</a>

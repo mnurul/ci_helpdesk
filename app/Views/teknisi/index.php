@@ -5,8 +5,8 @@
 <div class="sidebar">
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
-    <a href="#news" class="active btn navbar">My Assigment</a>
-    <a href="#contact" class="btn navbar">View All Tickets</a>
+    <a href="<?= base_url(); ?>/teknisi/my_assigment" class="active btn navbar">My Assigment</a>
+    <a href="<?= base_url(); ?>/teknisi/v_all_ticket" class="btn navbar">View All Tickets</a>
 </div>
 
 
@@ -33,8 +33,8 @@
 <div class="dropup">
     <button class="dropbtn">My Tickets</button>
     <div class="dropup-content">
-        <a href="#">My Assigment</a>
-        <a href="#">View All Tickets</a>
+        <a href="<?= base_url(); ?>/teknisi/my_assigment">My Assigment</a>
+        <a href="<?= base_url(); ?>/teknisi/v_all_ticket">View All Tickets</a>
     </div>
 </div>
 <!-- <div class="dropup">

@@ -33,7 +33,7 @@
                 <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
                 <a href="#contact">Logout</a>
                 <a href="">View Ticket Status</a>
-                <a href="" class="">Change Password</a>
+                <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
                 <a href="<?= base_url(); ?>/user/create_ticket" class="">Create Tickets</a>
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
@@ -41,7 +41,7 @@
                 <h2 class="title font-weight-bold">View Ticket Status</h2>
                 <div class="card bg-card mt-3 mb-5">
                     <div class="card-body">
-                        <h1>Test</h1>
+                        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
                         <div class="row">
                             <div class="column">
                                 <div class="card">
@@ -128,6 +128,16 @@
                                     <a href="#" class="btn btn-status">Status</a>
                                 </div>
                             </div>
+                        </div>
+                        <div class="pagination justify-content-center ">
+                            <a href="#">&laquo;</a>
+                            <a href="#">1</a>
+                            <a class="active" href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">&raquo;</a>
                         </div>
                     </div>
                 </div>

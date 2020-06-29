@@ -5,11 +5,11 @@
 <div class="sidebar">
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
-    <a href="#contact" class="active btn navbar">View All Tickets</a>
+    <a href="<?= base_url(); ?>/manager/v_all_ticket_m" class="active btn navbar">View All Tickets</a>
     <h6 class="t-view-report"><b>View Report</b></h6>
     <br>
-    <a href="#contact" class="active btn navbar">Pivot Table</a>
-    <a href="#contact" class="btn navbar">SLA Chart</a>
+    <a href="<?= base_url(); ?>/manager/pivot_table" class="active btn navbar">Pivot Table</a>
+    <a href="<?= base_url(); ?>/manager/sla_chart" class="btn navbar">SLA Chart</a>
 </div>
 
 
@@ -36,14 +36,14 @@
 <div class="dropup">
     <button class="dropbtn">My Tickets</button>
     <div class="dropup-content">
-        <a href="#">View All Tickets</a>
+        <a href="<?= base_url(); ?>/manager/v_all_ticket_m">View All Tickets</a>
     </div>
 </div>
 <div class="dropup">
     <button class="dropbtn">View Report</button>
     <div class="dropup-content">
-        <a href="#">Pivot Table</a>
-        <a href="#">SLA Chart</a>
+        <a href="<?= base_url(); ?>/manager/pivot_table">Pivot Table</a>
+        <a href="<?= base_url(); ?>/manager/sla_chart">SLA Chart</a>
     </div>
 </div>
 <!-- <div class="dropup">

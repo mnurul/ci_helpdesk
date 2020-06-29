@@ -115,7 +115,7 @@ body {
   color: #322f56;
 }
 
-.btn-password {
+/* .btn-password {
   margin-top: 10px;
   margin-left: 267px;
   background-color: #244295;
@@ -131,12 +131,12 @@ body {
 .btn-password:hover {
   color: white;
   background-color: #1f3980;
-}
+} */
 
 /* Card */
 
 .card {
-  background-color: #fdf6f0;
+  /* background-color: #fdf6f0; */
   -webkit-transition: 0.5s;
   transition: 0.5s;
   border-radius: 5px;
@@ -213,10 +213,17 @@ body {
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
-  .column {
+
+  .column,
+  #myInput,
+  .pagination {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+  }
+
+  .btn-status {
+    width: 180px !important;
   }
 }
 
@@ -271,3 +278,80 @@ body {
 }
 
 /* End Form Create Ticket */
+
+/* Search Bar */
+
+* {
+  box-sizing: border-box;
+}
+
+#myInput {
+  background-image: url('/assets/searchicon1.png');
+  background-color: #22233A !important;
+  background-position: 10px 13px;
+  background-repeat: no-repeat;
+  width: 542px;
+  height: 53px;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 12px 20px 12px 40px;
+  border: none !important;
+  margin-bottom: 12px;
+}
+
+#myInput:focus {
+  background-color: white !important;
+  border: 3px solid #616182 !important;
+  outline: none;
+}
+
+::placeholder {
+  color: #616182;
+  font-size: 16px;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+  padding-left: 15px;
+}
+
+@media screen and (max-width: 600px) {
+
+  #myInput {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* End Search Bar */
+
+/* Pagination */
+
+.pagination a {
+  color: #2B50B4;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+  transition: background-color .3s;
+  margin-top: 20px;
+}
+
+.pagination a.active {
+  background-color: #2B50B4;
+  color: white;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+}
+
+@media screen and (max-width: 600px) {
+
+  .pagination {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+
+/* End Pagination */
