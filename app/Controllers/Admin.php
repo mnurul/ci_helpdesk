@@ -84,12 +84,52 @@ class Admin extends BaseController
         return view('sla_chart_a/index', $data);
     }
 
+    public function add_sla()
+    {
+        $data = [
+            'title' => 'Add New SLA'
+        ];
+        return view('add_sla/index', $data);
+    }
+
+    public function sla_setting_a()
+    {
+        $data = [
+            'title' => 'SLA Setting'
+        ];
+        return view('sla_setting_a/index', $data);
+    }
+
+    public function detail_sla()
+    {
+        $data = [
+            'title' => 'Detail SLA'
+        ];
+        return view('detail_sla/index', $data);
+    }
+
     public function create_user()
     {
         $data = [
             'title' => 'Create User'
         ];
         return view('create_user/index', $data);
+    }
+
+    public function list_user()
+    {
+        $data = [
+            'title' => 'List User'
+        ];
+        return view('list_user/index', $data);
+    }
+
+    public function detail_user()
+    {
+        $data = [
+            'title' => 'Detail User'
+        ];
+        return view('detail_user/index', $data);
     }
 
     public function create_project()

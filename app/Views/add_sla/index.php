@@ -1,4 +1,4 @@
-<?= $this->extend('create_user/template'); ?>
+<?= $this->extend('add_sla/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -30,108 +30,56 @@
         <div class="col">
             <!-- <h6 class="t-customer"><b>Welcome Customer</b></h6> -->
             <div class="topnav" id="myTopnav">
-                <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
-                <a href="<?= base_url(); ?>/admin/list_user">Back</a>
+                <img src="<?= base_url(); ?>/assets/home-admin.png" class="logo" alt="" loading="lazy">
+                <a href="<?= base_url(); ?>/admin/sla_setting_a">Back</a>
                 <!-- <a href="<?= base_url(); ?>/user/v_ticket_status">View Ticket Status</a>
                 <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
                 <a href="" class="">Create Tickets</a> -->
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
             <div style="padding-left:30px;margin-top:15px; ">
-                <h2 class="title font-weight-bold">Create User</h2>
+                <h2 class="title font-weight-bold">Add New SLA</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
                         <form action="/action_page.php">
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="id-user">Id User</label>
+                                    <label class="title-1" for="sla-level">SLA Level</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="id-user" name="id-user">
+                                    <input type="text" id="sla-level" name="sla-level">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="username">Username</label>
+                                    <label class="title-1" for="sla">SLA</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="username" name="username">
+                                    <input type="text" id="sla" name="sla">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="password">Password</label>
+                                    <label class="title-1" for="response-time">Response Time</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="password" id="password" name="password">
+                                    <input type="text" id="response-time" name="response-time">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="level">Level</label>
+                                    <label class="title-1" for="resultion-time">Resultion Time</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="level" name="level" style="padding-top: -30px !important;">
-                                        <option value=""></option>
-                                        <option value="Level">Level</option>
-                                        <option value="Level">Level</option>
-                                    </select>
+                                    <input type="text" id="resultion-time" name="resultion-time">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="fullname">Fullname</label>
+                                    <label class="title-1" for="sla-w-time">SLA Warning Time</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="fullname" name="fullname">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="email">Email</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="email" id="email" name="email">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="telp">Telp</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="telp" name="telp">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="email-code">Email Code</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="email-code" name="email-code">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="time">Time</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="time" name="time">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="confirmed">Confirmed</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="confirmed" name="confirmed">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="ip">Ip</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="ip" name="ip">
+                                    <input type="text" id="sla-w-time" name="sla-w-time">
                                 </div>
                             </div>
                             <div class="row">

@@ -1,9 +1,10 @@
 body {
   margin: 0;
-  background-color: #fdf6f0;
+  /* background-color: #fdf6f0; */
+  background-color: #0F0E20;
 }
 
-.t-teknisi {
+.t-customer {
   margin-top: 5px;
   float: right;
   color: #322f56;
@@ -28,8 +29,9 @@ body {
 
 .topnav a {
   float: right;
+  /* margin-left: auto; */
   display: block;
-  color: #322f56;
+  color: rgba(255, 255, 255, 0.75);
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -43,15 +45,10 @@ body {
   display: none;
 }
 
-.active {
-  background-color: #ff915f;
-  color: white;
-}
-
 .topnav a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #ff915f;
-  color: #322f56;
+  background-color: #232235;
+  color: white;
 }
 
 @media screen and (max-width: 600px) {
@@ -106,221 +103,114 @@ body {
   font-weight: 700;
   font-size: 28px;
   line-height: 34px;
-  color: #322f56;
+  color: #ffffff;
 }
 
-/* Sidebar */
-
-.sidebar {
-  margin: 0;
-  padding: 0;
-  width: 263px;
-  background-color: #fdf6f0;
-  position: fixed;
-  height: 100%;
-  overflow: auto;
-  border-right: 2px solid #F0E3E1;
-}
-
-.t-ticket {
-  padding-top: 70px;
-  margin-bottom: -10px !important;
-  padding-left: 20px;
-  color: #322f56;
-  font-family: Merriweather, serif;
+.title-1,
+.title-2 {
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
   font-weight: 400;
-  line-height: 17px;
   font-size: 14px;
+  line-height: 24px;
+  color: #ffffff;
 }
 
-.btn {
-  background-color: #FFFFFF;
-  border-radius: 5px;
-  width: 221px;
-  height: 43px;
-  margin-left: 20px;
-  margin-bottom: 10px;
+/* Form Create Ticket */
+
+* {
+  box-sizing: border-box;
 }
 
-.sidebar a {
-  display: block;
-  color: #322f56;
-  padding-top: 9px;
-  text-decoration: none;
-  text-align: center;
-  font-size: 14px;
-  font-family: Merriweather, serif;
-  font-weight: 400;
-  line-height: 21px;
-}
-
-.sidebar a.active {
-  background-color: #ff915f;
-  color: white;
-}
-
-.sidebar a:hover:not(.active) {
-  background-color: #F8F9FA;
-  color: #322f56;
-}
-
-div.content {
-  margin-left: 263px;
-  padding: 1px 16px;
-  height: 1000px;
-}
-
-
-@media screen and (max-width: 1450px) {
-  .dropup {
-    display: none;
-  }
-}
-
-
-
-@media screen and (max-width: 700px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    position: relative;
-    border-right: none;
-  }
-
-  .sidebar a {
-    float: left;
-  }
-
-  div.content {
-    margin-left: 0;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .sidebar {
-    width: 100%;
-    height: auto;
-    border-right: none;
-    overflow: hidden;
-    position: fixed;
-    bottom: 0;
-    background-color: violet;
-    display: none !important;
-  }
-
-  .sidebar a {
-    float: left;
-    font-size: 14px;
-    padding-top: 4px;
-  }
-
-  div.content {
-    margin-left: 0;
-  }
-
-  .btn {
-    background-color: #FFFFFF;
-    border-radius: 5px;
-    width: 90px;
-    height: 40px;
-    margin-left: 10px;
-    margin-right: -10px;
-    margin-bottom: 10px;
-    display: none !important;
-  }
-
-  .t-ticket {
-    color: #070606;
-    text-align: center;
-    /* padding: 14px 10px; */
-    margin-top: -35px;
-    text-decoration: none;
-    font-size: 10px;
-    display: none !important;
-
-  }
-
-  .dropbtn {
-    background-color: #FF915F;
-    color: white;
-    width: 350px;
-    height: 40px;
-    border: none;
-    font-size: 14px;
-    font-family: Merriweather, serif;
-    font-weight: 400;
-    line-height: 21px;
-  }
-
-  .dropup {
-    position: fixed;
-    display: inline-block;
-    margin-right: -5px;
-    bottom: 0 !important;
-    /* overflow: hidden; */
-  }
-
-  .dropup-content {
-    display: none;
-    position: absolute;
-    background-color: #FF915F;
-    min-width: 160px;
-    width: 350px;
-    bottom: 50px;
-    z-index: 1;
-    margin-bottom: -10px;
-  }
-
-  .dropup-content a {
-    color: white;
-    padding: 12px 16px;
-    text-decoration: none;
-    display: block;
-    text-align: center;
-    font-size: 14px;
-    font-family: Merriweather, serif;
-    font-weight: 400;
-    line-height: 21px;
-  }
-
-  .dropup-content a:hover {
-    background-color: #F8F9FA;
-    color: #322f56;
-  }
-
-  .dropup:hover .dropup-content {
-    display: block;
-  }
-
-  .dropup:hover .dropbtn {
-    background-color: #FF915F;
-  }
-
-}
-
-/* End Sidebar */
-
-/* Card */
-
-.card {
-  /* background-color: #fdf6f0; */
+.card1 {
+  background-color: #0F0E20;
   -webkit-transition: 0.5s;
   transition: 0.5s;
-  border-radius: 5px;
-  /* border-radius: 10px 10px 10px 10px;
-  -moz-border-radius: 10px 10px 10px 10px;
-  -webkit-border-radius: 10px 10px 10px 10px; */
+  border-radius: 20px 20px 100px 20px;
+  -moz-border-radius: 20px 20px 100px 20px;
+  -webkit-border-radius: 20px 20px 100px 20px;
   border: none;
 }
 
-.bg-card {
-  background: linear-gradient(to bottom, rgba(15, 14, 32, 1) 0%, rgba(15, 14, 32, 1) 29%, rgba(15, 14, 32, 1) 49%, rgba(255, 255, 255, 1) 49%, rgba(255, 255, 255, 1) 100%);
+.card1:hover {
+  -webkit-box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
+  -moz-box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
+  box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
 }
 
-.card:hover {
-  -webkit-box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
-  -moz-box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
-  box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  width: 275px;
+  height: 40px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+  border: 2px solid #244295;
+  box-shadow: 0 4px 8px #244295;
+}
+
+label {
+  padding: 12px 12px 12px 30px;
+  display: inline-block;
+}
+
+option {
+  margin-top: -10px !important;
+}
+
+
+
+.col-25 {
+  width: 25%;
+}
+
+.col-75 {
+  float: left;
+  width: 75%;
+  margin-top: 6px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.btn-ticket {
+  height: 35px;
+  border-radius: 5px;
+  margin-top: 5px !important;
+  margin-left: 267px;
+  background-color: #244295;
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: white;
+  width: 273px;
+  border: none;
+}
+
+.btn-ticket:hover {
+  color: white;
+  background-color: #1f3980;
 }
 
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
@@ -332,25 +222,69 @@ div.content {
     margin-top: 0;
   }
 
-  .card {
-    background-color: #fdf6f0;
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select,
+  textarea {
+    margin-left: 15px !important;
+  }
+
+  label {
+    float: left !important;
+    margin-left: -15px;
+    margin-bottom: 0.5px !important;
+  }
+
+  .card1 {
+    background-color: #0F0E20;
     -webkit-transition: 0.5s;
     transition: 0.5s;
     border-radius: 20px 20px 20px 20px;
     -moz-border-radius: 20px 20px 20px 20px;
     -webkit-border-radius: 20px 20px 20px 20px;
     border: none;
+    height: 1350px;
   }
 
-  .card:hover {
-    -webkit-box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
-    -moz-box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
-    box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
+  .card1:hover {
+    -webkit-box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
+    -moz-box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
+    box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
   }
 
+  .btn-ticket {
+    margin-left: 15px !important;
+    margin-top: 20px !important;
+  }
 }
 
-/* End Card */
+/* End Form Create Ticket */
+
+.a-user {
+  color: #616182;
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 16px;
+  float: left;
+  margin-top: 20px;
+  margin-left: 5px;
+}
+
+.a-user:hover {
+  color: white;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 600px) {
+  .a-user {
+    font-size: 16px;
+    margin-top: -10px;
+    margin-bottom: 20px;
+  }
+}
 
 /* Column Cards */
 
@@ -393,6 +327,7 @@ div.content {
   .btn-assign {
     width: 100% !important;
     height: 35px;
+    margin-left: 1px !important;
     border-radius: 5px;
     padding-top: 7px;
   }
@@ -402,8 +337,18 @@ div.content {
 .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
+  width: 217px;
+  height: 180px;
   text-align: center;
   background-color: #FFFFFF;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.card:hover {
+  -webkit-box-shadow: 1px 6px 12px 0px rgb(75, 74, 99);
+  -moz-box-shadow: 1px 6px 12px 0px rgba(75, 74, 99);
+  box-shadow: 1px 6px 12px 0px rgba(75, 74, 99);
 }
 
 .st-ticket {
@@ -455,12 +400,13 @@ div.content {
   text-decoration: none;
 }
 
+@media screen and (max-width: 600px) {
+  .card {
+    margin-left: 12px;
+  }
+}
 
-
-
-
-
-/* End Form Create Ticket */
+/* End Colum Card */
 
 /* Search Bar */
 
@@ -480,6 +426,7 @@ div.content {
   padding: 12px 20px 12px 40px;
   border: none !important;
   margin-bottom: 12px;
+  margin-left: 165px;
 }
 
 #myInput:focus {
@@ -503,6 +450,8 @@ div.content {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+    margin-left: -1px !important;
+    background-position: 10px 13px;
   }
 }
 
@@ -533,12 +482,12 @@ div.content {
   .pagination {
     width: 100%;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 0px;
+    margin-top: -20px !important;
   }
 }
 
 /* End Pagination */
-
 
 /* 
 .title {

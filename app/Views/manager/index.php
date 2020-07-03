@@ -32,20 +32,22 @@
     </div>
 </div>
 
+<div class="dropup">
+    <div class="col-6" style="bottom: 0; margin-left:170px;margin-bottom:-40px !important">
+        <button class="dropbtn">My Tickets</button>
+        <div class="dropup-content">
+            <a href="<?= base_url(); ?>/manager/pivot_table">Pivot Table</a>
+            <a href="<?= base_url(); ?>/manager/sla_chart">SLA Chart</a>
+        </div>
+    </div>
+    <div class="col-6" style="margin-left:-15px;">
+        <button class="dropbtn">My Ticket</button>
+        <div class="dropup-content">
+            <a href="<?= base_url(); ?>/manager/v_all_ticket_m">View All Tickets</a>
+        </div>
+    </div>
+</div>
 
-<div class="dropup">
-    <button class="dropbtn">My Tickets</button>
-    <div class="dropup-content">
-        <a href="<?= base_url(); ?>/manager/v_all_ticket_m">View All Tickets</a>
-    </div>
-</div>
-<div class="dropup">
-    <button class="dropbtn">View Report</button>
-    <div class="dropup-content">
-        <a href="<?= base_url(); ?>/manager/pivot_table">Pivot Table</a>
-        <a href="<?= base_url(); ?>/manager/sla_chart">SLA Chart</a>
-    </div>
-</div>
 <!-- <div class="dropup">
     <button class="dropbtn">My Tickets</button>
     <div class="dropup-content">

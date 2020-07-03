@@ -192,7 +192,7 @@ option {
   clear: both;
 }
 
-.btn-ticket {
+.btn-edit {
   height: 35px;
   border-radius: 5px;
   margin-top: 5px !important;
@@ -204,11 +204,28 @@ option {
   font-size: 14px;
   line-height: 21px;
   color: white;
-  width: 273px;
+  width: 120px;
   border: none;
 }
 
-.btn-ticket:hover {
+.btn-delete {
+  height: 35px;
+  border-radius: 5px;
+  margin-top: 5px !important;
+  margin-left: 5px;
+  background-color: #244295;
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: white;
+  width: 120px;
+  border: none;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
   color: white;
   background-color: #1f3980;
 }
@@ -252,8 +269,13 @@ option {
     box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
   }
 
-  .btn-ticket {
-    margin-left: 15px !important;
+  .btn-edit {
+    margin-left: 15px;
+    margin-top: 20px !important;
+  }
+
+  .btn-delete {
+    margin-left: 1px !important;
     margin-top: 20px !important;
   }
 }

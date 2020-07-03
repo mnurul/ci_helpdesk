@@ -1,4 +1,4 @@
-<?= $this->extend('change_status/template'); ?>
+<?= $this->extend('list_user/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -32,89 +32,85 @@
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
-                    <h2 class="title font-weight-bold">My Assigment</h2>
+                    <h2 class="title font-weight-bold">List User</h2>
                     <div class="card bg-card mt-3 mb-5">
                         <div class="card-body">
+                            <a href="<?= base_url(); ?>/admin/create_user" class="a-user">Create User</a>
                             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
                             <div class="row">
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle st-date text-muted">Date</h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/form_status_ticket" class=" btn-assign">Change</a>
+                                        <h5 class="card-title text">Username</h5>
+                                        <a href="<?= base_url(); ?>/admin/detail_user" class=" btn-assign">Detail</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle st-date text-muted">Date</h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/form_status_ticket" class=" btn-assign">Change</a>
+                                        <h5 class="card-title text">Username</h5>
+                                        <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle st-date text-muted">Date</h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/form_status_ticket" class=" btn-assign">Change</a>
+                                        <h5 class="card-title text">Username</h5>
+                                        <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle st-date text-muted">Date</h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/form_status_ticket" class=" btn-assign">Change</a>
+                                        <h5 class="card-title text">Username</h5>
+                                        <a href="<?= base_url(); ?>/admin/" class=" btn-assign">Detail</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle st-date text-muted">Date</h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/form_status_ticket" class=" btn-assign">Change</a>
+                                        <h5 class="card-title text">Username</h5>
+                                        <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
                                     </div>
                                 </div>
 

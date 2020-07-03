@@ -50,7 +50,7 @@ body {
 
 .topnav a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #F8F9FA;
+  background-color: #ff915f;
   color: #322f56;
 }
 
@@ -245,8 +245,9 @@ div.content {
   }
 
   .dropup {
-    position: relative;
+    position: fixed;
     display: inline-block;
+    bottom: 0;
     margin-right: -5px;
   }
 

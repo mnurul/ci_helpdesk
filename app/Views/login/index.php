@@ -30,7 +30,7 @@
                             <label for="username">Username</label>
                         </div>
                         <div class="col-75">
-                            <input type="text" id="username" name="username" placeholder="Username">
+                            <input type="text" id="username" name="username" placeholder="Username" autofocus>
                         </div>
                     </div>
                 </div>

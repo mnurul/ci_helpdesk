@@ -1,4 +1,4 @@
-<?= $this->extend('create_user/template'); ?>
+<?= $this->extend('detail_user/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -38,7 +38,7 @@
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
             <div style="padding-left:30px;margin-top:15px; ">
-                <h2 class="title font-weight-bold">Create User</h2>
+                <h2 class="title font-weight-bold">Detail User</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
                         <form action="/action_page.php">
@@ -136,7 +136,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-75">
-                                    <button type="submit" class="btn-ticket">Submit</button>
+                                    <!-- <button type="submit" class="btn-ticket">Submit</button> -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="" class="btn btn-edit">Edit</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="" class="btn btn-delete">Delete</a>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </form>

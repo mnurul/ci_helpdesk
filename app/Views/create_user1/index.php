@@ -1,4 +1,4 @@
-<?= $this->extend('create_project/template'); ?>
+<?= $this->extend('create_user/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -32,7 +32,7 @@
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
-                    <h2 class="title font-weight-bold">Create Project</h2>
+                    <h2 class="title font-weight-bold">Create User</h2>
                     <div class="card mt-3">
                         <div class="card-body">
                             <form action="/action_page.php">

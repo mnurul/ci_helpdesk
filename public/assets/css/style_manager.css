@@ -50,7 +50,7 @@ body {
 
 .topnav a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #F8F9FA;
+  background-color: #ff915f;
   color: #322f56;
 }
 
@@ -247,7 +247,7 @@ div.content {
   .dropbtn {
     background-color: #FF915F;
     color: white;
-    width: 175px;
+    width: 185px;
     height: 40px;
     border: none;
     font-size: 14px;
@@ -257,7 +257,8 @@ div.content {
   }
 
   .dropup {
-    position: relative;
+    position: fixed;
+    bottom: 0;
     display: inline-block;
     margin-right: -5px;
   }
@@ -267,7 +268,7 @@ div.content {
     position: absolute;
     background-color: #FF915F;
     min-width: 160px;
-    width: 175px;
+    width: 185px;
     bottom: 50px;
     z-index: 1;
     margin-bottom: -10px;

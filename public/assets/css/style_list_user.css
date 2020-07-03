@@ -3,7 +3,7 @@ body {
   background-color: #fdf6f0;
 }
 
-.t-teknisi {
+.t-admin {
   margin-top: 5px;
   float: right;
   color: #322f56;
@@ -50,7 +50,7 @@ body {
 
 .topnav a:hover,
 .dropdown:hover .dropbtn {
-  background-color: #ff915f;
+  background-color: #FF915F;
   color: #322f56;
 }
 
@@ -132,6 +132,18 @@ body {
   line-height: 17px;
   font-size: 14px;
 }
+
+.t-view-report {
+  padding-top: 42px;
+  margin-bottom: -10px !important;
+  padding-left: 20px;
+  color: #322f56;
+  font-family: Merriweather, serif;
+  font-weight: 400;
+  line-height: 17px;
+  font-size: 14px;
+}
+
 
 .btn {
   background-color: #FFFFFF;
@@ -243,7 +255,7 @@ div.content {
   .dropbtn {
     background-color: #FF915F;
     color: white;
-    width: 350px;
+    width: 185px;
     height: 40px;
     border: none;
     font-size: 14px;
@@ -254,10 +266,9 @@ div.content {
 
   .dropup {
     position: fixed;
+    bottom: 0;
     display: inline-block;
     margin-right: -5px;
-    bottom: 0 !important;
-    /* overflow: hidden; */
   }
 
   .dropup-content {
@@ -265,7 +276,7 @@ div.content {
     position: absolute;
     background-color: #FF915F;
     min-width: 160px;
-    width: 350px;
+    width: 185px;
     bottom: 50px;
     z-index: 1;
     margin-bottom: -10px;
@@ -323,6 +334,22 @@ div.content {
   box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
 }
 
+.a-user {
+  color: #616182;
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 16px;
+  float: left;
+  margin-top: 20px;
+}
+
+.a-user:hover {
+  color: white;
+  text-decoration: none;
+}
+
 /* Responsive layout - when the screen is less than 600px wide, make the two columns stack on top of each other instead of next to each other */
 @media screen and (max-width: 600px) {
 
@@ -340,12 +367,19 @@ div.content {
     -moz-border-radius: 20px 20px 20px 20px;
     -webkit-border-radius: 20px 20px 20px 20px;
     border: none;
+    margin-left: 0;
   }
 
   .card:hover {
     -webkit-box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
     -moz-box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
     box-shadow: 1px 6px 12px 0px rgba(0, 2, 5, 0.09);
+  }
+
+  .a-user {
+    font-size: 16px;
+    margin-top: -10px;
+    margin-bottom: 20px;
   }
 
 }
@@ -393,6 +427,7 @@ div.content {
   .btn-assign {
     width: 100% !important;
     height: 35px;
+    margin-left: 1px !important;
     border-radius: 5px;
     padding-top: 7px;
   }
@@ -462,6 +497,8 @@ div.content {
 
 /* End Form Create Ticket */
 
+
+
 /* Search Bar */
 
 * {
@@ -480,6 +517,7 @@ div.content {
   padding: 12px 20px 12px 40px;
   border: none !important;
   margin-bottom: 12px;
+  margin-left: -15px;
 }
 
 #myInput:focus {
@@ -503,6 +541,7 @@ div.content {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+    margin-left: 0;
   }
 }
 
@@ -538,6 +577,8 @@ div.content {
 }
 
 /* End Pagination */
+
+
 
 
 /* 

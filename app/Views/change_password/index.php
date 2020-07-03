@@ -47,7 +47,7 @@
                                     <label class="title-1" for="new-password">New Password</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="password" id="new-password" name="new-password">
+                                    <input type="password" id="new-password" name="new-password" autofocus>
                                 </div>
                             </div>
                             <div class="row">
