@@ -23,9 +23,23 @@
                     <a href="#contact">Logout</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
-                <div style="padding-left:30px;margin-top:15px; ">
-                    <h2>Helpdesk System</h2>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui obcaecati rem quisquam repellat itaque suscipit, quae est laboriosam eos et quos enim cumque provident, ullam ducimus culpa, ab ipsum sapiente.</p>
+                <div style="margin-top:15px; ">
+                    <h2 class="title font-weight-bold">SLA Chart</h2>
+                    <div class="container mt-3">
+                        <div class="row mb-2" style="height:300px">
+                            <div class="col card card1 mr-2">
+                                <h1>Diagram satu</h1>
+                            </div>
+                            <div class="col card card2">
+                                <h1>Diagram dua</h1>
+                            </div>
+                        </div>
+                        <div class="row" style="height:300px">
+                            <div class="col card">
+                                <h1>Diagram tiga</h1>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

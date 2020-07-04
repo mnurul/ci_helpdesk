@@ -30,77 +30,89 @@
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle mb-2 st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">SLA</h6>
                                             </div>
                                             <div class="col-6">
                                                 <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
+                                                <h6 class="card-subtitle st-date text-muted">Customer</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="#" class=" btn-assign">Assign</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle mb-2 st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">SLA</h6>
                                             </div>
                                             <div class="col-6">
                                                 <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
+                                                <h6 class="card-subtitle st-date text-muted">Customer</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="#" class=" btn-assign">Assign</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle mb-2 st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">SLA</h6>
                                             </div>
                                             <div class="col-6">
                                                 <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
+                                                <h6 class="card-subtitle st-date text-muted">Customer</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="#" class=" btn-assign">Assign</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle mb-2 st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">SLA</h6>
                                             </div>
                                             <div class="col-6">
                                                 <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
+                                                <h6 class="card-subtitle st-date text-muted">Customer</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="#" class=" btn-assign">Assign</a>
                                     </div>
                                 </div>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle mb-2 st-ticket text-muted">No. Ticket</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">SLA</h6>
                                             </div>
                                             <div class="col-6">
                                                 <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
+                                                <h6 class="card-subtitle st-date text-muted">Customer</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="#" class=" btn-assign">Assign</a>
                                     </div>
                                 </div>
+
+
 
 
                             </div>

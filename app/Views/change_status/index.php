@@ -28,7 +28,7 @@
                     <a href="#contact">Logout</a>
                     <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a>
                     <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a>
-                    <a href="<?= base_url(); ?>/admin/create_user">Create User</a>
+                    <a href="<?= base_url(); ?>/admin/list_user">Users</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">

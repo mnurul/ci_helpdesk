@@ -1,4 +1,4 @@
-<?= $this->extend('form_assigment_a/template'); ?>
+<?= $this->extend('change_status_t/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -31,14 +31,14 @@
             <!-- <h6 class="t-customer"><b>Welcome Customer</b></h6> -->
             <div class="topnav" id="myTopnav">
                 <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
-                <a href="<?= base_url(); ?>/admin/my_assigment_a">Back</a>
+                <a href="<?= base_url(); ?>/teknisi/v_all_ticket">Back</a>
                 <!-- <a href="<?= base_url(); ?>/user/v_ticket_status">View Ticket Status</a>
                 <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
                 <a href="" class="">Create Tickets</a> -->
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
             <div style="padding-left:30px;margin-top:15px; ">
-                <h2 class="title font-weight-bold">Form My Assigment</h2>
+                <h2 class="title font-weight-bold">Change Status Ticket</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
                         <form action="/action_page.php">
@@ -68,21 +68,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="date">Date</label>
+                                    <label class="title-1" for="resolve">Resolve</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="date" name="date" placeholder="">
+                                    <textarea class="form-control mb-2" id="resolve" name="resolve" rows=" 3" style="width: 276px !important;"></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="teknisi">Teknisi</label>
+                                    <label class="title-1" for="status">Status</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="teknisi" name="teknisi" style="padding-top: -30px !important;">
+                                    <select id="status" name="status" style="padding-top: -30px !important;">
                                         <option value=""></option>
-                                        <option value="Teknisi">Teknisi</option>
-                                        <option value="Teknisi">Teknisi</option>
+                                        <option value="Status">Status</option>
+                                        <option value="Status">Status</option>
                                     </select>
                                 </div>
                             </div>
@@ -91,11 +91,7 @@
                                     <label class="title-1" for="sla">SLA</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="sla" name="sla" style="padding-top: -30px !important;">
-                                        <option value=""></option>
-                                        <option value="SLA">SLA</option>
-                                        <option value="SLA">SLA</option>
-                                    </select>
+                                    <input type="text" id="sla" name="sla" placeholder="">
                                 </div>
                             </div>
                             <div class="row">

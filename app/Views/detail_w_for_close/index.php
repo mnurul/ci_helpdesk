@@ -1,4 +1,4 @@
-<?= $this->extend('form_assigment_a/template'); ?>
+<?= $this->extend('detail_w_for_close/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -31,28 +31,44 @@
             <!-- <h6 class="t-customer"><b>Welcome Customer</b></h6> -->
             <div class="topnav" id="myTopnav">
                 <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
-                <a href="<?= base_url(); ?>/admin/my_assigment_a">Back</a>
+                <a href="<?= base_url(); ?>/admin/w_for_close">Back</a>
                 <!-- <a href="<?= base_url(); ?>/user/v_ticket_status">View Ticket Status</a>
                 <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
                 <a href="" class="">Create Tickets</a> -->
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
             <div style="padding-left:30px;margin-top:15px; ">
-                <h2 class="title font-weight-bold">Form My Assigment</h2>
+                <h2 class="title font-weight-bold">Detail Waiting for Close</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
                         <form action="/action_page.php">
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="n-ticket">No Ticket</label>
+                                    <label class="title-1" for="no-ticket">No Ticket</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="n-ticket" name="n-ticket">
+                                    <input type="text" id="no-ticket" name="no-ticket">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="r-date">Reported Date</label>
+                                    <label class="title-1" for="urgency">Urgency</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="urgency" name="urgency">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="customer">Customer</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="customer" name="customer">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="r-date">Report Date</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="r-date" name="r-date">
@@ -60,49 +76,51 @@
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="p-summary">Problem Summary</label>
+                                    <label class="title-1" for="r-by">Report By</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="p-summary" name="p-summary" placeholder="">
+                                    <input type="text" id="r-by" name="r-by">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="date">Date</label>
+                                    <label class="title-1" for="p-summary">Promblem Summary</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="date" name="date" placeholder="">
+                                    <input type="text" id="p-summary" name="p-summary">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="teknisi">Teknisi</label>
+                                    <label class="title-1" for="status">Status</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="teknisi" name="teknisi" style="padding-top: -30px !important;">
-                                        <option value=""></option>
-                                        <option value="Teknisi">Teknisi</option>
-                                        <option value="Teknisi">Teknisi</option>
-                                    </select>
+                                    <input type="text" id="status" name="status">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="sla">SLA</label>
+                                    <label class="title-1" for="assign">Assign</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="sla" name="sla" style="padding-top: -30px !important;">
-                                        <option value=""></option>
-                                        <option value="SLA">SLA</option>
-                                        <option value="SLA">SLA</option>
-                                    </select>
+                                    <input type="text" id="assign" name="assign">
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-75">
-                                    <button type="submit" class="btn btn-ticket">Submit</button>
+                                    <button type="submit" class="btn-ticket">Submit</button>
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="" class="btn btn-edit">Edit</a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="" class="btn btn-delete">Delete</a>
+                                        </div>
+                                        <a href="" class="btn btn-edit">Closed</a>
+
+                                    </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                 </div>

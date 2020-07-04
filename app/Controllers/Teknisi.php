@@ -28,6 +28,14 @@ class Teknisi extends BaseController
         return view('v_all_ticket/index', $data);
     }
 
+    public function change_status_t()
+    {
+        $data = [
+            'title' => 'Change Status Ticket'
+        ];
+        return view('change_status_t/index', $data);
+    }
+
     //--------------------------------------------------------------------
 
 }

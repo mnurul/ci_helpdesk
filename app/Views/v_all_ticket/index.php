@@ -40,7 +40,7 @@
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="<?= base_url(); ?>/teknisi/change_status_t" class=" btn-assign">Change Status</a>
                                     </div>
                                 </div>
                                 <div class="column">
@@ -57,7 +57,7 @@
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="<?= base_url(); ?>/teknisi/change_status_t" class=" btn-assign">Change Status</a>
                                     </div>
                                 </div>
                                 <div class="column">
@@ -74,7 +74,7 @@
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="<?= base_url(); ?>/teknisi/change_status_t" class=" btn-assign">Change Status</a>
                                     </div>
                                 </div>
                                 <div class="column">
@@ -91,7 +91,7 @@
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="<?= base_url(); ?>/teknisi/change_status_t" class=" btn-assign">Change Status</a>
                                     </div>
                                 </div>
                                 <div class="column">
@@ -108,9 +108,10 @@
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text">Promblem Summary</h5>
-                                        <a href="#" class=" btn-assign">Customer</a>
+                                        <a href="<?= base_url(); ?>/teknisi/change_status_t" class=" btn-assign">Change Status</a>
                                     </div>
                                 </div>
+
 
 
 

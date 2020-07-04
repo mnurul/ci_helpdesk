@@ -395,6 +395,7 @@ div.content {
     height: 35px;
     border-radius: 5px;
     padding-top: 7px;
+    margin-left: 0px !important;
   }
 }
 

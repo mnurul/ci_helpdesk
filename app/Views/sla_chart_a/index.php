@@ -5,9 +5,9 @@
 <div class="sidebar">
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
-    <a href="<?= base_url(); ?>/admin/my_request" class="active btn navbar">My Request</a>
-    <a href="<?= base_url(); ?>/admin/my_assigment_a" class=" btn navbar">My Assigment</a>
-    <a href="<?= base_url(); ?>/admin/my_resolution" class=" btn navbar">My Resolution</a>
+    <!-- <a href="<?= base_url(); ?>/admin/my_request" class="active btn navbar">My Request</a> -->
+    <a href="<?= base_url(); ?>/admin/my_assigment_a" class="active btn navbar">My Assigment</a>
+    <!-- <a href="<?= base_url(); ?>/admin/my_resolution" class=" btn navbar">My Resolution</a> -->
     <a href="<?= base_url(); ?>/admin/w_for_close" class=" btn navbar">Waiting for Close</a>
     <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class=" btn navbar">View All Tickets</a>
     <a href="<?= base_url(); ?>/admin/popular_solution" class=" btn navbar">Popular Solution</a>
@@ -26,9 +26,9 @@
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="#contact">Logout</a>
-                    <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a>
-                    <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a>
-                    <a href="<?= base_url(); ?>/admin/create_user">Create User</a>
+                    <!-- <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
+                    <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
+                    <a href="<?= base_url(); ?>/admin/list_user">Users</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
@@ -86,9 +86,9 @@
     <div class="col-6" style="margin-left:-15px;">
         <button class="dropbtn">My Ticket</button>
         <div class="dropup-content">
-            <a href="<?= base_url(); ?>/admin/my_request">My Request</a>
+            <!-- <a href="<?= base_url(); ?>/admin/my_request">My Request</a> -->
             <a href="<?= base_url(); ?>/admin/my_assigment_a">My Assigment</a>
-            <a href="<?= base_url(); ?>/admin/my_resolution">My Resolution</a>
+            <!-- <a href="<?= base_url(); ?>/admin/my_resolution">My Resolution</a> -->
             <a href="<?= base_url(); ?>/admin/w_for_close">Waiting for Close</a>
             <a href="<?= base_url(); ?>/admin/v_all_ticket_a">View All Tickets</a>
             <a href="<?= base_url(); ?>/admin/popular_solution">Popular Solution</a>

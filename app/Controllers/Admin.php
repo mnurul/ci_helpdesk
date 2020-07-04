@@ -52,6 +52,14 @@ class Admin extends BaseController
         return view('w_for_close/index', $data);
     }
 
+    public function detail_w_for_close()
+    {
+        $data = [
+            'title' => 'Detail Waiting for Close'
+        ];
+        return view('detail_w_for_close/index', $data);
+    }
+
     public function v_all_ticket_a()
     {
         $data = [
@@ -66,6 +74,14 @@ class Admin extends BaseController
             'title' => 'Popular Solution'
         ];
         return view('popular_solution/index', $data);
+    }
+
+    public function detail_popular_solution()
+    {
+        $data = [
+            'title' => 'Detail Popular Solution'
+        ];
+        return view('detail_popular_solution/index', $data);
     }
 
     public function pivot_table_a()
