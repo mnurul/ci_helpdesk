@@ -3,6 +3,9 @@
 namespace App\Controllers;
 
 use App\Models\LoginModel;
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+use PHPMailer\PHPMailer\Exception;
 
 class Login extends BaseController
 {
@@ -111,29 +114,94 @@ class Login extends BaseController
             session()->set('level', $cekEmail['level']);
             session()->set('email', $cekEmail['email']);
 
-            $to = $inputEmail;
+            // $to = $inputEmail;
+            // $subject = 'Reset Password';
+            // $message = 'Click link below to reset password <br>' . '<a href="' . base_url() . '/login/change_password" target="_blank">Reset Password</a>';
+            // $email = \Config\Services::email();
+            // $email->setTo($to);
+            // $email->setFrom('mnurulislam05@gmail.com', 'DIMS');
+            // $email->setSubject($subject);
+            // $email->setMessage($message);
+
+            $mail = new PHPMailer(true);
+
+
+            $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+            $mail->isSMTP();
+            $mail->Host       = 'smtp.googlemail.com';
+            $mail->SMTPAuth   = true;
+            $mail->Username   = 'mnurulislam05@gmail.com'; // silahkan ganti dengan alamat email Anda
+            $mail->Password   = 'nurulislam10'; // silahkan ganti dengan password email Anda
+            $mail->SMTPSecure = 'ssl';
+            $mail->Port       = 465;
+
+            $mail->setFrom('mnurulislam05@gmail.com', 'DIMS'); // silahkan ganti dengan alamat email Anda
+            $mail->addAddress($inputEmail);
+            $mail->addReplyTo('mnurulislam05@gmail.com', 'DIMS'); // silahkan ganti dengan alamat email Anda
+            // Content
+            $mail->isHTML(true);
             $subject = 'Reset Password';
-            $message = 'Click link below to reset password <br>' . '<a href="' . base_url() . '/login/change_password" target="_blank">Reset Password</a>';
-            $email = \Config\Services::email();
-            $email->setTo($to);
-            $email->setFrom('mnurulislam05@gmail.com', 'DIMS');
-            $email->setSubject($subject);
-            $email->setMessage($message);
-            if ($email->send()) {
-                session()->setFlashdata('send', 'Silakan cek email');
+
+
+            $start = '<html><body>';
+            $start = '<h4>Hallo </h4>';
+            $start .= '<p style="font-size:16px;color:black;">Email ini Anda terima atas permintaan untuk mengatur ulang kata sandi akun Anda pada Helpdesk System</p>';
+            $start .= '<p style="color:#080;font-size:18px;">Will you marry me?</p>';
+            $start .= '</body></html>';
+
+            $htmlContent = ' 
+    <html> 
+    <head> 
+    </head> 
+    <body> 
+        <h1 style="color:#C0C3C7;">Hallo ' . session()->get('username') . '</h1> 
+        <h4 style="color:black;">Email ini Anda terima atas permintaan untuk mengatur ulang kata sandi akun Anda pada Helpdesk System</h4>
+        <h2><a href=" ' . base_url() . '/login/change_password_u" class="btn btn-primary" style="color:#1F3980;font-size:28px;text-decoration:none;border:1px solid #3490DC;" target="_blank">Reset Password</a></h2>
+        <h4 style="color:black;">Jika Anda tidak meminta mengatur ulang kata sandi, silahkan abaikan saja email ini (tidak perlu ditindaklanjuti)</h4>
+        <h4  style="color:#C0C3C7;">Salam hangat,<br>
+        DIMS</h4>
+        
+      
+    </body> 
+    </html>';
+
+            $mail->Subject = $subject;
+            $mail->Body    = $htmlContent;
+
+
+            // $mail->send();
+            // session()->setFlashdata('success', 'Send Email successfully');
+            // return redirect()->to(base_url('login/forgot_password'));
+
+            // session()->setFlashdata('error', "Send Email failed. Error: " . $mail->ErrorInfo);
+            // return redirect()->to('/kirim_email');
+
+
+            if ($mail->send()) {
+                session()->setFlashdata('send', 'Silakan cek email kamu');
                 return redirect()->to(base_url('login/forgot_password'));
             } else {
-                $data = $email->printDebugger(['headers']);
+                $data = $mail->printDebugger(['headers']);
                 // print_r($data);
                 session()->setFlashdata('send', $data);
                 return redirect()->to(base_url('login/forgot_password'));
             }
+
+
 
             return redirect()->to(base_url('login/forgot_password'));
         } else {
             session()->setFlashdata('salah', 'Email tidak terdaftar');
             return redirect()->to(base_url('login/forgot_password'));
         }
+    }
+
+    public function change_password_u()
+    {
+        $data = [
+            'title' => 'Lupa Password',
+        ];
+        return view('change_password_u/index', $data);
     }
 
     // public function forgot_password1()

@@ -21,7 +21,7 @@
                     <?= $salah; ?>
                 </div>
             <?php } elseif (!empty($send)) { ?>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-success" role="alert">
                     <?= $send; ?>
                 </div>
             <?php  } ?>

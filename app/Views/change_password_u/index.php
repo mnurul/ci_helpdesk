@@ -42,19 +42,7 @@
                 <div class="card mt-3">
                     <div class="card-body">
 
-                        <?php
-                        $this->session()->userdata('reset_email');
-                        $message = session()->getFlashdata('message');
-                        $logout = session()->getFlashdata('logout');
-                        if (!empty($salah)) { ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?= $message; ?>
-                            </div>
-                        <?php } elseif (!empty($logout)) { ?>
-                            <div class="alert alert-danger" role="alert">
-                                <?= $logout; ?>
-                            </div>
-                        <?php  } ?>
+
 
                         <!-- <form action="/action_page.php"> -->
                         <?= form_open('Login/change_password') ?>
