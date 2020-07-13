@@ -6,6 +6,10 @@ class Admin extends BaseController
 {
     public function index()
     {
+        // if (session()->get('username') == '') {
+        //     session()->setFlashdata('salah', 'Kamu harus Login');
+        //     return redirect()->to(base_url('/'));
+        // }
         $data = [
             'title' => 'Home Admin'
         ];

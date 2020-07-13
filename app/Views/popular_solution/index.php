@@ -3,18 +3,18 @@
 <?= $this->section('content'); ?>
 
 <div class="sidebar">
+    <?php $uri = service('uri'); ?>
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
-    <!-- <a href="<?= base_url(); ?>/admin/my_request" class="active btn navbar">My Request</a> -->
-    <a href="<?= base_url(); ?>/admin/my_assigment_a" class="active btn navbar">My Assigment</a>
+    <a href="<?= base_url(); ?>/admin/my_assigment_a" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
     <!-- <a href="<?= base_url(); ?>/admin/my_resolution" class=" btn navbar">My Resolution</a> -->
-    <a href="<?= base_url(); ?>/admin/w_for_close" class=" btn navbar">Waiting for Close</a>
-    <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class=" btn navbar">View All Tickets</a>
-    <a href="<?= base_url(); ?>/admin/popular_solution" class=" btn navbar">Popular Solution</a>
+    <a href="<?= base_url(); ?>/admin/w_for_close" class="btn navbar <?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
+    <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
+    <a href="<?= base_url(); ?>/admin/popular_solution" class="btn navbar <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a>
     <h6 class="t-view-report"><b>View Report</b></h6>
     <br>
-    <a href="<?= base_url(); ?>/admin/pivot_table_a" class="active btn navbar">Pivot Table</a>
-    <a href="<?= base_url(); ?>/admin/sla_chart_a" class="btn navbar">SLA Chart</a>
+    <a href="<?= base_url(); ?>/admin/pivot_table_a" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a>
+    <a href="<?= base_url(); ?>/admin/sla_chart_a" class="btn navbar <?= ($uri->getSegment(2) == 'sla_chart_a' ? 'active' : null) ?>">SLA Chart</a>
 </div>
 
 
@@ -22,7 +22,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h6 class="t-admin"><b>Welcome Admin</b></h6>
+                <h6 class="t-admin"><b>Welcome <?= session()->get('username'); ?></b></h6>
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="#contact">Logout</a>
@@ -162,19 +162,17 @@
     <div class="col-6" style="bottom: 0; margin-left:170px;margin-bottom:-40px !important">
         <button class="dropbtn">My Tickets</button>
         <div class="dropup-content">
-            <a href="<?= base_url(); ?>/admin/pivot_table_a">Pivot Table</a>
-            <a href="<?= base_url(); ?>/admin/sla_chart_a">SLA Chart</a>
+            <a href="<?= base_url(); ?>/admin/pivot_table_a" class=" <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a>
+            <a href="<?= base_url(); ?>/admin/sla_chart_a" class=" <?= ($uri->getSegment(2) == 'sla_chart_a' ? 'active' : null) ?>">SLA Chart</a>
         </div>
     </div>
     <div class="col-6" style="margin-left:-15px;">
         <button class="dropbtn">My Ticket</button>
         <div class="dropup-content">
-            <!-- <a href="<?= base_url(); ?>/admin/my_request">My Request</a> -->
-            <a href="<?= base_url(); ?>/admin/my_assigment_a">My Assigment</a>
-            <!-- <a href="<?= base_url(); ?>/admin/my_resolution">My Resolution</a> -->
-            <a href="<?= base_url(); ?>/admin/w_for_close">Waiting for Close</a>
-            <a href="<?= base_url(); ?>/admin/v_all_ticket_a">View All Tickets</a>
-            <a href="<?= base_url(); ?>/admin/popular_solution">Popular Solution</a>
+            <a href="<?= base_url(); ?>/admin/my_assigment_a" class=" <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
+            <a href="<?= base_url(); ?>/admin/w_for_close" class="<?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
+            <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class=" <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
+            <a href="<?= base_url(); ?>/admin/popular_solution" class=" <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a>
         </div>
     </div>
 </div>

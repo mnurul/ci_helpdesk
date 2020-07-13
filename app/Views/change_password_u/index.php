@@ -1,4 +1,4 @@
-<?= $this->extend('change_password/template'); ?>
+<?= $this->extend('change_password_u/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -58,15 +58,6 @@
 
                         <!-- <form action="/action_page.php"> -->
                         <?= form_open('Login/change_password') ?>
-
-                        <div class="row">
-                            <div class="col-25">
-                                <label class="title-1" for="old-password">Old Password</label>
-                            </div>
-                            <div class="col-75">
-                                <input type="password" id="old-password" name="old-password" autofocus>
-                            </div>
-                        </div>
                         <div class="row">
                             <div class="col-25">
                                 <label class="title-1" for="new-password">New Password</label>

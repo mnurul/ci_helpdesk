@@ -4,12 +4,20 @@ namespace App\Controllers;
 
 class User extends BaseController
 {
+    // public function index()
+    // {
+    //     $data = [
+    //         'title' => 'Home User'
+    //     ];
+    //     return view('user/index', $data);
+    // }
+
     public function index()
     {
         $data = [
-            'title' => 'Home User'
+            'title' => 'View Ticket Status'
         ];
-        return view('user/index', $data);
+        return view('v_ticket_status/index', $data);
     }
 
     public function create_ticket()

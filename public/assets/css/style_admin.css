@@ -144,6 +144,13 @@ body {
   height: 43px;
   margin-left: 20px;
   margin-bottom: 10px;
+  outline: none !important;
+}
+
+.btn.focus,
+.btn:focus {
+  outline: 0;
+  box-shadow: none !important;
 }
 
 .sidebar a {
@@ -155,16 +162,23 @@ body {
   font-size: 14px;
   font-family: Merriweather, serif;
   font-weight: 400;
+  outline: none !important;
   line-height: 21px;
 }
 
 .sidebar a.active {
   background-color: #ff915f;
   color: white;
+  outline: 0 !important;
+}
+
+.sidebar a:focus,
+.btn:focus {
+  outline: 0 !important;
 }
 
 .sidebar a:hover:not(.active) {
-  background-color: #F8F9FA;
+  background-color: #eef2f5;
   color: #322f56;
 }
 

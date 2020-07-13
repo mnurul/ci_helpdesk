@@ -29,6 +29,7 @@
     <div class="row">
         <div class="col">
             <!-- <h6 class="t-customer"><b>Welcome Customer</b></h6> -->
+            <h6 class="t-teknisi"><b>Welcome Teknisi</b></h6>
             <div class="topnav" id="myTopnav">
                 <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
                 <a href="<?= base_url(); ?>/teknisi/v_all_ticket">Back</a>

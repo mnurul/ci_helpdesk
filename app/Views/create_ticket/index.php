@@ -32,7 +32,7 @@
             <div class="topnav" id="myTopnav">
                 <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
                 <a href="#contact">Logout</a>
-                <a href="<?= base_url(); ?>/user/v_ticket_status">View Ticket Status</a>
+                <a href="<?= base_url(); ?>/user/">Back</a>
                 <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
                 <a href="" class="">Create Tickets</a>
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
@@ -47,7 +47,7 @@
                                     <label class="title-1" for="customers">Customers</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="customers" name="customers">
+                                    <input type="text" id="customers" name="customers" autofocus>
                                 </div>
                             </div>
                             <div class="row">

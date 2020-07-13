@@ -23,40 +23,70 @@
                 <button type="submit" class="btn btn-login">Masuk Akun Saya</button>
             </form> -->
 
-            <form action="/action_page.php">
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-25">
-                            <label for="username">Username</label>
-                        </div>
-                        <div class="col-75">
-                            <input type="text" id="username" name="username" placeholder="Username" autofocus>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="form-group">
-                        <div class="col-25">
-                            <label for="password">Password</label>
-                        </div>
-                        <div class="col-75">
-                            <input type="password" id="password" name="password" placeholder="Password">
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-75">
-                        <a href="http://"><label>Lupa Password</label></a>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-75">
-                        <button type="submit" class="btn btn-login">Masuk Akun Saya</button>
-                    </div>
-                </div>
 
-            </form>
 
+
+            <!-- cek validasi -->
+            <?php
+            $salah = session()->getFlashdata('salah');
+            $logout = session()->getFlashdata('logout');
+            $inputs = session()->getFlashdata('inputs');
+            $errors = session()->getFlashdata('errors');
+            if (!empty($salah)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $salah; ?>
+                </div>
+            <?php } elseif (!empty($logout)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $logout; ?>
+                </div>
+            <?php  } elseif (!empty($errors)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <?php foreach ($errors as $error) : ?>
+                            <li style="margin-left: -10px;"><?= esc($error) ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            <?php }
+            ?>
+
+            <!-- <form action="/action_page.php"> -->
+            <?= form_open('Login/cekLogin') ?>
+            <!-- Fitur baru ci4, form disi hanya bisa lewat hal web -->
+            <?= csrf_field(); ?>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-25">
+                        <label for="username">Username</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="username" name="username" value="<?php echo set_value('username'); ?>" placeholder="Username" autofocus required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-25">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="password" id="password" name="password" value="<?php echo set_value('password'); ?>" placeholder="Password" required>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-75">
+                    <a href="<?= base_url(); ?>/login/forgot_password"><label style="cursor: pointer;">Lupa Password</label></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-75">
+                    <button type="submit" class="btn btn-login">Masuk Akun Saya</button>
+                </div>
+            </div>
+            <!-- </form> -->
+            <?= form_close(); ?>
         </div>
 
     </div>

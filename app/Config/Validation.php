@@ -1,4 +1,6 @@
-<?php namespace Config;
+<?php
+
+namespace Config;
 
 class Validation
 {
@@ -17,6 +19,7 @@ class Validation
 		\CodeIgniter\Validation\FormatRules::class,
 		\CodeIgniter\Validation\FileRules::class,
 		\CodeIgniter\Validation\CreditCardRules::class,
+		\Myth\Auth\Authentication\Passwords\ValidationRules::class
 	];
 
 	/**
@@ -33,4 +36,20 @@ class Validation
 	//--------------------------------------------------------------------
 	// Rules
 	//--------------------------------------------------------------------
+	public $user = [
+		'username' => 'required|min_length[3]|alpha',
+		'password' => 'required|min_length[3]'
+	];
+
+	public $user_errors = [
+		'username' => [
+			'required'      => 'Username wajib kamu isi',
+			'min_length[3]'      => 'Username kamu harus lebih dari 3',
+			'alpha'      => 'Username kamu harus alphabetic '
+		],
+		'password' => [
+			'required'      => 'password wajib kamu isi',
+			'min_length[3]'      => 'password kamu harus lebih dari 3'
+		]
+	];
 }
