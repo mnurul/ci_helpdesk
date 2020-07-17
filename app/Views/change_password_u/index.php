@@ -2,94 +2,75 @@
 
 <?= $this->section('content'); ?>
 
-<!-- <div class="container">
-    <div class="row">
-        <div class="col ">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="#">
-                    <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
-                </a>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav" style="margin-left: auto;">
-                        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#">Features</a>
-                        <a class="nav-item nav-link" href="#">Pricing</a>
-                        <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+<div class="container mx-auto h-100vh" style="margin-top: 60px;">
+    <div class="row align-items-center justify-content-center h-100">
+        <div class="col-md-4 " style="margin-top: 80px;">
+            <h1 class="title font-weight-bold">Buat Password</h1>
+            <p class="text-secondary h8 mt-1 mb-1 desc-title">Gunakan kombinasi yang aman</p>
+            <!-- cek validasi -->
+            <?php
+            $berhasil = session()->getFlashdata('berhasil');
+            $gagal = session()->getFlashdata('gagal');
+            $inputs = session()->getFlashdata('inputs');
+            $errors = session()->getFlashdata('errors');
+            if (!empty($berhasil)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $berhasil; ?>
+                </div>
+            <?php } elseif (!empty($gagal)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <?= $gagal; ?>
+                </div>
+            <?php  } elseif (!empty($errors)) { ?>
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        <?php foreach ($errors as $error) : ?>
+                            <li style="margin-left: -10px;"><?= esc($error) ?></li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            <?php }
+            ?>
+
+            <!-- <form action="/action_page.php"> -->
+            <?= form_open('Login/update_password_u') ?>
+            <div class="row">
+                <div class="form-group">
+                    <div class="col-25">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="text" id="password" name="password" value="<?= $user['iduser']; ?>" placeholder="Password" autofocus required>
                     </div>
                 </div>
-            </nav>
-        </div>
-
-        
-    </div>
-
-</div> -->
-
-<div class="container">
-    <div class="row">
-        <div class="col">
-            <h6 class="t-customer"><b>Welcome Customer</b></h6>
-            <div class="topnav" id="myTopnav">
-                <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
-                <a href="#contact">Logout</a>
-                <a href="<?= base_url(); ?>/user/">Back</a>
-                <a href="" class="">Change Password</a>
-                <a href="<?= base_url(); ?>/user/create_ticket" class="">Create Tickets</a>
-                <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
-            </div>
-            <div style="padding-left:30px;margin-top:15px; ">
-                <h2 class="title font-weight-bold">Change Password</h2>
-                <div class="card mt-3">
-                    <div class="card-body">
-
-
-
-                        <!-- <form action="/action_page.php"> -->
-                        <?= form_open('Login/change_password') ?>
-                        <div class="row">
-                            <div class="col-25">
-                                <label class="title-1" for="new-password">New Password</label>
-                            </div>
-                            <div class="col-75">
-                                <input type="password" id="new-password" name="new-password">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-25">
-                                <label class="title-1" for="r-new-password">Repeat New Password</label>
-                            </div>
-                            <div class="col-75">
-                                <input type="password" id="r-new-password" name="r-new-password">
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-75">
-                                <button type="submit" class="btn btn-password">Submit</button>
-                            </div>
-                        </div>
-
-                        <!-- </form> -->
-                        <?= form_close(); ?>
-
+                <div class="form-group">
+                    <div class="col-25">
+                        <label for="password">Password</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="password" id="password" name="password" placeholder="Password" autofocus required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-25">
+                        <label for="cpassword">Confirm</label>
+                    </div>
+                    <div class="col-75">
+                        <input type="password" id="cpassword" name="cpassword" placeholder="Confirm Password" required>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-75">
+                    <button type="submit" class="btn btn-login">Simpan Password</button>
+                </div>
+            </div>
+            <!-- </form> -->
+            <?= form_close(); ?>
         </div>
+
     </div>
-</div>
-</div>
-</div>
 
-
-<script>
-    function myFunction() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
-    }
-</script>
+</div>
 
 <?= $this->endSection(); ?>

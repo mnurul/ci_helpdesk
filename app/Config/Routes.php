@@ -34,6 +34,7 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Login::index');
 
 $routes->get('/login', 'Login::index');
+$routes->get('/login/change_password_u', 'Login::change_password_u', ['filter' => 'auth']);
 $routes->get('/user', 'User::index', ['filter' => 'auth']);
 $routes->get('/teknisi', 'Teknisi::index', ['filter' => 'auth']);
 $routes->get('/manager', 'Manager::index', ['filter' => 'auth']);

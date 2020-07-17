@@ -52,4 +52,21 @@ class Validation
 			'min_length[3]'      => 'password kamu harus lebih dari 3'
 		]
 	];
+
+	public $change_password = [
+		'password' => 'required|min_length[3]',
+		'cpassword' => 'required|min_length[3]|matches[password]'
+	];
+
+	public $change_password_errors = [
+		'password' => [
+			'required'      => 'Password wajib kamu isi1',
+			'min_length[3]'      => 'Password kamu harus lebih dari 3'
+		],
+		'cpassword' => [
+			'required'      => 'Password wajib kamu isi2',
+			'min_length[3]'      => 'Password kamu harus lebih dari 3',
+			'matches'      => 'Password tidak cocok'
+		]
+	];
 }

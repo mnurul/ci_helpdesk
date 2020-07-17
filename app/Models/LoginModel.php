@@ -6,9 +6,9 @@ use CodeIgniter\Model;
 
 class LoginModel extends Model
 {
-    private $_table = "users";
+    protected $table = 'users';
+    protected $primarykey = 'iduser';
     protected $useTimestamps = true;
-    protected $allowedFields = ['email'];
 
     public function cekLogin($username, $password)
     {
@@ -22,5 +22,15 @@ class LoginModel extends Model
         return $this->db->table('users')
             ->where(array('email' => $inputEmail))
             ->get()->getRowArray();
+    }
+
+    public function getUser($iduser = false)
+    {
+        if ($iduser == false) {
+            return $this->findAll();
+            // Ga perlu pake else, return langsung keluar dari if
+        }
+
+        return $this->where(['iduser' => $iduser])->first();
     }
 }

@@ -12,9 +12,9 @@ class Noauth implements FilterInterface
     {
         // Do something here
         if (!session()->get('username') == '') {
-            echo 'test';
-            session()->setFlashdata('salah', 'Kamu ');
-            return redirect()->to(base_url('/'));
+            // echo 'test';
+            // session()->setFlashdata('salah', 'Kamu ');
+            // return redirect()->to(base_url('/'));
         }
     }
 

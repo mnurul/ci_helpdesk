@@ -97,7 +97,7 @@ class Login extends BaseController
     public function forgot_password()
     {
         $data = [
-            'title' => 'Lupa Password',
+            'title' => 'Lupa Password'
         ];
         return view('forgot_password/index', $data);
     }
@@ -106,10 +106,11 @@ class Login extends BaseController
     {
         $inputEmail = $this->request->getPost('email');
         $cekEmail = $this->LoginModel->cekEmail($inputEmail);
-        // dd($cek);
+        // dd($cekEmail);
 
         if ((isset($cekEmail['email']) == $inputEmail)) {
             // Jika benar
+            session()->set('iduser', $cekEmail['iduser']);
             session()->set('username', $cekEmail['username']);
             session()->set('level', $cekEmail['level']);
             session()->set('email', $cekEmail['email']);
@@ -150,20 +151,80 @@ class Login extends BaseController
             $start .= '</body></html>';
 
             $htmlContent = ' 
-    <html> 
-    <head> 
-    </head> 
-    <body> 
-        <h1 style="color:#C0C3C7;">Hallo ' . session()->get('username') . '</h1> 
-        <h4 style="color:black;">Email ini Anda terima atas permintaan untuk mengatur ulang kata sandi akun Anda pada Helpdesk System</h4>
-        <h2><a href=" ' . base_url() . '/login/change_password_u" class="btn btn-primary" style="color:#1F3980;font-size:28px;text-decoration:none;border:1px solid #3490DC;" target="_blank">Reset Password</a></h2>
-        <h4 style="color:black;">Jika Anda tidak meminta mengatur ulang kata sandi, silahkan abaikan saja email ini (tidak perlu ditindaklanjuti)</h4>
-        <h4  style="color:#C0C3C7;">Salam hangat,<br>
-        DIMS</h4>
-        
-      
-    </body> 
-    </html>';
+                <html> 
+                <head> 
+                    <style>
+                        #nav {
+                            width:100%;
+                            height:80px;
+                            background-color:#F8FAFC; 
+                        }
+
+                        #header {
+                            color:#BBBFC3;
+                            margin-left:390px !important;
+                            padding-top:25px !important;
+                            font-family: Merriweather, serif;
+                            font-weight: 700;
+                            font-size: 28px;
+                            line-height: 34px;
+                        }
+
+                        #desc {
+                            margin-left:390px !important;
+                            color:black;
+                        }
+
+                        #bg-btn{
+                            width:190px;
+                            height:45px;
+                            background-color:#244295; 
+                            border-radius:5px; 
+                            margin-left:510px !important;
+                            margin-top:-30px !important;
+                        }
+
+                        #btn {
+                            color:white;
+                            font-size:20px !important;
+                            text-decoration:none;
+                            margin-top:-50px !important;
+                            padding-top:5px !important;
+                            padding-left:18px !important;
+                            font-family: Merriweather, serif;
+                            font-weight: 700;
+                            font-size: 28px;
+                            line-height: 34px;
+                            display:block;
+                        }
+
+                        #desc-1 {
+                            margin-left:390px !important;
+                            color:black;
+                        }
+
+                        #footer {
+                            margin-left:390px !important;
+                            color:#0F0E20;
+                        }
+                    </style>
+
+                </head> 
+                <body>
+                    <div id="nav">
+                        <h1 id="header" >Hallo, ' . session()->get('username') . '</h1> 
+                    </div><br>
+                    <h4 id="desc">Email ini Anda terima atas permintaan untuk mengatur ulang kata<br>sandi akun Anda pada Helpdesk System</h4><br>
+                    <div id="bg-btn">
+                        <a href=" ' . base_url() . '/login/change_password_u/' . session()->get('iduser') . '" id="btn" target="_blank">Reset Password</a>
+                    </div><br>
+                    <h4 id="desc-1">Jika Anda tidak meminta mengatur ulang kata sandi, silahkan abaikan<br>saja email ini (tidak perlu ditindaklanjuti)</h4><br>
+                    <h4 id="footer">Salam hangat,<br><br><br><br>
+                    DIMS</h4>
+                    
+                
+                </body> 
+                </html>';
 
             $mail->Subject = $subject;
             $mail->Body    = $htmlContent;
@@ -196,12 +257,48 @@ class Login extends BaseController
         }
     }
 
-    public function change_password_u()
+    public function change_password_u($iduser)
     {
         $data = [
-            'title' => 'Lupa Password',
+            'title' => 'Password Baru',
+            'user' => $this->LoginModel->getUser($iduser)
         ];
         return view('change_password_u/index', $data);
+    }
+
+    public function update_password_u()
+    {
+        // ambil data dari form input
+        $password = $this->request->getPost('password');
+        $cpassword = $this->request->getPost('cpassword');
+
+        $data = [
+            'password' => $password,
+            'cpassword'  => $cpassword
+        ];
+        // dd($data);
+
+        if ($this->form_validation->run($data, 'change_password') == FALSE) {
+            // mengembalikan nilai input yang sudah dimasukan sebelumnya
+            session()->setFlashdata('inputs', $this->request->getPost());
+            // memberikan pesan error pada saat input data
+            session()->setFlashdata('errors', $this->form_validation->getErrors());
+            // kembali ke halaman form
+            return redirect()->to(base_url('/login/change_password_u'));
+        } else {
+            $db      = \Config\Database::connect();
+            $builder = $db->table('users');
+            $data = [
+                'password' => $password
+            ];
+            if ($builder->replace($data)) {
+                session()->setFlashdata('berhasil', 'password');
+                return redirect()->to(base_url('login/change_password_u'));
+            } else {
+                session()->setFlashdata('gagal', 'password gagal');
+                return redirect()->to(base_url('login/change_password_u'));
+            }
+        }
     }
 
     // public function forgot_password1()

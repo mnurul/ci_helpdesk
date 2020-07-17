@@ -39,6 +39,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-75">
                     <button type="submit" class="btn btn-login">Dapatkan Password</button>
