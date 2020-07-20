@@ -9,6 +9,7 @@ class LoginModel extends Model
     protected $table = 'users';
     protected $primarykey = 'iduser';
     protected $useTimestamps = true;
+    protected $allowedFields = ['password'];
 
     public function cekLogin($username, $password)
     {
@@ -24,6 +25,13 @@ class LoginModel extends Model
             ->get()->getRowArray();
     }
 
+    // public function cekUser($iduser)
+    // {
+    //     return $this->db->table('users')
+    //         ->where(array('iduser' => $iduser))
+    //         ->get()->getRowArray();
+    // }
+
     public function getUser($iduser = false)
     {
         if ($iduser == false) {
@@ -32,5 +40,19 @@ class LoginModel extends Model
         }
 
         return $this->where(['iduser' => $iduser])->first();
+    }
+
+    public function cekUserToken($email)
+    {
+        return $this->db->table('users')
+            ->where(array('email' => $email))
+            ->get()->getRowArray();
+    }
+
+    public function cekToken($token)
+    {
+        return $this->db->table('user_tokens')
+            ->where(array('token' => $token))
+            ->get()->getRowArray();
     }
 }

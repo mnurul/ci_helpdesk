@@ -31,6 +31,7 @@
             $salah = session()->getFlashdata('salah');
             $logout = session()->getFlashdata('logout');
             $inputs = session()->getFlashdata('inputs');
+            $pesan = session()->getFlashdata('pesan');
             $errors = session()->getFlashdata('errors');
             if (!empty($salah)) { ?>
                 <div class="alert alert-danger" role="alert">
@@ -39,6 +40,10 @@
             <?php } elseif (!empty($logout)) { ?>
                 <div class="alert alert-danger" role="alert">
                     <?= $logout; ?>
+                </div>
+            <?php } elseif (!empty($pesan)) { ?>
+                <div class="alert alert-success" role="alert">
+                    <?= $pesan; ?>
                 </div>
             <?php  } elseif (!empty($errors)) { ?>
                 <div class="alert alert-danger" role="alert">

@@ -16,6 +16,7 @@ class Login extends BaseController
         // Termasuk cara oop
         // Cara 2 inisialisasi database
         helper('form');
+        $session = \Config\Services::session();
         $this->LoginModel = new LoginModel();
         $email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
@@ -109,6 +110,18 @@ class Login extends BaseController
         // dd($cekEmail);
 
         if ((isset($cekEmail['email']) == $inputEmail)) {
+
+            $db      = \Config\Database::connect();
+            $builder = $db->table('user_tokens');
+            $token = base64_encode(random_bytes(32));
+            $data = [
+                'email' => $inputEmail,
+                'token' => $token,
+                'data_created' => time()
+            ];
+            $builder->insert($data);
+
+
             // Jika benar
             session()->set('iduser', $cekEmail['iduser']);
             session()->set('username', $cekEmail['username']);
@@ -216,7 +229,7 @@ class Login extends BaseController
                     </div><br>
                     <h4 id="desc">Email ini Anda terima atas permintaan untuk mengatur ulang kata<br>sandi akun Anda pada Helpdesk System</h4><br>
                     <div id="bg-btn">
-                        <a href=" ' . base_url() . '/login/change_password_u/' . session()->get('iduser') . '" id="btn" target="_blank">Reset Password</a>
+                        <a href=" ' . base_url() . '/login/change_password_u?email=' . $inputEmail . '&token=' . urlencode($token) . '" id="btn" target="_blank">Reset Password</a>
                     </div><br>
                     <h4 id="desc-1">Jika Anda tidak meminta mengatur ulang kata sandi, silahkan abaikan<br>saja email ini (tidak perlu ditindaklanjuti)</h4><br>
                     <h4 id="footer">Salam hangat,<br><br><br><br>
@@ -257,18 +270,45 @@ class Login extends BaseController
         }
     }
 
-    public function change_password_u($iduser)
+    public function change_password_u()
     {
-        $data = [
-            'title' => 'Password Baru',
-            'user' => $this->LoginModel->getUser($iduser)
-        ];
-        return view('change_password_u/index', $data);
+        // Ambil data url
+
+        $email = $this->request->getVar('email');
+        $token = $this->request->getVar('token');
+
+        // parse_str(substr(strrchr($_SERVER['REQUEST_URI'], "?"), 1), $_GET);
+        // $code = $_GET['email'];
+        // dd($email, $token);
+        // $token = $this->input->get('token');
+        $cekUserToken = $this->LoginModel->cekUserToken($email);
+
+        if ($cekUserToken) {
+            $cekToken = $this->LoginModel->cekToken($token);
+
+            if ($cekToken) {
+                session()->set('reset_email', $email);
+
+                $data = [
+                    'title' => 'Password Baru'
+                ];
+                // session()->setFlashdata('pesan', 'Data berhasil diubah');
+                // return redirect()->to(base_url('/login/change_password_u'));
+                return view('change_password_u/index', $data);
+            } else {
+                session()->setFlashdata('salah', 'Wrong token');
+                return redirect()->to(base_url('login/forgot_password'));
+            }
+        } else {
+            session()->setFlashdata('salah', 'Reset Password failed, Wrong email');
+            return redirect()->to(base_url('login/forgot_password'));
+        }
     }
 
     public function update_password_u()
     {
         // ambil data dari form input
+        // $iduser = $this->request->getPost('iduser');
         $password = $this->request->getPost('password');
         $cpassword = $this->request->getPost('cpassword');
 
@@ -277,6 +317,7 @@ class Login extends BaseController
             'cpassword'  => $cpassword
         ];
         // dd($data);
+        // $session_id = $this->session->userdata('iduser');
 
         if ($this->form_validation->run($data, 'change_password') == FALSE) {
             // mengembalikan nilai input yang sudah dimasukan sebelumnya
@@ -286,19 +327,52 @@ class Login extends BaseController
             // kembali ke halaman form
             return redirect()->to(base_url('/login/change_password_u'));
         } else {
+            // $cek = $this->LoginModel->cekUser($this->request->getVar('iduser'));
+            // $cekUser = $this->LoginModel->cekUser($iduser);
+            // dd($cek);
+            // $cpassword = password_hash($cpassword, PASSWORD_DEFAULT);
+            $email = session()->get('reset_email');
+            $cekEmail = $this->LoginModel->cekEmail($email);
             $db      = \Config\Database::connect();
             $builder = $db->table('users');
-            $data = [
-                'password' => $password
-            ];
-            if ($builder->replace($data)) {
-                session()->setFlashdata('berhasil', 'password');
-                return redirect()->to(base_url('login/change_password_u'));
-            } else {
-                session()->setFlashdata('gagal', 'password gagal');
-                return redirect()->to(base_url('login/change_password_u'));
-            }
+            $builder->set('password', $cpassword);
+            $builder->where('iduser', $cekEmail['iduser']);
+            $builder->update();
+            // $this->LoginModel->save([
+            //     'iduser' => $cekEmail['iduser'],
+            //     'judul' => $this->request->getVar('judul'),
+            //     'slug' => $slug,
+            //     'penulis' => $this->request->getVar('penulis'),
+            //     'penerbit' => $this->request->getVar('penerbit'),
+            //     'sampul' => $this->request->getVar('sampul')
+            // ]);
+
+
+            // if ((isset($cekUser['iduser']) == $iduser)) {
+            //     $db      = \Config\Database::connect();
+            //     $builder = $db->table('users');
+
+
+            //     $builder->set('password', 'password+1', FALSE);
+            //     $builder->where('iduser', $iduser);
+            //     $builder->update(); // gives UPDATE mytable SET field = field+1 WHERE `id` = 2
+
+
+            // $this->LoginModel->save([
+            //     'iduser' => $iduser,
+            //     'cpassword' => $this->request->getVar('cpassword')
+
+
+            // ]);
+            session()->setFlashdata('pesan', 'Data berhasil diubah');
+            return redirect()->to(base_url(''));
+            // } else {
+            //     session()->setFlashdata('gagalupdate', 'Data belum berhasil diubah');
+            //     return redirect()->to(base_url('/login/change_password_u'));
+            // }
         }
+        session()->setFlashdata('gagalupdate', 'Data belum berhasil diubah');
+        return redirect()->to(base_url('/login/change_password_u'));
     }
 
     // public function forgot_password1()

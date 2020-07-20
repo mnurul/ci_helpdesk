@@ -64,9 +64,20 @@ class Validation
 			'min_length[3]'      => 'Password kamu harus lebih dari 3'
 		],
 		'cpassword' => [
-			'required'      => 'Password wajib kamu isi2',
+			'required'      => 'Password kmau wajib kamu isi2',
 			'min_length[3]'      => 'Password kamu harus lebih dari 3',
-			'matches'      => 'Password tidak cocok'
+			'matches'      => 'Password kamu tidak cocok'
+		]
+	];
+
+	public $forgot_password = [
+		'email' => 'required|trim|valid_email'
+	];
+
+	public $forgot_password_errors = [
+		'email' => [
+			'required'      => 'Email kamu wajib kamu isi1',
+			'valid_email'      => 'Email kamu tidak valid '
 		]
 	];
 }
