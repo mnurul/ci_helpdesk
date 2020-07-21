@@ -80,4 +80,39 @@ class Validation
 			'valid_email'      => 'Email kamu tidak valid '
 		]
 	];
+
+	public $create_user = [
+		'iduser' => 'required',
+		'username' => 'required',
+		'password' => 'required|min_length[3]',
+		'fullname' => 'required',
+		'email' => 'required|trim|valid_email|is_unique[users.email]',
+		'telp' => 'required'
+	];
+
+	public $create_user_errors = [
+		'iduser' => [
+			'required'      => 'Iduser wajib kamu isi'
+		],
+		'username' => [
+			'required'      => 'Username wajib kamu isi'
+		],
+		'password' => [
+			'required'      => 'Password wajib kamu isi',
+			'min_length[3]'      => 'Password harus lebih dari 3'
+		],
+		'fullname' => [
+			'required'      => 'Fullname wajib kamu isi'
+		],
+		'email' => [
+			'required'      => 'Email wajib kamu isi1',
+			'valid_email'      => 'Email tidak valid ',
+			'is_unique'      => 'Email tidak unik'
+		],
+		'telp' => [
+			'required'      => 'Telpon wajib kamu isi'
+		]
+	];
+
+	// trim buat hapus spasi didepan atau belakang data
 }

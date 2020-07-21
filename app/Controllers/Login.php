@@ -20,7 +20,7 @@ class Login extends BaseController
         $this->LoginModel = new LoginModel();
         $email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
-        $db      = \Config\Database::connect();
+        $this->db      = \Config\Database::connect();
     }
 
     public function index()
@@ -56,33 +56,38 @@ class Login extends BaseController
             // echo $cek['level'];
             // dd($cek);
 
-            if ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == "admin")) {
-                // Jika benar
-                session()->set('username', $cek['username']);
-                session()->set('level', $cek['level']);
-
-                return redirect()->to(base_url('admin'));
-            } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'teknisi')) {
-                // Jika benar
-                session()->set('username', $cek['username']);
-                session()->set('level', $cek['level']);
-
-                return redirect()->to(base_url('teknisi'));
-            } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'manager')) {
-                // Jika benar
-                session()->set('username', $cek['username']);
-                session()->set('level', $cek['level']);
-
-                return redirect()->to(base_url('manager'));
-            } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer')) {
-                // Jika benar
-                session()->set('username', $cek['username']);
-                session()->set('level', $cek['level']);
-
-                return redirect()->to(base_url('user'));
-            } else {
-                session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
+            if ($cek['is_active'] == 0) {
+                session()->setFlashdata('salah', 'Username kamu belum diaktivasi');
                 return redirect()->to(base_url('/'));
+            } else {
+                if ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == "admin")) {
+                    // Jika benar
+                    session()->set('username', $cek['username']);
+                    session()->set('level', $cek['level']);
+
+                    return redirect()->to(base_url('admin'));
+                } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'teknisi')) {
+                    // Jika benar
+                    session()->set('username', $cek['username']);
+                    session()->set('level', $cek['level']);
+
+                    return redirect()->to(base_url('teknisi'));
+                } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'manager')) {
+                    // Jika benar
+                    session()->set('username', $cek['username']);
+                    session()->set('level', $cek['level']);
+
+                    return redirect()->to(base_url('manager'));
+                } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer')) {
+                    // Jika benar
+                    session()->set('username', $cek['username']);
+                    session()->set('level', $cek['level']);
+
+                    return redirect()->to(base_url('user'));
+                } else {
+                    session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
+                    return redirect()->to(base_url('/'));
+                }
             }
         }
     }
@@ -111,14 +116,16 @@ class Login extends BaseController
 
         if ((isset($cekEmail['email']) == $inputEmail)) {
 
-            $db      = \Config\Database::connect();
-            $builder = $db->table('user_tokens');
+            // $db      = \Config\Database::connect();
+            $builder = $this->db->table('user_tokens');
             $token = base64_encode(random_bytes(32));
             $data = [
                 'email' => $inputEmail,
                 'token' => $token,
                 'data_created' => time()
             ];
+
+            // dd($data);
             $builder->insert($data);
 
 

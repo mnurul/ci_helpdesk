@@ -1,3 +1,7 @@
+<?php
+
+use Config\Validation;
+?>
 <?= $this->extend('create_user/template'); ?>
 
 <?= $this->section('content'); ?>
@@ -41,13 +45,36 @@
                 <h2 class="title font-weight-bold">Create User</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
-                        <form action="/action_page.php">
+                        <?php
+                        $pesan = session()->getFlashdata('pesan');
+                        $failed = session()->getFlashdata('failed');
+                        $inputs = session()->getFlashdata('inputs');
+                        $errors = session()->getFlashdata('errors');
+                        if (!empty($pesan)) { ?>
+                            <div class="alert alert-success" role="alert">
+                                <?= $pesan; ?>
+                            </div>
+                        <?php } elseif (!empty($failed)) { ?>
+                            <div class="alert alert-danger" role="alert">
+                                <?= $failed; ?>
+                            </div>
+                        <?php } elseif (!empty($errors)) { ?>
+                            <div class="alert alert-danger" role="alert">
+                                <ul>
+                                    <?php foreach ($errors as $error) : ?>
+                                        <li style="margin-left: -10px;"><?= esc($error) ?></li>
+                                    <?php endforeach ?>
+                                </ul>
+                            </div>
+                        <?php }
+                        ?>
+                        <form action="/admin/proses_create" method="post">
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="id-user">Id User</label>
+                                    <label class="title-1" for="iduser">Id User</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="id-user" name="id-user">
+                                    <input type="text" id="iduser" name="iduser" value="<?= old('iduser') ?>" autofocus required>
                                 </div>
                             </div>
                             <div class="row">
@@ -55,7 +82,7 @@
                                     <label class="title-1" for="username">Username</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="username" name="username">
+                                    <input type="text" id="username" name="username" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -63,7 +90,7 @@
                                     <label class="title-1" for="password">Password</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="password" id="password" name="password">
+                                    <input type="password" id="password" name="password" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -73,8 +100,10 @@
                                 <div class="col-75">
                                     <select id="level" name="level" style="padding-top: -30px !important;">
                                         <option value=""></option>
-                                        <option value="Level">Level</option>
-                                        <option value="Level">Level</option>
+                                        <option value="customer">Customer</option>
+                                        <option value="teknisi">Teknisi</option>
+                                        <option value="admin">Admin</option>
+                                        <option value="manager">Manager</option>
                                     </select>
                                 </div>
                             </div>
@@ -83,7 +112,7 @@
                                     <label class="title-1" for="fullname">Fullname</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="fullname" name="fullname">
+                                    <input type="text" id="fullname" name="fullname" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -91,7 +120,7 @@
                                     <label class="title-1" for="email">Email</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="email" id="email" name="email">
+                                    <input type="email" id="email" name="email" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -99,15 +128,15 @@
                                     <label class="title-1" for="telp">Telp</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="telp" name="telp">
+                                    <input type="text" id="telp" name="telp" required>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="email-code">Email Code</label>
+                                    <label class="title-1" for="emailcode">Email Code</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="email-code" name="email-code">
+                                    <input type="text" id="emailcode" name="emailcode">
                                 </div>
                             </div>
                             <div class="row">
