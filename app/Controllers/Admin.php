@@ -370,7 +370,8 @@ class Admin extends BaseController
     public function list_user()
     {
         $data = [
-            'title' => 'List User'
+            'title' => 'List User',
+            'user' => $this->AdminModel->getUser()
         ];
         return view('list_user/index', $data);
     }

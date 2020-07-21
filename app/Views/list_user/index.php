@@ -38,37 +38,25 @@
                             <a href="<?= base_url(); ?>/admin/create_user" class="a-user ">Create User</a>
                             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
                             <div class="row">
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
+                                <?php $no = 0; ?>
+                                <?php foreach ($user as $u) : ?>
+                                    <div class="column">
+                                        <div class="card">
+                                            <div class="row no-gutters">
+                                                <div class="col-6">
+                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $u['iduser']; ?></h6>
+                                                </div>
+                                                <div class="col-6">
+                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['level']; ?></h6>
+                                                </div>
                                             </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
-                                            </div>
+                                            <hr style="margin-top: 10px;">
+                                            <h5 class="card-title text"><?= $u['username']; ?></h5>
+                                            <a href="<?= base_url(); ?>/admin/detail_user" class=" btn-assign">Detail</a>
                                         </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Username</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_user" class=" btn-assign">Detail</a>
                                     </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Username</h5>
-                                        <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
+                                <?php endforeach; ?>
+                                <!-- <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
@@ -82,37 +70,8 @@
                                         <h5 class="card-title text">Username</h5>
                                         <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
                                     </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Username</h5>
-                                        <a href="<?= base_url(); ?>/admin/" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Username</h5>
-                                        <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
+                                </div> -->
+
 
 
 

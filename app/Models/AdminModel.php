@@ -11,8 +11,14 @@ class AdminModel extends Model
     // protected $useTimestamps = true;
     // protected $allowedFields = ['password'];
 
-    public function users()
+    public function getUser($iduser = false)
     {
+        if ($iduser == false) {
+            return $this->findAll();
+            // Ga perlu pake else, return langsung keluar dari if
+        }
+
+        return $this->where(['iduser' => $iduser])->first();
     }
 
     public function cekUserToken($email)
