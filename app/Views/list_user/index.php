@@ -37,7 +37,31 @@
                         <div class="card-body">
                             <a href="<?= base_url(); ?>/admin/create_user" class="a-user ">Create User</a>
                             <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
+                            <?php
+                            $pesan = session()->getFlashdata('pesan');
+                            $failed = session()->getFlashdata('failed');
+                            $inputs = session()->getFlashdata('inputs');
+                            $errors = session()->getFlashdata('errors');
+                            if (!empty($pesan)) { ?>
+                                <div class="alert alert-success alert-pesan" role="alert">
+                                    <?= $pesan; ?>
+                                </div>
+                            <?php } elseif (!empty($failed)) { ?>
+                                <div class="alert alert-danger alert-failed " role="alert">
+                                    <?= $failed; ?>
+                                </div>
+                            <?php } elseif (!empty($errors)) { ?>
+                                <div class="alert alert-danger alert-error" role="alert">
+                                    <ul>
+                                        <?php foreach ($errors as $error) : ?>
+                                            <li style="margin-left: -10px;"><?= esc($error) ?></li>
+                                        <?php endforeach ?>
+                                    </ul>
+                                </div>
+                            <?php }
+                            ?>
                             <div class="row">
+
                                 <?php $no = 0; ?>
                                 <?php foreach ($user as $u) : ?>
                                     <div class="column">
@@ -52,7 +76,7 @@
                                             </div>
                                             <hr style="margin-top: 10px;">
                                             <h5 class="card-title text"><?= $u['username']; ?></h5>
-                                            <a href="<?= base_url(); ?>/admin/detail_user" class=" btn-assign">Detail</a>
+                                            <a href="<?= base_url(); ?>/admin/detail_user/<?= $u['iduser']; ?>" class=" btn-assign">Detail</a>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>

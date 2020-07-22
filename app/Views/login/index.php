@@ -34,19 +34,19 @@
             $pesan = session()->getFlashdata('pesan');
             $errors = session()->getFlashdata('errors');
             if (!empty($salah)) { ?>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger alert-failed" role="alert">
                     <?= $salah; ?>
                 </div>
             <?php } elseif (!empty($logout)) { ?>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger alert-failed" role="alert">
                     <?= $logout; ?>
                 </div>
             <?php } elseif (!empty($pesan)) { ?>
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success alert-pesan" role="alert">
                     <?= $pesan; ?>
                 </div>
             <?php  } elseif (!empty($errors)) { ?>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger alert-failed" role="alert">
                     <ul>
                         <?php foreach ($errors as $error) : ?>
                             <li style="margin-left: -10px;"><?= esc($error) ?></li>

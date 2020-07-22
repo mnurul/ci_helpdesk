@@ -39,6 +39,8 @@ $routes->get('/user', 'User::index', ['filter' => 'auth']);
 $routes->get('/teknisi', 'Teknisi::index', ['filter' => 'auth']);
 $routes->get('/manager', 'Manager::index', ['filter' => 'auth']);
 $routes->get('/admin', 'Admin::index', ['filter' => 'auth']);
+$routes->delete('/admin/(:any)', 'Admin::delete/$1');
+
 
 /**
  * --------------------------------------------------------------------

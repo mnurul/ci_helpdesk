@@ -113,6 +113,36 @@ class Validation
 			'required'      => 'Telpon wajib kamu isi'
 		]
 	];
+	public $edit_user = [
+		'iduser' => 'required',
+		'username' => 'required',
+		'level' => 'required',
+		'fullname' => 'required',
+		'email' => 'required|trim|valid_email',
+		'telp' => 'required'
+	];
+
+	public $edit_user_errors = [
+		'iduser' => [
+			'required'      => 'Iduser wajib kamu isi'
+		],
+		'username' => [
+			'required'      => 'Username wajib kamu isi'
+		],
+		'level' => [
+			'required'      => 'Level wajib kamu isi'
+		],
+		'fullname' => [
+			'required'      => 'Fullname wajib kamu isi'
+		],
+		'email' => [
+			'required'      => 'Email wajib kamu isi1',
+			'valid_email'      => 'Email tidak valid '
+		],
+		'telp' => [
+			'required'      => 'Telpon wajib kamu isi'
+		]
+	];
 
 	// trim buat hapus spasi didepan atau belakang data
 }

@@ -17,11 +17,11 @@
             $salah = session()->getFlashdata('salah');
             $send = session()->getFlashdata('send');
             if (!empty($salah)) { ?>
-                <div class="alert alert-danger" role="alert">
+                <div class="alert alert-danger alert-failed" role="alert">
                     <?= $salah; ?>
                 </div>
             <?php } elseif (!empty($send)) { ?>
-                <div class="alert alert-success" role="alert">
+                <div class="alert alert-success alert-pesan" role="alert">
                     <?= $send; ?>
                 </div>
             <?php  } ?>

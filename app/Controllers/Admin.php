@@ -9,6 +9,8 @@ use PHPMailer\PHPMailer\Exception;
 
 class Admin extends BaseController
 {
+    protected $AdminModel;
+
     public function __construct()
     {
         // Termasuk cara oop
@@ -301,7 +303,7 @@ class Admin extends BaseController
             $mail->Body    = $htmlContent;
 
             if ($mail->send()) {
-                session()->setFlashdata('pesan', 'User sudah ditambahkan, Silakan aktivasi lewat email');
+                session()->setFlashdata('pesan', 'User sudah ditambahkan, Silakan kamu aktivasi lewat email');
                 return redirect()->to(base_url('/admin/create_user'));
             } else {
                 $data = $mail->printDebugger(['headers']);
@@ -376,12 +378,68 @@ class Admin extends BaseController
         return view('list_user/index', $data);
     }
 
-    public function detail_user()
+    public function detail_user($iduser)
     {
+        // $iduser = $this->request->getVar('iduser');
+        // dd($iduser);
+
         $data = [
-            'title' => 'Detail User'
+            'title' => 'Detail User',
+            'user' => $this->AdminModel->getUser($iduser)
         ];
+        // dd($data);
         return view('detail_user/index', $data);
+    }
+
+    public function edit_user($iduser)
+    {
+        $iduser   = $this->request->getPost('iduser');
+        $username   = $this->request->getPost('username');
+        $level   = $this->request->getPost('level');
+        $fullname   = $this->request->getPost('fullname');
+        $email   = $this->request->getPost('email');
+        $telp   = $this->request->getPost('telp');
+
+        $data = [
+            'iduser'  => $iduser,
+            'username'  => $username,
+            'level'  => $level,
+            'fullname'  => $fullname,
+            'email'  => $email,
+            'telp'  => $telp,
+        ];
+        // dd($data);
+
+        if ($this->form_validation->run($data, 'edit_user') == FALSE) {
+            // mengembalikan nilai input yang sudah dimasukan sebelumnya
+            session()->setFlashdata('inputs', $this->request->getPost());
+            // memberikan pesan error pada saat input data
+            session()->setFlashdata('errors', $this->form_validation->getErrors());
+            // kembali ke halaman form
+            return redirect()->to(base_url('/admin/list_user'));
+        } else {
+            $builder = $this->db->table('users');
+            $builder->where('iduser', $data['iduser']);
+            $builder->update($data);
+
+            session()->setFlashdata('pesan', 'Data kamu berhasil diubah');
+            return redirect()->to(base_url('/admin/list_user'));
+        }
+        session()->setFlashdata('failed', 'Data kamu belum berhasil diubah');
+        return redirect()->to(base_url('/admin/list_user'));
+    }
+
+    public function delete($iduser)
+    {
+        // Cara delete konvensional, minus nya bisa dihapus lewat url
+        // dd($iduser);
+        $this->AdminModel->delete($iduser);
+        // primary key iduser ada di model.php (vebdor->codeigniter4->Model.php)
+        // $builder = $this->db->table('users');
+        // $builder->where('iduser', $iduser);
+        // $builder->delete();
+        session()->setFlashdata('pesan', 'Data berhasil dihapus');
+        return redirect()->to(base_url('/admin/list_user'));
     }
 
     public function create_project()

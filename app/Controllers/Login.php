@@ -42,6 +42,7 @@ class Login extends BaseController
             'password' => $password
         ];
 
+
         if ($this->form_validation->run($data, 'user') == FALSE) {
             // mengembalikan nilai input yang sudah dimasukan sebelumnya
             session()->setFlashdata('inputs', $this->request->getPost());
@@ -56,10 +57,10 @@ class Login extends BaseController
             // echo $cek['level'];
             // dd($cek);
 
-            if ($cek['is_active'] == 0) {
+            if (isset($cek['is_active']) == 0) {
                 session()->setFlashdata('salah', 'Username kamu belum diaktivasi');
                 return redirect()->to(base_url('/'));
-            } else {
+            } elseif (isset($cek['is_active']) == 1) {
                 if ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == "admin")) {
                     // Jika benar
                     session()->set('username', $cek['username']);
@@ -88,6 +89,9 @@ class Login extends BaseController
                     session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
                     return redirect()->to(base_url('/'));
                 }
+            } else {
+                session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
+                return redirect()->to(base_url('/'));
             }
         }
     }
@@ -340,8 +344,8 @@ class Login extends BaseController
             // $cpassword = password_hash($cpassword, PASSWORD_DEFAULT);
             $email = session()->get('reset_email');
             $cekEmail = $this->LoginModel->cekEmail($email);
-            $db      = \Config\Database::connect();
-            $builder = $db->table('users');
+            // $db      = \Config\Database::connect();
+            $builder = $this->db->table('users');
             $builder->set('password', $cpassword);
             $builder->where('iduser', $cekEmail['iduser']);
             $builder->update();

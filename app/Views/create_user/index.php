@@ -51,15 +51,15 @@ use Config\Validation;
                         $inputs = session()->getFlashdata('inputs');
                         $errors = session()->getFlashdata('errors');
                         if (!empty($pesan)) { ?>
-                            <div class="alert alert-success" role="alert">
+                            <div class="alert alert-success alert-pesan" role="alert">
                                 <?= $pesan; ?>
                             </div>
                         <?php } elseif (!empty($failed)) { ?>
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger alert-failed" role="alert">
                                 <?= $failed; ?>
                             </div>
                         <?php } elseif (!empty($errors)) { ?>
-                            <div class="alert alert-danger" role="alert">
+                            <div class="alert alert-danger alert-error" role="alert">
                                 <ul>
                                     <?php foreach ($errors as $error) : ?>
                                         <li style="margin-left: -10px;"><?= esc($error) ?></li>
