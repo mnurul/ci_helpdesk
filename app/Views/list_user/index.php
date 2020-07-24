@@ -36,7 +36,18 @@
                     <div class="card bg-card mt-3 mb-5">
                         <div class="card-body">
                             <a href="<?= base_url(); ?>/admin/create_user" class="a-user ">Create User</a>
-                            <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
+                            <!-- <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                </div>
+                            </div> -->
+                            <form action="" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
+                                </div>
+
+                            </form>
                             <?php
                             $pesan = session()->getFlashdata('pesan');
                             $failed = session()->getFlashdata('failed');
@@ -102,7 +113,11 @@
 
 
                             </div>
-                            <div class="pagination justify-content-center ">
+                            <?= $pager->links('users', 'user_pagination') ?>
+                            <a href="<?= base_url(); ?>/admin/list_user" title="Back to view all data">
+                                <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count; ?></h6>
+                            </a>
+                            <!-- <div class="pagination justify-content-center ">
                                 <a href="#">&laquo;</a>
                                 <a href="#">1</a>
                                 <a class="active" href="#">2</a>
@@ -111,7 +126,7 @@
                                 <a href="#">5</a>
                                 <a href="#">6</a>
                                 <a href="#">&raquo;</a>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>

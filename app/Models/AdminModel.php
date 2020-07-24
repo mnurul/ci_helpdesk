@@ -34,4 +34,20 @@ class AdminModel extends Model
             ->where(array('token' => $token))
             ->get()->getRowArray();
     }
+
+    public function search($search)
+    {
+        // $builder = $this->table('users');
+        // $builder->like('iduser', $search);
+        // $builder->like('username', $search);
+        // $builder->like('level', $search);
+        // $builder->like('fullname', $search);
+        // return $builder;
+
+        // Metode Chaining
+        return $this->table('users')->like('iduser', $search)->orLike('fullname', $search)->orLike('level', $search)->orLike('username', $search)->orLike('email', $search)->orLike('telp', $search);
+
+        // $array = ['iduser' => $search, 'fullname' => $search, 'level' => $search];
+        // return $builder->like($array);
+    }
 }

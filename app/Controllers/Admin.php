@@ -19,6 +19,7 @@ class Admin extends BaseController
         $session = \Config\Services::session();
         $this->AdminModel = new AdminModel();
         $email = \Config\Services::email();
+        $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
         $validation =  \Config\Services::validation();
         $this->db      = \Config\Database::connect();
@@ -371,9 +372,21 @@ class Admin extends BaseController
 
     public function list_user()
     {
+        // getVar() bisa ambil get dan post
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $user = $this->AdminModel->search($search);
+        } else {
+            $user = $this->AdminModel;
+        }
         $data = [
             'title' => 'List User',
-            'user' => $this->AdminModel->getUser()
+            // 'count' => $this->AdminModel->getUser(),
+            'count' => $this->db->table('users')->countAll(),
+            // 'user' => $this->AdminModel->paginate(3, 'users'),
+            'user' => $user->paginate(3, 'users'),
+            'pager' => $this->AdminModel->pager
         ];
         return view('list_user/index', $data);
     }
