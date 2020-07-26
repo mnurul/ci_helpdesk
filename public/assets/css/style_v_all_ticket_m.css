@@ -171,8 +171,13 @@ body {
   color: white;
 }
 
+.sidebar a:focus,
+.btn:focus {
+  outline: 0 !important;
+}
+
 .sidebar a:hover:not(.active) {
-  background-color: #F8F9FA;
+  background-color: #eef2f5;
   color: #322f56;
 }
 
@@ -292,6 +297,11 @@ div.content {
     font-family: Merriweather, serif;
     font-weight: 400;
     line-height: 21px;
+  }
+
+  .dropup-content a.active {
+    background-color: #F8F9FA;
+    color: #322f56;
   }
 
   .dropup-content a:hover {

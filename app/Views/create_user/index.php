@@ -69,14 +69,17 @@ use Config\Validation;
                         <?php }
                         ?>
                         <form action="/admin/proses_create" method="post">
+
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="iduser">Id User</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="iduser" name="iduser" value="<?= old('iduser') ?>" autofocus required>
+                                    <input type="text" id="iduser" name="iduser" placeholder="Last <?= $builder['iduser']  ?>" autofocus required>
                                 </div>
                             </div>
+
+
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="username">Username</label>
@@ -131,14 +134,14 @@ use Config\Validation;
                                     <input type="text" id="telp" name="telp" required>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="emailcode">Email Code</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="emailcode" name="emailcode">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="time">Time</label>
@@ -147,14 +150,14 @@ use Config\Validation;
                                     <input type="text" id="time" name="time">
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="confirmed">Confirmed</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="confirmed" name="confirmed">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="ip">Ip</label>

@@ -151,8 +151,18 @@ class Admin extends BaseController
 
     public function create_user()
     {
+        // $db      = \Config\Database::connect();
+        // $builder = $this->db->table('users');
+
+        // $builder->orderBy('iduser', 'DESC');
+        // $builder->limit(1);
+        // $query   = $builder->get();
+        $builder = $this->AdminModel->viewIduser();
+
+        // dd($builder);
         $data = [
-            'title' => 'Create User'
+            'title' => 'Create User',
+            'builder' => $builder
 
         ];
         return view('create_user/index', $data);
@@ -167,9 +177,9 @@ class Admin extends BaseController
         $fullname = $this->request->getPost('fullname');
         $email = $this->request->getPost('email');
         $telp = $this->request->getPost('telp');
-        $emailcode = $this->request->getPost('emailcode');
+        // $emailcode = $this->request->getPost('emailcode');
         $time = $this->request->getPost('time');
-        $confirmed = $this->request->getPost('confirmed');
+        // $confirmed = $this->request->getPost('confirmed');
         $ip = $this->request->getPost('ip');
 
         $data = [
@@ -180,9 +190,9 @@ class Admin extends BaseController
             'fullname'  => $fullname,
             'email'  => $email,
             'telp'  => $telp,
-            'emailcode'  => $emailcode,
+            // 'emailcode'  => $emailcode,
             'time'  => $time,
-            'confirmed'  => $confirmed,
+            // 'confirmed'  => $confirmed,
             'ip'  => $ip,
             'is_active' => 0
         ];

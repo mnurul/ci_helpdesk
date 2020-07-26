@@ -146,6 +146,19 @@ body {
   margin-bottom: 10px;
 }
 
+.btn.focus,
+.btn:focus {
+  outline: 0;
+  box-shadow: none !important;
+}
+
+.btn:hover,
+.navbar:hover,
+a.btn.navbar:hover {
+  background-color: #292647;
+  color: #292647;
+}
+
 .sidebar a {
   display: block;
   color: #322f56;
@@ -163,9 +176,14 @@ body {
   color: white;
 }
 
+.sidebar a:focus,
+.btn:focus {
+  outline: 0 !important;
+}
+
 .sidebar a:hover:not(.active) {
-  background-color: #F8F9FA;
-  color: #322f56;
+  background-color: #eef2f5;
+  color: #292647;
 }
 
 div.content {
@@ -284,6 +302,11 @@ div.content {
     font-family: Merriweather, serif;
     font-weight: 400;
     line-height: 21px;
+  }
+
+  .dropup-content a.active {
+    background-color: #F8F9FA;
+    color: #322f56;
   }
 
   .dropup-content a:hover {

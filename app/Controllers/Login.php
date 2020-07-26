@@ -63,24 +63,28 @@ class Login extends BaseController
             } elseif (isset($cek['is_active']) == 1) {
                 if ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == "admin")) {
                     // Jika benar
+                    session()->set('iduser', $cek['iduser']);
                     session()->set('username', $cek['username']);
                     session()->set('level', $cek['level']);
 
                     return redirect()->to(base_url('admin'));
                 } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'teknisi')) {
                     // Jika benar
+                    session()->set('iduser', $cek['iduser']);
                     session()->set('username', $cek['username']);
                     session()->set('level', $cek['level']);
 
                     return redirect()->to(base_url('teknisi'));
                 } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'manager')) {
                     // Jika benar
+                    session()->set('iduser', $cek['iduser']);
                     session()->set('username', $cek['username']);
                     session()->set('level', $cek['level']);
 
                     return redirect()->to(base_url('manager'));
                 } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer')) {
                     // Jika benar
+                    session()->set('iduser', $cek['iduser']);
                     session()->set('username', $cek['username']);
                     session()->set('level', $cek['level']);
 

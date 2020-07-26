@@ -66,7 +66,7 @@
 </div> -->
 <div class="dropup">
     <div class="col-6" style="bottom: 0; margin-left:170px;margin-bottom:-40px !important">
-        <button class="dropbtn">My Tickets</button>
+        <button class="dropbtn">View Report</button>
         <div class="dropup-content">
             <a href="<?= base_url(); ?>/admin/pivot_table_a" class="<?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a>
             <a href="<?= base_url(); ?>/admin/sla_chart_a" class="<?= ($uri->getSegment(2) == 'sla_chart_a' ? 'active' : null) ?>">SLA Chart</a>

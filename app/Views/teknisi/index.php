@@ -3,18 +3,20 @@
 <?= $this->section('content'); ?>
 
 <div class="sidebar">
+    <?php $uri = service('uri'); ?>
+
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
-    <a href="<?= base_url(); ?>/teknisi/my_assigment" class="active btn navbar">My Assigment</a>
-    <a href="<?= base_url(); ?>/teknisi/v_all_ticket" class="btn navbar">View All Tickets</a>
+    <a href="<?= base_url(); ?>/teknisi/my_assigment" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment' ? 'active' : null) ?>">My Assigment</a>
+    <a href=" <?= base_url(); ?>/teknisi/v_all_ticket" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View All Tickets</a>
 </div>
 
 
-<div class="content">
+<div class=" content">
     <div class="container">
         <div class="row">
             <div class="col">
-                <h6 class="t-teknisi"><b>Welcome Teknisi</b></h6>
+                <h6 class="t-teknisi"><b>Welcome <?= session()->get('username'); ?></b></h6>
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
@@ -33,8 +35,8 @@
 <div class="dropup">
     <button class="dropbtn">My Tickets</button>
     <div class="dropup-content">
-        <a href="<?= base_url(); ?>/teknisi/my_assigment">My Assigment</a>
-        <a href="<?= base_url(); ?>/teknisi/v_all_ticket">View All Tickets</a>
+        <a href="<?= base_url(); ?>/teknisi/my_assigment" class="<?= ($uri->getSegment(2) == 'my_assigment' ? 'active' : null) ?>">My Assigment</a>
+        <a href="<?= base_url(); ?>/teknisi/v_all_ticket" class="<?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View All Tickets</a>
     </div>
 </div>
 <!-- <div class="dropup">

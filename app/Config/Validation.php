@@ -143,6 +143,27 @@ class Validation
 			'required'      => 'Telpon wajib kamu isi'
 		]
 	];
-
 	// trim buat hapus spasi didepan atau belakang data
+
+	public $change_password_u = [
+		'oldpassword' => 'required|min_length[3]',
+		'newpassword' => 'required|min_length[3]',
+		'cpassword' => 'required|min_length[3]|matches[newpassword]'
+	];
+
+	public $change_password_u_errors = [
+		'oldpassword' => [
+			'required'      => 'Password wajib kamu isi1',
+			'min_length[3]'      => 'Password kamu harus lebih dari 3'
+		],
+		'newpassword' => [
+			'required'      => 'Password wajib kamu isi1',
+			'min_length[3]'      => 'Password kamu harus lebih dari 3'
+		],
+		'cpassword' => [
+			'required'      => 'Password kmau wajib kamu isi2',
+			'min_length[3]'      => 'Password kamu harus lebih dari 3',
+			'matches'      => 'Password kamu tidak cocok'
+		]
+	];
 }

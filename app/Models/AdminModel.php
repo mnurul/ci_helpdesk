@@ -50,4 +50,24 @@ class AdminModel extends Model
         // $array = ['iduser' => $search, 'fullname' => $search, 'level' => $search];
         // return $builder->like($array);
     }
+
+    public function viewIduser()
+    {
+        // $builder = $this->db->table('users');
+        // $builder->get();
+        // $builder->orderBy('iduser', 'DESC');
+        // $builder->limit(1);
+        // return $builder;
+
+        // return $this->first();
+        // Ga perlu pake else, return langsung keluar dari if
+
+
+        // return $this->where(['iduser' => $iduser])->first();
+
+        return $this->db->table('users')
+            ->orderBy('iduser', 'DESC')
+            ->limit(1)
+            ->get()->getRowArray();
+    }
 }
