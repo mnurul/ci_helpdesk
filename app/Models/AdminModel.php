@@ -70,4 +70,11 @@ class AdminModel extends Model
             ->limit(1)
             ->get()->getRowArray();
     }
+
+    public function cekPassword($oldpassword)
+    {
+        return $this->db->table('users')
+            ->where(array('password' => $oldpassword))
+            ->get()->getRowArray();
+    }
 }

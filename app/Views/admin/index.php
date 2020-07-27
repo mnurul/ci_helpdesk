@@ -28,6 +28,7 @@
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
+                    <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
                     <!-- <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
                     <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
                     <!-- <a href="<?= base_url(); ?>/admin/create_user">Create User</a> -->

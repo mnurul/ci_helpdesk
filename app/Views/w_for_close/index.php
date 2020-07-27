@@ -26,11 +26,12 @@
                 <h6 class="t-admin"><b>Welcome <?= session()->get('username'); ?></b></h6>
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
-                    <a href="<?= base_url(); ?>/login/logout"">Logout</a>
+                    <a href="<?= base_url(); ?>/login/logout">Logout</a>
+                    <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
                     <!-- <a href=" <?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
-                        <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
-                        <a href="<?= base_url(); ?>/admin/list_user">Users</a>
-                        <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
+                    <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
+                    <a href="<?= base_url(); ?>/admin/list_user">Users</a>
+                    <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
                     <h2 class="title font-weight-bold">Waiting for Close</h2>

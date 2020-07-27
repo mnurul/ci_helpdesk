@@ -57,44 +57,80 @@ class Login extends BaseController
             // echo $cek['level'];
             // dd($cek);
 
-            if (isset($cek['is_active']) == 0) {
-                session()->setFlashdata('salah', 'Username kamu belum diaktivasi');
-                return redirect()->to(base_url('/'));
-            } elseif (isset($cek['is_active']) == 1) {
-                if ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == "admin")) {
-                    // Jika benar
-                    session()->set('iduser', $cek['iduser']);
-                    session()->set('username', $cek['username']);
-                    session()->set('level', $cek['level']);
+            // if (isset($cek['is_active']) == 0) {
+            //     session()->setFlashdata('salah', 'Username kamu belum diaktivasi');
+            //     return redirect()->to(base_url('/'));
+            // } elseif (isset($cek['is_active']) == 1) {
+            //     if ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == "admin")) {
+            //         // Jika benar
+            //         session()->set('iduser', $cek['iduser']);
+            //         session()->set('username', $cek['username']);
+            //         session()->set('level', $cek['level']);
 
-                    return redirect()->to(base_url('admin'));
-                } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'teknisi')) {
-                    // Jika benar
-                    session()->set('iduser', $cek['iduser']);
-                    session()->set('username', $cek['username']);
-                    session()->set('level', $cek['level']);
+            //         return redirect()->to(base_url('admin'));
+            //     } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'teknisi')) {
+            //         // Jika benar
+            //         session()->set('iduser', $cek['iduser']);
+            //         session()->set('username', $cek['username']);
+            //         session()->set('level', $cek['level']);
 
-                    return redirect()->to(base_url('teknisi'));
-                } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'manager')) {
-                    // Jika benar
-                    session()->set('iduser', $cek['iduser']);
-                    session()->set('username', $cek['username']);
-                    session()->set('level', $cek['level']);
+            //         return redirect()->to(base_url('teknisi'));
+            //     } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'manager')) {
+            //         // Jika benar
+            //         session()->set('iduser', $cek['iduser']);
+            //         session()->set('username', $cek['username']);
+            //         session()->set('level', $cek['level']);
 
-                    return redirect()->to(base_url('manager'));
-                } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer')) {
-                    // Jika benar
-                    session()->set('iduser', $cek['iduser']);
-                    session()->set('username', $cek['username']);
-                    session()->set('level', $cek['level']);
+            //         return redirect()->to(base_url('manager'));
+            //     } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer')) {
+            //         // Jika benar
+            //         session()->set('iduser', $cek['iduser']);
+            //         session()->set('username', $cek['username']);
+            //         session()->set('level', $cek['level']);
 
-                    return redirect()->to(base_url('user'));
-                } else {
-                    session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
-                    return redirect()->to(base_url('/'));
-                }
-            } else {
+            //         return redirect()->to(base_url('user'));
+            //     } else {
+            //         session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
+            //         return redirect()->to(base_url('/'));
+            //     }
+            // } else {
+            //     session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
+            //     return redirect()->to(base_url('/'));
+            // }
+
+            if ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == "admin") && ($cek['is_active'] == 1)) {
+                // Jika benar
+                session()->set('iduser', $cek['iduser']);
+                session()->set('username', $cek['username']);
+                session()->set('level', $cek['level']);
+
+                return redirect()->to(base_url('admin'));
+            } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'teknisi') && ($cek['is_active'] == 1)) {
+                // Jika benar
+                session()->set('iduser', $cek['iduser']);
+                session()->set('username', $cek['username']);
+                session()->set('level', $cek['level']);
+
+                return redirect()->to(base_url('teknisi'));
+            } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'manager') && ($cek['is_active'] == 1)) {
+                // Jika benar
+                session()->set('iduser', $cek['iduser']);
+                session()->set('username', $cek['username']);
+                session()->set('level', $cek['level']);
+
+                return redirect()->to(base_url('manager'));
+            } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer') && ($cek['is_active'] == 1)) {
+                // Jika benar
+                session()->set('iduser', $cek['iduser']);
+                session()->set('username', $cek['username']);
+                session()->set('level', $cek['level']);
+
+                return redirect()->to(base_url('user'));
+            } elseif (!$cek) {
                 session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
+                return redirect()->to(base_url('/'));
+            } else {
+                session()->setFlashdata('salah', 'Username kamu belum diaktivasi');
                 return redirect()->to(base_url('/'));
             }
         }

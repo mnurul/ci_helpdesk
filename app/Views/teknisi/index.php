@@ -20,6 +20,7 @@
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
+                    <a href="<?= base_url(); ?>/teknisi/change_password_t" class="">Change Password</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="padding-left:30px;margin-top:15px; ">
