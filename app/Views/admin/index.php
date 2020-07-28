@@ -32,6 +32,7 @@
                     <!-- <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
                     <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
                     <!-- <a href="<?= base_url(); ?>/admin/create_user">Create User</a> -->
+                    <a href="<?= base_url(); ?>/admin/list_customer" class="<?= ($uri->getSegment(2) == 'admin/list_customer' ? 'active' : null) ?>">Customers</a>
                     <a href="<?= base_url(); ?>/admin/list_user" class="<?= ($uri->getSegment(2) == 'admin/list_user' ? 'active' : null) ?>">Users</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>

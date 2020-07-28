@@ -4,22 +4,12 @@ namespace App\Models;
 
 use CodeIgniter\Model;
 
-class AdminModel extends Model
+class CustomerModel extends Model
 {
-    protected $table = 'users';
-    protected $primarykey = 'iduser';
+    protected $table = 'customers';
+    protected $primarykey = 'idcustomer';
     // protected $useTimestamps = true;
     // protected $allowedFields = ['password'];
-
-    public function getUser($iduser = false)
-    {
-        if ($iduser == false) {
-            return $this->findAll();
-            // Ga perlu pake else, return langsung keluar dari if
-        }
-
-        return $this->where(['iduser' => $iduser])->first();
-    }
 
     public function getCustomer($idcustomer = false)
     {
@@ -92,8 +82,8 @@ class AdminModel extends Model
 
         // return $this->where(['iduser' => $iduser])->first();
 
-        return $this->db->table('users')
-            ->orderBy('iduser', 'DESC')
+        return $this->db->table('customers')
+            ->orderBy('idcustomer', 'DESC')
             ->limit(1)
             ->get()->getRowArray();
     }

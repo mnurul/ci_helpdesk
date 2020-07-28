@@ -40,6 +40,7 @@ $routes->get('/teknisi', 'Teknisi::index', ['filter' => 'auth']);
 $routes->get('/manager', 'Manager::index', ['filter' => 'auth']);
 $routes->get('/admin', 'Admin::index', ['filter' => 'auth']);
 $routes->delete('/admin/(:any)', 'Admin::delete/$1');
+$routes->delete('/customer/(:any)', 'Admin::delete_cs/$1');
 
 
 /**

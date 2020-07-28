@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\AdminModel;
+use App\Models\CustomerModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -10,6 +11,7 @@ use PHPMailer\PHPMailer\Exception;
 class Admin extends BaseController
 {
     protected $AdminModel;
+    protected $CustomerModel;
 
     public function __construct()
     {
@@ -18,6 +20,7 @@ class Admin extends BaseController
         helper('form');
         $session = \Config\Services::session();
         $this->AdminModel = new AdminModel();
+        $this->CustomerModel = new CustomerModel();
         $email = \Config\Services::email();
         $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
@@ -401,6 +404,7 @@ class Admin extends BaseController
         return view('list_user/index', $data);
     }
 
+
     public function detail_user($iduser)
     {
         // $iduser = $this->request->getVar('iduser');
@@ -463,6 +467,165 @@ class Admin extends BaseController
         // $builder->delete();
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
         return redirect()->to(base_url('/admin/list_user'));
+    }
+
+    public function list_customer()
+    {
+        // getVar() bisa ambil get dan post
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $customers = $this->CustomerModel->search_cs($search);
+        } else {
+            $customers = $this->CustomerModel;
+        }
+        // $builder = $this->db->table('customers');
+        // $query   = $builder->get();
+        $data = [
+            'title' => 'List Customer',
+            // 'query' => $query,
+            'count' => $this->db->table('customers')->countAll(),
+            'customers' => $customers->paginate(3, 'customers'),
+            'pager' => $this->CustomerModel->pager
+        ];
+        return view('list_customer/index', $data);
+    }
+
+    public function create_customer()
+    {
+        // $db      = \Config\Database::connect();
+        // $builder = $this->db->table('users');
+
+        // $builder->orderBy('iduser', 'DESC');
+        // $builder->limit(1);
+        // $query   = $builder->get();
+        $builder = $this->CustomerModel->viewIduser();
+
+        // dd($builder);
+        $data = [
+            'title' => 'Create Customer',
+            'builder' => $builder
+
+        ];
+        return view('create_customer/index', $data);
+    }
+
+    public function create_cs()
+    {
+        $idcustomer = $this->request->getPost('idcustomer');
+        $csnama = $this->request->getPost('csnama');
+        $alamat = $this->request->getPost('alamat');
+        $telp = $this->request->getPost('telp');
+        $email = $this->request->getPost('email');
+        $pic = $this->request->getPost('pic');
+        $csproduct = $this->request->getPost('csproduct');
+        // $time = $this->request->getPost('time');
+        // $ip = $this->request->getPost('ip');
+
+        $data = [
+            'idcustomer'  => $idcustomer,
+            'csnama'  => $csnama,
+            'alamat' => $alamat,
+            'telp'  => $telp,
+            'email'  => $email,
+            'pic'  => $pic,
+            'csproduct'  => $csproduct,
+            'time'  => time(),
+            'ip'  => 0
+        ];
+
+
+
+        if ($this->form_validation->run($data, 'create_cs') == FALSE) {
+            // mengembalikan nilai input yang sudah dimasukan sebelumnya
+            session()->setFlashdata('inputs', $this->request->getPost());
+            // memberikan pesan error pada saat input data
+            session()->setFlashdata('errors', $this->form_validation->getErrors());
+            // kembali ke halaman form
+            return redirect()->to(base_url('/admin/create_customer'));
+        } else {
+            $builder = $this->db->table('customers');
+            $builder->insert($data);
+
+            session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+
+            return redirect()->to(base_url('/admin/create_customer'));
+        }
+    }
+
+    public function detail_customer($idcustomer)
+    {
+        // $iduser = $this->request->getVar('iduser');
+        // dd($iduser);
+
+        $data = [
+            'title' => 'Detail Customer',
+            'customer' => $this->CustomerModel->getCustomer($idcustomer)
+        ];
+        // dd($data);
+        return view('detail_customer/index', $data);
+    }
+
+    public function edit_customer($idcustomer)
+    {
+        $idcustomer = $this->request->getPost('idcustomer');
+        $csnama = $this->request->getPost('csnama');
+        $alamat = $this->request->getPost('alamat');
+        $telp = $this->request->getPost('telp');
+        $email = $this->request->getPost('email');
+        $pic = $this->request->getPost('pic');
+        $csproduct = $this->request->getPost('csproduct');
+
+        $data = [
+            'idcustomer'  => $idcustomer,
+            'csnama'  => $csnama,
+            'alamat' => $alamat,
+            'telp'  => $telp,
+            'email'  => $email,
+            'pic'  => $pic
+        ];
+        // dd($data);
+
+        if ($this->form_validation->run($data, 'edit_customer') == FALSE) {
+            // mengembalikan nilai input yang sudah dimasukan sebelumnya
+            session()->setFlashdata('inputs', $this->request->getPost());
+            // memberikan pesan error pada saat input data
+            session()->setFlashdata('errors', $this->form_validation->getErrors());
+            // kembali ke halaman form
+            return redirect()->to(base_url('/admin/list_customer'));
+        } else {
+            $builder = $this->db->table('customers');
+            $builder->where('idcustomer', $data['idcustomer']);
+            $builder->update($data);
+
+            session()->setFlashdata('pesan', 'Data kamu berhasil diubah');
+            return redirect()->to(base_url('/admin/list_customer'));
+        }
+        session()->setFlashdata('failed', 'Data kamu belum berhasil diubah');
+        return redirect()->to(base_url('/admin/list_customer'));
+    }
+
+    public function delete_cs($idcustomer)
+    {
+        // Cara delete konvensional, minus nya bisa dihapus lewat url
+        // dd($iduser);
+        $builder = $this->db->table('customers');
+        $builder->where('idcustomer', $idcustomer);
+        if ($builder->delete()) {
+
+
+            // $this->CustomerModel->where('idcustomer', $idcustomer);
+            // $this->CustomerModel->delete($idcustomer);
+            // primary key iduser ada di model.php (vebdor->codeigniter4->Model.php)
+            // $builder = $this->db->table('users');
+            // $builder->where('iduser', $iduser);
+            // $builder->delete();
+            session()->setFlashdata('pesan', 'Data berhasil dihapus');
+            return redirect()->to(base_url('/admin/list_customer'));
+        } else {
+            session()->setFlashdata('pesan', 'Data ');
+            return redirect()->to(base_url('/admin/list_customer'));
+        }
     }
 
     public function change_password_a()

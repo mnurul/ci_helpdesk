@@ -166,4 +166,71 @@ class Validation
 			'matches'      => 'Password kamu tidak cocok'
 		]
 	];
+
+	public $create_cs = [
+		'idcustomer' => 'required',
+		'csnama' => 'required',
+		'alamat' => 'required',
+		'telp' => 'required',
+		'email' => 'required|trim|valid_email|is_unique[customers.email]',
+		'pic' => 'required',
+		'csproduct' => 'required'
+	];
+
+	public $create_cs_errors = [
+		'idcustomer' => [
+			'required'      => 'Idcustomer wajib kamu isi'
+		],
+		'csnama' => [
+			'required'      => 'Nama wajib kamu isi'
+		],
+		'alamat' => [
+			'required'      => 'Alamat wajib kamu isi'
+		],
+		'telp' => [
+			'required'      => 'Telpon wajib kamu isi'
+		],
+		'email' => [
+			'required'      => 'Email wajib kamu isi1',
+			'valid_email'      => 'Email tidak valid ',
+			'is_unique'      => 'Email tidak unik'
+		],
+		'pic' => [
+			'required'      => 'PIC wajib kamu isi'
+		],
+		'csproduct' => [
+			'required'      => 'Product wajib kamu isi'
+		]
+	];
+
+	public $edit_customer = [
+		'idcustomer' => 'required',
+		'csnama' => 'required',
+		'alamat' => 'required',
+		'telp' => 'required',
+		'email' => 'required|trim|valid_email',
+		'pic' => 'required'
+	];
+
+	public $edit_customer_errors = [
+		'idcustomer' => [
+			'required'      => 'Idcustomer wajib kamu isi'
+		],
+		'csnama' => [
+			'required'      => 'Nama wajib kamu isi'
+		],
+		'alamat' => [
+			'required'      => 'Alamat wajib kamu isi'
+		],
+		'telp' => [
+			'required'      => 'Telpon wajib kamu isi'
+		],
+		'email' => [
+			'required'      => 'Email wajib kamu isi1',
+			'valid_email'      => 'Email tidak valid '
+		],
+		'pic' => [
+			'required'      => 'PIC wajib kamu isi'
+		]
+	];
 }
