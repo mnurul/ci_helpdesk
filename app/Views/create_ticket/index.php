@@ -19,13 +19,36 @@
                 <h2 class="title font-weight-bold">Create Ticket</h2>
                 <div class="card mt-3">
                     <div class="card-body">
-                        <form action="/action_page.php" method="post">
+                        <?php
+                        $pesan = session()->getFlashdata('pesan');
+                        $failed = session()->getFlashdata('failed');
+                        $inputs = session()->getFlashdata('inputs');
+                        $errors = session()->getFlashdata('errors');
+                        if (!empty($pesan)) { ?>
+                            <div class="alert alert-success alert-pesan" role="alert">
+                                <?= $pesan; ?>
+                            </div>
+                        <?php } elseif (!empty($failed)) { ?>
+                            <div class="alert alert-danger alert-failed" role="alert">
+                                <?= $failed; ?>
+                            </div>
+                        <?php } elseif (!empty($errors)) { ?>
+                            <div class="alert alert-danger alert-error" role="alert">
+                                <ul>
+                                    <?php foreach ($errors as $error) : ?>
+                                        <li style="margin-left: -10px;"><?= esc($error) ?></li>
+                                    <?php endforeach ?>
+                                </ul>
+                            </div>
+                        <?php }
+                        ?>
+                        <form action="/user/proses_create" method="post">
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="customers">Customers</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="customers" name="customers" value="<?= $csnama['csnama']; ?>" autofocus required readonly>
+                                    <input type="text" id="customers" name="customers" value="<?= $csnama['csnama']; ?>" required readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -33,7 +56,7 @@
                                     <label class="title-1" for="csproduct">Customers Product</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="csproduct" name="csproduct" style="height:45px !important">
+                                    <select id="csproduct" name="csproduct" autofocus style="height:45px !important">
                                         <option value="">Select Product</option>
                                         <?php foreach ($namaProject as $np) : ?>
                                             <option value="<?= $np['idproject']; ?>"><?= $np['namaproject']; ?></option>
@@ -101,7 +124,7 @@
                                 <input type="submit" value="Submit">
                             </div>
                             <button type="submit" class="btn btn-ticket">Masuk Akun Saya</button> -->
-                        </form>
+
                     </div>
                 </div>
                 <div class="card mt-3 mb-5">
@@ -117,26 +140,26 @@
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label class="title-1" for="r-by">Reported By</label>
+                                <label class="title-1" for="rby">Reported By</label>
                             </div>
                             <div class="col-75">
-                                <input type="text" id="r-by" name="r-by">
+                                <input type="text" id="rby" name="rby" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label class="title-1" for="p-summary">Problem Summary</label>
+                                <label class="title-1" for="psummary">Problem Summary</label>
                             </div>
                             <div class="col-75">
-                                <input type="text" id="p-summary" name="p-summary" placeholder="Problem Summary">
+                                <input type="text" id="psummary" name="psummary" placeholder="Problem Summary" required>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-25">
-                                <label class="title-1" for="p-detail">Problem Detail</label>
+                                <label class="title-1" for="pdetail">Problem Detail</label>
                             </div>
                             <div class="col-75">
-                                <textarea id="p-detail" name="p-detail" placeholder="Describe your problem" style="height:200px"></textarea> </div>
+                                <textarea id="pdetail" name="pdetail" placeholder="Describe your problem" style="height:200px" required></textarea> </div>
                         </div>
                         <div class="row">
                             <div class="col-75">

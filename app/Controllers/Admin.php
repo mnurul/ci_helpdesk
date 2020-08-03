@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\AdminModel;
 use App\Models\CustomerModel;
+use App\Models\TicketModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -12,6 +13,7 @@ class Admin extends BaseController
 {
     protected $AdminModel;
     protected $CustomerModel;
+    protected $TicketModel;
 
     public function __construct()
     {
@@ -21,6 +23,7 @@ class Admin extends BaseController
         $session = \Config\Services::session();
         $this->AdminModel = new AdminModel();
         $this->CustomerModel = new CustomerModel();
+        $this->TicketModel = new TicketModel();
         $email = \Config\Services::email();
         $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
@@ -50,10 +53,97 @@ class Admin extends BaseController
 
     public function my_assigment_a()
     {
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $while_ticket = $this->TicketModel->search_myassigment($search);
+        } else {
+            $while_ticket = $this->TicketModel;
+        }
+        // $statusticket = $this->TicketModel->statusticket();
+        // $builder = $this->db->table('while_ticket');
+        // foreach ($builder->get()->getResultArray() as $b) {
+        //     $b['status'];
+        // }
+        // dd($b);
+
+        // dd($statusticket);
+        // $builder = $this->db->table('customers');
+        // $query   = $builder->get();
         $data = [
-            'title' => 'My Assigment'
+            'title' => 'My Assigment',
+            // 'query' => $query,
+            'count' => $this->db->table('while_ticket')->countAll(),
+            // 'statusticket' => $statusticket,
+            'while_ticket' => $while_ticket->paginate(3, 'while_ticket'),
+            'pager' => $this->TicketModel->pager
         ];
         return view('my_assigment_a/index', $data);
+    }
+
+    public function detail_assigment_a($id)
+    {
+        // $iduser = $this->request->getVar('iduser');
+        // dd($iduser);
+        $sla = $this->TicketModel->sla();
+        $teknisi = $this->TicketModel->teknisi();
+        // dd($teknisi);
+
+        $data = [
+            'title' => 'Detail My Assigment',
+            'ticket' => $this->TicketModel->getTicket($id),
+            'sla' => $sla,
+            'teknisi' => $teknisi
+        ];
+        // dd($data);
+        return view('detail_assigment_a/index', $data);
+    }
+
+    public function proses_assigment($id)
+    {
+        $idcustomer = $this->request->getPost('idcustomer');
+        $csnama = $this->request->getPost('csnama');
+        $csproduct = $this->request->getPost('csproduct');
+        $wperiod = $this->request->getPost('wperiod');
+        $cperiod = $this->request->getPost('cperiod');
+        $rdate = $this->request->getPost('rdate');
+        $rby = $this->request->getPost('rby');
+        $psummary = $this->request->getPost('psummary');
+        $pdetail = $this->request->getPost('pdetail');
+        $idsla = $this->request->getPost('idsla');
+        $ticketstatus = $this->request->getPost('ticketstatus');
+        $assigne = $this->request->getPost('assigne');
+
+        $data = [
+            'idcustomer'  => $idcustomer,
+            'noticket' => $id . '/HD/' . date("M") . '/' . date("Y"),
+            'idsla'  => $idsla,
+            'reportdate'  => $rdate,
+            'reportby'  => $rby,
+            'problemsummary'  => $psummary,
+            'problemdetail'  => $pdetail,
+            'ticketstatus'  => $ticketstatus,
+            'assigne'  => $assigne,
+            'assignedate'  => date("Y-m-d"),
+        ];
+        // dd($data);
+
+        $builder = $this->db->table('tickets');
+
+        if ($builder->insert($data)) {
+            $builder1 = $this->db->table('while_ticket');
+            $builder1->where('id', $id);
+            $data = [
+                'status' => $ticketstatus
+            ];
+            $builder1->update($data);
+
+            session()->setFlashdata('pesan', 'Proses Assigment kamu berhasil');
+            return redirect()->to(base_url('/admin/my_assigment_a'));
+        } else {
+            session()->setFlashdata('failed', 'Proses Assigment kamu belum berhasil');
+            return redirect()->to(base_url('/admin/detail_assigment_a'));
+        }
     }
 
     public function form_assigment_a()

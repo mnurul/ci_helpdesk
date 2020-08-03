@@ -233,4 +233,22 @@ class Validation
 			'required'      => 'PIC wajib kamu isi'
 		]
 	];
+
+	public $create_ticket = [
+		'rby' => 'required',
+		// 'psummary' => 'required',
+		// 'pdetail' => 'required'
+	];
+
+	public $create_ticket_errors = [
+		'rby' => [
+			'required'      => 'Report By wajib kamu isi'
+		],
+		'psummary' => [
+			'required'      => 'Problem Summary wajib kamu isi'
+		],
+		'pdetail' => [
+			'required'      => 'Problem Detail wajib kamu isi'
+		]
+	];
 }

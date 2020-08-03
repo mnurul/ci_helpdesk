@@ -58,6 +58,45 @@ class User extends BaseController
         return view('create_ticket/index', $data);
     }
 
+    public function proses_create()
+    {
+        $customers = $this->request->getPost('customers');
+        $csproduct = $this->request->getPost('csproduct');
+        $wperiod = $this->request->getPost('wperiod');
+        $cperiod = $this->request->getPost('cperiod');
+        $rdate = $this->request->getPost('rdate');
+        $rby = $this->request->getPost('rby');
+        $psummary = $this->request->getPost('psummary');
+        $pdetail = $this->request->getPost('pdetail');
+
+        $getProject = $this->UserModel->getProject($csproduct);
+
+
+        $data = [
+            'csnama' => $customers,
+            'csproduct' => $getProject['namaproject'],
+            'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject['uatend']))),
+            'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject['billstartdate']))),
+            'reportdate'  => $rdate,
+            'reportby'  => $rby,
+            'problemsummary'  => $psummary,
+            'problemdetail'  => $pdetail,
+            'idcustomer' => session()->get('idcustomer')
+
+        ];
+
+        // dd($data);
+
+        $builder = $this->db->table('while_ticket');
+        if ($builder->insert($data)) {
+            session()->setFlashdata('pesan', 'Ticket kamu berhasil dibuat');
+            return redirect()->to(base_url('/user/create_ticket'));
+        } else {
+            session()->setFlashdata('failed', 'Ticket kamu belum berhasil dibuat');
+            return redirect()->to(base_url('/user/create_ticket'));
+        }
+    }
+
     public function change_password()
     {
         $data = [

@@ -80,6 +80,13 @@ class UserModel extends Model
             ->get()->getRowArray();
     }
 
+    public function getProject($csproduct)
+    {
+        return $this->db->table('projects')
+            ->where(array('idproject' => $csproduct))
+            ->get()->getRowArray();
+    }
+
     public function csDate($idproject)
     {
         $builder = $this->db->table('projects');

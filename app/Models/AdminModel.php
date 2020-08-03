@@ -62,6 +62,12 @@ class AdminModel extends Model
         // return $builder->like($array);
     }
 
+    public function search_myassigment($search)
+    {
+        // Metode Chaining
+        return $this->table('while_ticket')->like('csnama', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->orLike('problemsummary', $search)->orLike('problemdetail', $search)->orLike('status', $search);
+    }
+
     public function search_cs($search)
     {
         // $builder = $this->table('users');
