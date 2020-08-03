@@ -2,33 +2,11 @@
 
 <?= $this->section('content'); ?>
 
-<!-- <div class="container">
-    <div class="row">
-        <div class="col ">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="navbar-brand" href="#">
-                    <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
-                </a>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav" style="margin-left: auto;">
-                        <a class="nav-item nav-link active" href="#">Home <span class="sr-only">(current)</span></a>
-                        <a class="nav-item nav-link" href="#">Features</a>
-                        <a class="nav-item nav-link" href="#">Pricing</a>
-                        <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-
-        
-    </div>
-
-</div> -->
 
 <div class="container">
     <div class="row">
         <div class="col">
-            <h6 class="t-customer"><b>Welcome <?= session()->get('username'); ?></b></h6>
+            <h6 class="t-customer"><b>Welcome <?= session()->get('idcustomer'); ?></b></h6>
             <div class="topnav" id="myTopnav">
                 <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
                 <a href="<?= base_url(); ?>/login/logout">Logout</a>
@@ -41,43 +19,76 @@
                 <h2 class="title font-weight-bold">Create Ticket</h2>
                 <div class="card mt-3">
                     <div class="card-body">
-                        <form action="/action_page.php">
+                        <form action="/action_page.php" method="post">
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="customers">Customers</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="customers" name="customers" autofocus>
+                                    <input type="text" id="customers" name="customers" value="<?= $csnama['csnama']; ?>" autofocus required readonly>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="cs-product">Customers Product</label>
+                                    <label class="title-1" for="csproduct">Customers Product</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="cs-product" name="cs-product" style="padding-top: -30px !important;">
-                                        <option value=""></option>
-                                        <option value="Product">Product</option>
-                                        <option value="Product">Product</option>
+                                    <select id="csproduct" name="csproduct" style="height:45px !important">
+                                        <option value="">Select Product</option>
+                                        <?php foreach ($namaProject as $np) : ?>
+                                            <option value="<?= $np['idproject']; ?>"><?= $np['namaproject']; ?></option>
+                                            <!-- <option value="Product">Product</option> -->
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="w-period">Waranty Period</label>
+                                    <label class="title-1" for="wperiod">Waranty Period</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="w-period" name="w-period">
+                                    <select id="wperiod" disabled name="wperiod" style="height:45px !important;color:black !important;">
+                                        <option value=""></option>
+                                        <?php foreach ($namaProject as $np) : ?>
+                                            <option value="<?= $np['idproject']; ?>" disabled style="color:black !important;"><?= $np['uatend']; ?> until <?= date('Y-m-d', strtotime("+2 years", strtotime($np['uatend'])))  ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="c-period">Contract Period</label>
+                                    <label class="title-1" for="cperiod">Contract Period</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="c-period" name="c-period">
+                                    <select id="cperiod" disabled name="cperiod" style="height:45px !important;color:black !important;">
+                                        <option value=""></option>
+                                        <?php foreach ($namaProject as $np) : ?>
+                                            <option value="<?= $np['idproject']; ?>" disabled style="color:black !important;"><?= $np['billstartdate']; ?> until <?= date('Y-m-d', strtotime("+1 years", strtotime($np['billstartdate'])))  ?></option>
+                                            <!-- <option value="Product">Product</option> -->
+                                        <?php endforeach; ?>
+                                    </select>
                                 </div>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="wperiod">Waranty Period</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="wperiod" name="wperiod" value="<?= $getUatEnd; ?>" required>
+                                </div>
+                            </div> -->
+                            <!-- <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="cperiod">Contract Period</label>
+                                </div>
+                                <div class="col-75">
+                                    <?php foreach ($namaProject as $np) : ?>
+
+                                        <input type="text" id="cperiod" name="cperiod" value="<?= $np['billstartdate']; ?> until " required>
+                                    <?php endforeach; ?>
+
+                                </div>
+                            </div> -->
                             <!-- <div class="row">
                                 <div class="col-25">
                                     <label for="subject">Subject</label>
@@ -95,43 +106,43 @@
                 </div>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
-                        <form action="/action_page.php">
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="r-date">Reported Date</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="r-date" name="r-date">
-                                </div>
+                        <!-- <form action="/action_page.php"> -->
+                        <div class="row">
+                            <div class="col-25">
+                                <label class="title-1" for="rdate">Reported Date</label>
                             </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="r-by">Reported By</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="r-by" name="r-by">
-                                </div>
+                            <div class="col-75">
+                                <input type="text" id="rdate" name="rdate" value="<?= $rdate; ?>" readonly>
                             </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="p-summary">Problem Summary</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="p-summary" name="p-summary" placeholder="Problem Summary">
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label class="title-1" for="r-by">Reported By</label>
                             </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="p-detail">Problem Detail</label>
-                                </div>
-                                <div class="col-75">
-                                    <textarea id="p-detail" name="p-detail" placeholder="Describe your problem" style="height:200px"></textarea> </div>
+                            <div class="col-75">
+                                <input type="text" id="r-by" name="r-by">
                             </div>
-                            <div class="row">
-                                <div class="col-75">
-                                    <button type="submit" class="btn btn-ticket">Submit</button>
-                                </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label class="title-1" for="p-summary">Problem Summary</label>
                             </div>
+                            <div class="col-75">
+                                <input type="text" id="p-summary" name="p-summary" placeholder="Problem Summary">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-25">
+                                <label class="title-1" for="p-detail">Problem Detail</label>
+                            </div>
+                            <div class="col-75">
+                                <textarea id="p-detail" name="p-detail" placeholder="Describe your problem" style="height:200px"></textarea> </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-75">
+                                <button type="submit" class="btn btn-ticket">Submit</button>
+                            </div>
+                        </div>
                         </form>
                     </div>
                 </div>
@@ -153,5 +164,6 @@
         }
     }
 </script>
+
 
 <?= $this->endSection(); ?>

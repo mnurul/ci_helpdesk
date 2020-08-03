@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use CodeIgniter\I18n\Time;
 
 
 class User extends BaseController
@@ -22,6 +23,7 @@ class User extends BaseController
         // Termasuk cara oop
         // Cara 2 inisialisasi database
         helper('form');
+        helper('url');
         $session = \Config\Services::session();
         $this->UserModel = new UserModel();
         $email = \Config\Services::email();
@@ -37,10 +39,21 @@ class User extends BaseController
         return view('v_ticket_status/index', $data);
     }
 
+
+
     public function create_ticket()
     {
+        $csnama = $this->UserModel->joinCs();
+        $namaProject = $this->UserModel->namaProject();
+        // dd($namaProject);
+        $rdate = new Time('now');
+
         $data = [
-            'title' => 'Create Ticket'
+            'title' => 'Create Ticket',
+            'csnama' => $csnama,
+            'rdate' => $rdate,
+            'namaProject' => $namaProject,
+            'getUatEnd' => ''
         ];
         return view('create_ticket/index', $data);
     }

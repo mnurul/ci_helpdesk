@@ -122,6 +122,7 @@ class Login extends BaseController
             } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer') && ($cek['is_active'] == 1)) {
                 // Jika benar
                 session()->set('iduser', $cek['iduser']);
+                session()->set('idcustomer', $cek['idcustomer']);
                 session()->set('username', $cek['username']);
                 session()->set('level', $cek['level']);
 
