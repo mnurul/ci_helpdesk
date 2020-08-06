@@ -123,4 +123,11 @@ class UserModel extends Model
         }
         return $query;
     }
+
+    public function noTicket($idcustomer)
+    {
+        return $this->db->table('tickets')
+            ->where(array('idcustomer' => 'cs001'))
+            ->get()->getResultArray();
+    }
 }

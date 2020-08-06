@@ -134,6 +134,7 @@ class Admin extends BaseController
             $builder1 = $this->db->table('while_ticket');
             $builder1->where('id', $id);
             $data = [
+                'noticket' => $data['noticket'],
                 'status' => $ticketstatus
             ];
             $builder1->update($data);

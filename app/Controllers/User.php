@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\TicketModel;
 use CodeIgniter\I18n\Time;
 
 
@@ -17,6 +18,8 @@ class User extends BaseController
     // }
 
     protected $UserModel;
+    protected $TicketModel;
+
 
     public function __construct()
     {
@@ -26,6 +29,7 @@ class User extends BaseController
         helper('url');
         $session = \Config\Services::session();
         $this->UserModel = new UserModel();
+        $this->TicketModel = new TicketModel();
         $email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
         $this->db      = \Config\Database::connect();
@@ -33,8 +37,25 @@ class User extends BaseController
 
     public function index()
     {
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $while_ticket = $this->TicketModel->search_myassigment($search);
+        } else {
+            $while_ticket = $this->TicketModel;
+        }
+        // $idcustomer = session()->get('idcustomer');
+        // // dd($idcustomer);
+        // $noTicket = $this->UserModel->noTicket($idcustomer);
+        // dd($noTicket);
+
         $data = [
-            'title' => 'View Ticket Status'
+            'title' => 'View Ticket Status',
+            'count' => $this->db->table('while_ticket')->countAll(),
+            // 'statusticket' => $statusticket,
+            'while_ticket' => $while_ticket->paginate(3, 'while_ticket'),
+            'pager' => $this->TicketModel->pager,
+            // 'noTikcet' => $noTicket
         ];
         return view('v_ticket_status/index', $data);
     }
