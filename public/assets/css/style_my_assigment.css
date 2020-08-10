@@ -14,6 +14,26 @@ body {
   font-size: 12px;
 }
 
+.alert-pesan {
+  background-color: #0F0E20 !important;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.alert-failed,
+.alert-error {
+  background-color: #0F0E20 !important;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid #E32E22;
+}
+
 .logo {
   width: 60px;
   height: 60px;
@@ -411,7 +431,10 @@ div.content {
     height: 35px;
     border-radius: 5px;
     padding-top: 7px;
+    /* margin-top: -30px !important; */
     margin-left: 0px !important;
+    border-style: solid;
+    border: none;
   }
 }
 
@@ -461,14 +484,21 @@ div.content {
   line-height: 21px;
   color: white;
   border-radius: 5px;
-  padding-top: 7px;
+  /* padding-top: 2px; */
+  border-style: solid;
+  border: none;
+}
+
+.disable {
+  pointer-events: none;
+  cursor: default;
 }
 
 .btn-assign:hover {
   color: white;
   background-color: #1f3980;
   border-radius: 5px;
-  padding-top: 7px;
+  /* padding-top: 7px; */
   text-decoration: none;
 }
 
@@ -520,6 +550,13 @@ div.content {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+    /* margin-left: -210px; */
+  }
+
+  .myInput {
+    width: 400px !important;
+    margin-left: -200px;
+    ;
   }
 }
 

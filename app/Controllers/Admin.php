@@ -124,7 +124,7 @@ class Admin extends BaseController
             'problemdetail'  => $pdetail,
             'ticketstatus'  => $ticketstatus,
             'assigne'  => $assigne,
-            'assignedate'  => date("Y-m-d"),
+            // 'assignedate'  => date("Y-m-d"),
         ];
         // dd($data);
 

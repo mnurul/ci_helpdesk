@@ -14,9 +14,10 @@ class Teknisi extends BaseController
         // Termasuk cara oop
         // Cara 2 inisialisasi database
         helper('form');
-        $session = \Config\Services::session();
+        $this->session = \Config\Services::session();
         $this->TeknisiModel = new TeknisiModel();
-        $email = \Config\Services::email();
+        $this->pager = \Config\Services::pager();
+        $this->email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
         $this->db      = \Config\Database::connect();
     }
@@ -31,10 +32,43 @@ class Teknisi extends BaseController
 
     public function my_assigment()
     {
+
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $my_assigment = $this->TeknisiModel->search_tickets($search);
+        } else {
+            $my_assigment = $this->TeknisiModel->where('assigne', session()->get('iduser'));
+        }
+
+        $sla = $this->TeknisiModel->sla();
+        $count = $this->TeknisiModel->count();
+
         $data = [
-            'title' => 'My Assigment'
+            'title' => 'My Assigment',
+            'count' => $count,
+            'sla' => $sla,
+            'my_assigment' => $my_assigment->paginate(3, 'my_assigment'),
+            'pager' => $this->TeknisiModel->pager
         ];
         return view('my_assigment/index', $data);
+    }
+
+    public function proses_my_assigment()
+    {
+        $noticket = $this->request->getVar('noticket');
+        $cek = $this->TeknisiModel->cekTicket($noticket);
+
+        // dd($cek);
+
+        $builder = $this->db->table('tickets');
+        $builder->where('noticket', $noticket);
+        $data = [
+            'assignedate' => date("Y-m-d")
+        ];
+        $builder->update($data);
+        session()->setFlashdata('pesan', 'Proses Assigment kamu berhasil');
+        return redirect()->to(base_url('/teknisi/my_assigment'));
     }
 
     public function v_all_ticket()

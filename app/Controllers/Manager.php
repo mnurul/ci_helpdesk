@@ -3,11 +3,13 @@
 namespace App\Controllers;
 
 use App\Models\ManagerModel;
+use App\Models\TeknisiModel;
 
 
 class Manager extends BaseController
 {
     protected $ManagerModel;
+    protected $TeknisiModel;
 
     public function __construct()
     {
@@ -16,6 +18,8 @@ class Manager extends BaseController
         helper('form');
         $session = \Config\Services::session();
         $this->ManagerModel = new ManagerModel();
+        $this->TeknisiModel = new TeknisiModel();
+        $this->pager = \Config\Services::pager();
         $email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
         $this->db      = \Config\Database::connect();
@@ -31,8 +35,29 @@ class Manager extends BaseController
 
     public function v_all_ticket_m()
     {
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $tickets = $this->TeknisiModel->search_tickets($search);
+        } else {
+            // $tickets = $this->ManagerModel;
+            $tickets = $this->TeknisiModel;
+        }
+        // dd($manager);
+
+
+
+        $sla = $this->ManagerModel->sla();
+        // dd($sla);
+
+
         $data = [
-            'title' => 'View All Ticket'
+            'title' => 'View All Ticket',
+            'count' => $this->db->table('v_ticket')->countAll(),
+            'sla' => $sla,
+            // 'statusticket' => $statusticket,
+            'tickets' => $tickets->paginate(3, 'tickets'),
+            'pager' => $this->TeknisiModel->pager
         ];
         return view('v_all_ticket_m/index', $data);
     }

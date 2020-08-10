@@ -130,4 +130,11 @@ class UserModel extends Model
             ->where(array('idcustomer' => 'cs001'))
             ->get()->getResultArray();
     }
+
+    public function csNama($idcs)
+    {
+        return $this->db->table('customers')
+            ->where(array('idcustomer' => $idcs))
+            ->get()->getRowArray();
+    }
 }

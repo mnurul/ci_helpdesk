@@ -136,7 +136,7 @@
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="assigne">SLA</label>
+                                    <label class="title-1" for="assigne">Teknisi</label>
                                 </div>
                                 <div class="col-75">
                                     <select id="assigne" name="assigne" style="height:45px !important">

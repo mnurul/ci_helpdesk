@@ -91,6 +91,9 @@ class User extends BaseController
         $pdetail = $this->request->getPost('pdetail');
 
         $getProject = $this->UserModel->getProject($csproduct);
+        $idcs = session()->get('idcustomer');
+        $csNama = $this->UserModel->csNama($idcs);
+        // dd($csNama);
 
 
         $data = [
@@ -102,7 +105,8 @@ class User extends BaseController
             'reportby'  => $rby,
             'problemsummary'  => $psummary,
             'problemdetail'  => $pdetail,
-            'idcustomer' => session()->get('idcustomer')
+            'status'  => 'Not Approve',
+            'idcustomer' => $idcs
 
         ];
 
