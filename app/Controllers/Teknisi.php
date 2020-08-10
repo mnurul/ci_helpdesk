@@ -73,18 +73,74 @@ class Teknisi extends BaseController
 
     public function v_all_ticket()
     {
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $v_all_ticket = $this->TeknisiModel->search_tickets($search);
+        } else {
+            $v_all_ticket = $this->TeknisiModel->where('assigne', session()->get('iduser'));
+        }
+
+        $sla = $this->TeknisiModel->sla();
+        $count = $this->TeknisiModel->count();
+
         $data = [
-            'title' => 'View All Ticket'
+            'title' => 'View All Ticket',
+            'count' => $count,
+            'sla' => $sla,
+            'v_all_ticket' => $v_all_ticket->paginate(3, 'v_all_ticket'),
+            'pager' => $this->TeknisiModel->pager
         ];
         return view('v_all_ticket/index', $data);
     }
 
-    public function change_status_t()
+    public function change_status_t($idtickets)
     {
+        // dd($idtickets);
+
+        $tickets = $this->TeknisiModel->getTicket($idtickets);
+        // dd($tickets);
         $data = [
-            'title' => 'Change Status Ticket'
+            'title' => 'Change Status Ticket',
+            'tickets' => $tickets
+
         ];
         return view('change_status_t/index', $data);
+    }
+
+    public function proses_change_status($idtickets)
+    {
+        // $idticket = $this->request->getPost('idticket');
+        // dd($idtickets);
+        $status = $this->request->getPost('status');
+        $resolution = $this->request->getPost('resolution');
+
+        $data = [
+            'idtickets' => $idtickets,
+            'ticketstatus' => $status,
+            'resolution' => $resolution,
+            'resolveby' => session()->get('iduser'),
+            'resolvedate' => date("Y-m-d")
+
+        ];
+
+        // dd($data);
+
+        $builder = $this->db->table('tickets');
+        $builder->where('idtickets', $idtickets);
+        if ($builder->update($data)) {
+            // $builder1 = $this->db->table('v_ticket');
+            // $builder1->where('idtickets', $idtickets);
+            // $data = [
+            //     'ticketstatus' => $status
+            // ];
+            // $builder1->update($data);
+            session()->setFlashdata('pesan', 'Tiket kamu berhasil diubah');
+            return redirect()->to(base_url('teknisi/v_all_ticket'));
+        } else {
+            session()->setFlashdata('failed', 'Tiket kamu belum berhasil diubah');
+            return redirect()->to(base_url('teknisi/change_status_t'));
+        }
     }
 
     public function change_password_t()
