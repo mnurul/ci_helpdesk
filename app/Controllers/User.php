@@ -54,7 +54,7 @@ class User extends BaseController
             'count' => $this->db->table('while_ticket')->countAll(),
             // 'statusticket' => $statusticket,
             'while_ticket' => $while_ticket->paginate(3, 'while_ticket'),
-            'pager' => $this->TicketModel->pager,
+            'pager' => $this->TicketModel->pager
             // 'noTikcet' => $noTicket
         ];
         return view('v_ticket_status/index', $data);

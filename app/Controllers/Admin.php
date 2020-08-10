@@ -5,6 +5,7 @@ namespace App\Controllers;
 use App\Models\AdminModel;
 use App\Models\CustomerModel;
 use App\Models\TicketModel;
+use App\Models\TeknisiModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -14,6 +15,7 @@ class Admin extends BaseController
     protected $AdminModel;
     protected $CustomerModel;
     protected $TicketModel;
+    protected $TeknisiModel;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class Admin extends BaseController
         $this->AdminModel = new AdminModel();
         $this->CustomerModel = new CustomerModel();
         $this->TicketModel = new TicketModel();
+        $this->TeknisiModel = new TeknisiModel();
         $email = \Config\Services::email();
         $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
@@ -181,26 +184,86 @@ class Admin extends BaseController
 
     public function v_all_ticket_a()
     {
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $v_all_ticket_a = $this->TeknisiModel->search_tickets($search);
+        } else {
+            $v_all_ticket_a = $this->TeknisiModel;
+        }
+
+        $sla = $this->TeknisiModel->sla();
+        $count = $this->TeknisiModel->count();
+
         $data = [
-            'title' => 'View All Ticket'
+            'title' => 'View All Ticket',
+            'count' => $this->db->table('v_ticket')->countAll(),
+            'sla' => $sla,
+            'v_all_ticket_a' => $v_all_ticket_a->paginate(3, 'v_all_ticket_a'),
+            'pager' => $this->TeknisiModel->pager
         ];
         return view('v_all_ticket_a/index', $data);
     }
 
     public function popular_solution()
     {
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $popular_solution = $this->TeknisiModel->search_tickets($search);
+        } else {
+            $popular_solution = $this->TeknisiModel->where('ticketstatus', 'Resolved');
+        }
+
+        $sla = $this->TeknisiModel->sla();
+        $count = $this->TeknisiModel->count();
+
         $data = [
-            'title' => 'Popular Solution'
+            'title' => 'Popular Solution',
+            'count' => $this->db->table('v_ticket')->countAll(),
+            'sla' => $sla,
+            'popular_solution' => $popular_solution->paginate(3, 'v_all_ticket'),
+            'pager' => $this->TeknisiModel->pager
         ];
         return view('popular_solution/index', $data);
     }
 
-    public function detail_popular_solution()
+    public function detail_popular_solution($idtickets)
     {
+        $tickets = $this->TeknisiModel->getTicket($idtickets);
+
         $data = [
-            'title' => 'Detail Popular Solution'
+            'title' => 'Detail Popular Solution',
+            'tickets' => $tickets
         ];
         return view('detail_popular_solution/index', $data);
+    }
+
+    public function proses_popular_solution($idtickets)
+    {
+        // dd($idtickets);
+        $data = [
+            'idtickets' => $idtickets,
+            'ticketstatus' => 'Closed',
+            'closeby' => session()->get('iduser'),
+            'closedate' => date("Y-m-d"),
+        ];
+
+        $builder = $this->db->table('tickets');
+        $builder->where('idtickets', $idtickets);
+        if ($builder->update($data)) {
+            // $builder1 = $this->db->table('v_ticket');
+            // $builder1->where('idtickets', $idtickets);
+            // $data = [
+            //     'ticketstatus' => $status
+            // ];
+            // $builder1->update($data);
+            session()->setFlashdata('pesan', 'Tiket kamu berhasil diubah');
+            return redirect()->to(base_url('admin/popular_solution'));
+        } else {
+            session()->setFlashdata('failed', 'Tiket kamu belum berhasil diubah');
+            return redirect()->to(base_url('admin/detail_popular_solution'));
+        }
     }
 
     public function pivot_table_a()

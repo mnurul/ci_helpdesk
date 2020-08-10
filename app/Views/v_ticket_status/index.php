@@ -156,8 +156,9 @@
                                     <a href="#" class="btn btn-status">Status</a>
                                 </div>
                             </div> -->
-                        </div>
+                        </div><br><br>
                         <?= $pager->links('while_ticket', 'user_pagination') ?>
+
                         <a href="<?= base_url(); ?>/user/" title="Back to view all data">
                             <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count; ?></h6>
                         </a>

@@ -41,69 +41,100 @@
                 <h2 class="title font-weight-bold">Detail Popular Solution</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
-                        <form action="/action_page.php">
+                        <?php
+                        $pesan = session()->getFlashdata('pesan');
+                        $failed = session()->getFlashdata('failed');
+                        $inputs = session()->getFlashdata('inputs');
+                        $errors = session()->getFlashdata('errors');
+                        if (!empty($pesan)) { ?>
+                            <div class="alert alert-success alert-pesan" role="alert">
+                                <?= $pesan; ?>
+                            </div>
+                        <?php } elseif (!empty($failed)) { ?>
+                            <div class="alert alert-danger alert-failed" role="alert">
+                                <?= $failed; ?>
+                            </div>
+                        <?php } elseif (!empty($errors)) { ?>
+                            <div class="alert alert-danger alert-error" role="alert">
+                                <ul>
+                                    <?php foreach ($errors as $error) : ?>
+                                        <li style="margin-left: -10px;"><?= esc($error) ?></li>
+                                    <?php endforeach ?>
+                                </ul>
+                            </div>
+                        <?php }
+                        ?>
+                        <form action="/admin/proses_popular_solution/<?= $tickets['idtickets']; ?>" method="POST">
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="idticket" hidden>Id Ticket</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="idticket" name="idticket" value="<?= $tickets['idtickets']; ?>" hidden>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="customer">Customer</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="customer" name="customer">
+                                    <input type="text" id="customer" name="customer" value="<?= $tickets['csnama']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="r-date">Report Date</label>
+                                    <label class="title-1" for="rdate">Report Date</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="r-date" name="r-date">
+                                    <input type="text" id="rdate" name="rdate" value="<?= $tickets['reportdate']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="p-summary">Problem Summary</label>
+                                    <label class="title-1" for="psummary">Problem Summary</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="p-summary" name="p-summary">
+                                    <input type="text" id="psummary" name="psummary" value="<?= $tickets['problemsummary']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="p-detail">Problem Detail</label>
+                                    <label class="title-1" for="pdetail">Problem Detail</label>
                                 </div>
                                 <div class="col-75">
                                     <!-- <input type="text" id="p-detail" name="p-detail"> -->
-                                    <textarea class="form-control mb-2" id="p-detail" name="p-detail" rows=" 3" style="width: 276px !important;"></textarea>
+                                    <textarea class="form-control mb-2" id="pdetail" name="pdetail" rows=" 3" style="width: 276px !important;"><?= $tickets['problemdetail']; ?></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="resolve">Resolve</label>
+                                    <label class="title-1" for="resolution">Resolve</label>
                                 </div>
                                 <div class="col-75">
-                                    <textarea class="form-control mb-2" id="resolve" name="resolve" rows=" 3" style="width: 276px !important;"></textarea>
+                                    <textarea class="form-control mb-2" id="resolution" name="resolution" rows=" 3" style="width: 276px !important;"><?= $tickets['resolution']; ?></textarea>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="resolve-by">Resolve By</label>
+                                    <label class="title-1" for="resolveby">Resolve By</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="resolve-by" name="resolve-by">
+                                    <input type="text" id="resolveby" name="resolveby" value="<?= $tickets['username']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-75">
                                     <!-- <button type="submit" class="btn-ticket">Submit</button> -->
-                                    <div class="row">
-                                        <!-- <div class="col">
+                                    <!-- <div class="row"> -->
+                                    <!-- <div class="col">
                                             <a href="" class="btn btn-edit">Edit</a>
                                         </div>
                                         <div class="col">
                                             <a href="" class="btn btn-delete">Delete</a>
                                         </div> -->
-                                        <a href="" class="btn btn-edit">Closed</a>
-
-                                    </div>
+                                    <!-- <a href="" class="btn btn-edit">Closed</a> -->
+                                    <!-- </div> -->
+                                    <button type="submit" class="btn btn-edit">Closed</button>
                                 </div>
                             </div>
                         </form>

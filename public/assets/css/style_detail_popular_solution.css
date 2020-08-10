@@ -15,6 +15,27 @@ body {
   font-size: 12px;
 }
 
+.alert-pesan {
+  background-color: #0F0E20 !important;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.alert-failed,
+.alert-error {
+  background-color: #0F0E20 !important;
+  font-family: Montserrat, sans-serif;
+  font-weight: 400;
+  line-height: 24px;
+  font-size: 14px;
+  color: #ffffff;
+  border: 1px solid #E32E22;
+}
+
+
 .logo {
   width: 60px;
   height: 60px;
@@ -195,8 +216,8 @@ option {
 .btn-edit {
   height: 35px;
   border-radius: 5px;
-  margin-top: 5px !important;
-  margin-left: 282px;
+  margin-top: 0 !important;
+  margin-left: 267px;
   background-color: #244295;
   font-family: Montserrat, sans-serif;
   font-style: bold;
@@ -270,7 +291,7 @@ option {
   }
 
   .btn-edit {
-    margin-left: 30px;
+    margin-left: 15px;
     margin-top: 20px !important;
   }
 

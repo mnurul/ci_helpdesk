@@ -68,10 +68,10 @@
                         <form action="/teknisi/proses_change_status/<?= $tickets['idtickets']; ?>" method="POST">
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="idticket">Id Ticket</label>
+                                    <label class="title-1" for="idticket" hidden>Id Ticket</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="idticket" name="idticket" value="<?= $tickets['idtickets']; ?>">
+                                    <input type="text" id="idticket" name="idticket" value="<?= $tickets['idtickets']; ?>" hidden>
                                 </div>
                             </div>
                             <div class="row">
