@@ -1,8 +1,4 @@
-<?php
-
-use Config\Validation;
-?>
-<?= $this->extend('create_project/template'); ?>
+<?= $this->extend('detail_project/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -42,7 +38,7 @@ use Config\Validation;
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
             <div style="padding-left:30px;margin-top:15px; ">
-                <h2 class="title font-weight-bold">Create Project</h2>
+                <h2 class="title font-weight-bold">Detail Project</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
                         <?php
@@ -68,13 +64,13 @@ use Config\Validation;
                             </div>
                         <?php }
                         ?>
-                        <form action="/admin/create_pjt" method="post">
+                        <form action="/admin/edit_project/<?= $project['idproject']; ?>" method="post">
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="idproject">Id Project</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="idproject" name="idproject" placeholder="Last <?= $builder['idproject']  ?>" autofocus required>
+                                    <input type="text" id="idproject" name="idproject" autofocus value="<?= (old('idproject')) ? old('idproject') : $project['idproject']; ?>" readonly>
                                 </div>
                             </div>
                             <div class="row">
@@ -82,7 +78,7 @@ use Config\Validation;
                                     <label class="title-1" for="namaproject">Nama Project</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="namaproject" name="namaproject" required>
+                                    <input type="text" id="namaproject" name="namaproject" value="<?= (old('namaproject')) ? old('namaproject') : $project['namaproject']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -90,20 +86,30 @@ use Config\Validation;
                                     <label class="title-1" for="csnama">Nama Customer</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="csnama" name="csnama" style="height:45px !important;" required>
+                                    <select id="csnama" name="csnama" style="height:45px !important;">
+                                        <!-- <option value="" ></option> -->
+                                        <option value="<?= $project['idcustomer'] ?>" selected> <?= $project['csnama']; ?></option>
                                         <?php foreach ($customer as $u) : ?>
-                                            <option value="<?= $u['idcustomer'] ?>"><?= $u['csnama'] ?></option>
+                                            <option value="<?= $u['idcustomer'] ?>" <?= ($u['idcustomer'] == $project['idcustomer'] ? 'hidden' : $u['csnama']) ?>><?= $u['csnama'] ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
                             </div>
+                            <!-- <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="csnama">Nama Customer</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="csnama" name="csnama" value="<?= (old('csnama')) ? old('csnama') : $project['csnama']; ?>">
+                                </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="dbegin">Delivery Begin</label>
                                     <!-- <label class="title-3" for="dbegin">Delivery Begin</label> -->
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="dbegin" name="dbegin" required>
+                                    <input type="date" id="dbegin" name="dbegin" value="<?= (old('dbegin')) ? old('dbegin') : $project['deliveyrbegin']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -112,7 +118,7 @@ use Config\Validation;
                                     <!-- <label class="title-1" for="dend">Delivery End</label> -->
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="dend" name="dend" required>
+                                    <input type="date" id="dend" name="dend" value="<?= (old('dend')) ? old('dend') : $project['deliveryend']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -120,7 +126,7 @@ use Config\Validation;
                                     <label class="title-1" for="idate">Install Date</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="idate" name="idate" required>
+                                    <input type="date" id="idate" name="idate" value="<?= (old('idate')) ? old('idate') : $project['installdate']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -128,7 +134,7 @@ use Config\Validation;
                                     <label class="title-1" for="iend">Install End</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="iend" name="iend" required>
+                                    <input type="date" id="iend" name="iend" value="<?= (old('iend')) ? old('iend') : $project['installend']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -136,7 +142,7 @@ use Config\Validation;
                                     <label class="title-1" for="uatbegin">UAT Begin</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="uatbegin" name="uatbegin" required>
+                                    <input type="date" id="uatbegin" name="uatbegin" value="<?= (old('uatbegin')) ? old('uatbegin') : $project['uatbegin']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -144,7 +150,7 @@ use Config\Validation;
                                     <label class="title-1" for="uatend">UAT End</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="uatend" name="uatend" required>
+                                    <input type="date" id="uatend" name="uatend" value="<?= (old('uatend')) ? old('uatend') : $project['uatend']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -152,7 +158,7 @@ use Config\Validation;
                                     <label class="title-1" for="billstartd">Bill Start Date</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="billstartd" name="billstartd" required>
+                                    <input type="date" id="billstartd" name="billstartd" value="<?= (old('billstartd')) ? old('billstartd') : $project['billstartdate']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -160,7 +166,7 @@ use Config\Validation;
                                     <label class="title-1" for="billduee">Bill Due End</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="billduee" name="billduee" required>
+                                    <input type="date" id="billduee" name="billduee" value="<?= (old('billduee')) ? old('billduee') : $project['billdueend']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -168,7 +174,7 @@ use Config\Validation;
                                     <label class="title-1" for="wperiod">Waranty Period</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="number" id="wperiod" name="wperiod" required>
+                                    <input type="text" id="wperiod" name="wperiod" value="<?= (old('wperiod')) ? old('wperiod') : $project['warantyperiod']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -176,7 +182,7 @@ use Config\Validation;
                                     <label class="title-1" for="cstartdate">Contract Start Date</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="date" id="cstartdate" name="cstartdate" required>
+                                    <input type="date" id="cstartdate" name="cstartdate" value="<?= (old('cstartdate')) ? old('cstartdate') : $project['contractstartdate']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -184,17 +190,106 @@ use Config\Validation;
                                     <label class="title-1" for="cenddate">Contract End Date</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="number" id="cenddate" name="cenddate" required>
+                                    <input type="text" id="cenddate" name="cenddate" value="<?= (old('cenddate')) ? old('cenddate') : $project['contractenddate']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-75">
-                                    <button type="submit" class="btn-ticket">Submit</button>
+                                    <!-- <button type="submit" class="btn-ticket">Submit</button> -->
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="submit" class="btn btn-edit">Edit</button>
+                                            <!-- <a href="/admin/edit_user/<?= $project['idproject']; ?>" class="btn btn-edit">Edit</a> -->
+                                        </div>
+                                        <div class="col">
+                                            <!-- <form action="/admin/delete/<?= $project['idproject']; ?>" method="POST" class="d-inline">
+                                                <?= csrf_field(); ?>
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah anda yakin?');">Delete</button>
+                                            </form> -->
+                                            <!-- <a href="" class="btn btn-delete">Delete</a> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="row">
+                            <div class="col-75">
+                                <!-- <button type="submit" class="btn-ticket">Submit</button> -->
+                                <div class="row">
+                                    <div class="col">
+                                        <!-- <button type="submit" class="btn btn-edit">Edit</button> -->
+                                        <!-- <a href="/admin/edit_user/<?= $project['idproject']; ?>" class="btn btn-edit">Edit</a> -->
+                                    </div>
+                                    <div class="col">
+                                        <form action="/project/<?= $project['idproject']; ?>" method="post" class="d-inline">
+                                            <!-- Fitur keamanan ci4 buat form!-- -->
+                                            <?= csrf_field(); ?>
+                                            <input type="hidden" name="_method" value="DELETE">
+                                            <button type="submit" class="btn btn-delete" onclick="return confirm('Apakah anda yakin?');">Delete</button>
+                                        </form>
+                                        <!-- <a href="" class="btn btn-delete">Delete</a> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="card mt-3 mb-5">
+                    <div class="card-body">
+                        <form action="/action_page.php">
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="n-ticket">No Ticket</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="n-ticket" name="n-ticket">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="r-date">Reported Date</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="r-date" name="r-date">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="p-summary">Problem Summary</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="p-summary" name="p-summary" placeholder="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="date">Date</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="date" name="date" placeholder="">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="teknisi">Teknisi</label>
+                                </div>
+                                <div class="col-75">
+                                    <select id="teknisi" name="teknisi" style="padding-top: -30px !important;">
+                                        <option value=""></option>
+                                        <option value="Teknisi">Teknisi</option>
+                                        <option value="Teknisi">Teknisi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-75">
+                                    <button type="submit" class="btn btn-ticket">Submit</button>
                                 </div>
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>

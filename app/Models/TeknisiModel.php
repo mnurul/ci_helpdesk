@@ -92,6 +92,22 @@ class TeknisiModel extends Model
             ->countAllResults();
     }
 
+    public function count_closed($iduser)
+    {
+        return $this->db->table('v_ticket')
+            ->where(array('assigne' => $iduser))
+            // ->where(array('assigne' => session()->get('iduser')))
+            // ->where('ticketstatus', 'Closed')
+            ->countAllResults();
+    }
+
+    public function count_resolve()
+    {
+        return $this->db->table('v_ticket')
+            ->where(array('assigne' => session()->get('iduser'), 'ticketstatus' => 'Resolved'))
+            ->countAllResults();
+    }
+
     public function cekTicket($noticket)
     {
         return $this->db->table('tickets')

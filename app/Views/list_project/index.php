@@ -1,4 +1,4 @@
-<?= $this->extend('popular_solution/template'); ?>
+<?= $this->extend('list_project/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -26,23 +26,28 @@
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
-                    <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
-                    <!-- <a href=" <?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
+                    <!-- <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
                     <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
-                    <a href="<?= base_url(); ?>/admin/list_user">Users</a>
+                    <!-- <a href="<?= base_url(); ?>/admin/create_user">Create User</a> -->
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
-                    <h2 class="title font-weight-bold">Popular Solution</h2>
+                    <h2 class="title font-weight-bold">List Project</h2>
                     <div class="card bg-card mt-3 mb-5">
                         <div class="card-body">
-                            <div class="myInput">
-                                <form action="" method="post">
-                                    <div class="input-group col-7 justify-content-center " style="margin-left: 195px !important;">
-                                        <input type="text" class="form-control" name="search" style="width:543px !important;" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
-                                    </div>
-                                </form>
-                            </div>
+                            <a href="<?= base_url(); ?>/admin/create_project" class="a-user ">Create Project</a>
+                            <!-- <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                </div>
+                            </div> -->
+                            <form action="" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
+                                </div>
+
+                            </form>
                             <?php
                             $pesan = session()->getFlashdata('pesan');
                             $failed = session()->getFlashdata('failed');
@@ -53,7 +58,7 @@
                                     <?= $pesan; ?>
                                 </div>
                             <?php } elseif (!empty($failed)) { ?>
-                                <div class="alert alert-danger alert-failed" role="alert">
+                                <div class="alert alert-danger alert-failed " role="alert">
                                     <?= $failed; ?>
                                 </div>
                             <?php } elseif (!empty($errors)) { ?>
@@ -67,22 +72,24 @@
                             <?php }
                             ?>
                             <div class="row">
-                                <?php foreach ($popular_solution as $t) : ?>
+
+                                <?php $no = 0; ?>
+                                <?php foreach ($list_project as $u) : ?>
                                     <div class="column">
                                         <div class="card">
                                             <div class="row no-gutters">
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle st-ticket text-muted mb-2"><?= $t['csnama']; ?></h6>
+                                                    <h6 class="card-subtitle st-ticket text-muted mb-2"><?= $u['idproject']; ?></h6>
+                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $u['warantyperiod']; ?></h6>
                                                 </div>
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $t['reportdate']; ?></h6>
+                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['csnama']; ?></h6>
+                                                    <h6 class="card-subtitle st-date text-muted"><?= $u['contractenddate']; ?></h6>
                                                 </div>
                                             </div>
                                             <hr style="margin-top: 10px;">
-                                            <h5 class="card-title text"><?= $t['problemsummary']; ?></h5>
-                                            <div class="btn-assign" datahover="test" title="<?= ($t['ticketstatus'] == 'Closed' ? 'Ticket ini udah kamu Closed'   : null) ?>">
-                                                <a href="<?= base_url(); ?>/admin/detail_popular_solution/<?= $t['idtickets']; ?>" class="a-assign <?= ($t['ticketstatus'] == 'Closed' ? 'disable'   : null) ?>">Detail</a>
-                                            </div>
+                                            <h5 class="card-title text"><?= $u['namaproject']; ?></h5>
+                                            <a href="<?= base_url(); ?>/admin/detail_project/<?= $u['idproject']; ?>" class=" btn-assign">Detail</a>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -90,66 +97,27 @@
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">Customer</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Problem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_popular_solution" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">Customer</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Problem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_popular_solution" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">Customer</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Problem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_popular_solution" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">Customer</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Problem Summary</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_popular_solution" class=" btn-assign">Detail</a>
+                                        <h5 class="card-title text">Username</h5>
+                                        <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
                                     </div>
                                 </div> -->
+
+
+
+
+
+
                             </div>
-                            <?= $pager->links('popular_solution', 'user_pagination') ?>
-                            <a href="<?= base_url(); ?>/teknisi/popular_solution" title="Back to view all data">
-                                <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count_resolve; ?></h6>
+                            <?= $pager->links('users', 'user_pagination') ?>
+                            <a href="<?= base_url(); ?>/admin/list_user" title="Back to view all data">
+                                <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count; ?></h6>
                             </a>
                             <!-- <div class="pagination justify-content-center ">
                                 <a href="#">&laquo;</a>

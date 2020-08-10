@@ -6,6 +6,7 @@ use App\Models\AdminModel;
 use App\Models\CustomerModel;
 use App\Models\TicketModel;
 use App\Models\TeknisiModel;
+use App\Models\ProjectModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -16,6 +17,7 @@ class Admin extends BaseController
     protected $CustomerModel;
     protected $TicketModel;
     protected $TeknisiModel;
+    protected $ProjectModel;
 
     public function __construct()
     {
@@ -27,6 +29,7 @@ class Admin extends BaseController
         $this->CustomerModel = new CustomerModel();
         $this->TicketModel = new TicketModel();
         $this->TeknisiModel = new TeknisiModel();
+        $this->ProjectModel = new ProjectModel();
         $email = \Config\Services::email();
         $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
@@ -168,16 +171,37 @@ class Admin extends BaseController
 
     public function w_for_close()
     {
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $w_for_close = $this->TeknisiModel->search_tickets($search);
+        } else {
+            $w_for_close = $this->TeknisiModel->where('ticketstatus', 'Closed');
+        }
+
+        $sla = $this->TeknisiModel->sla();
+        // $iduser = session()->get('iduser');
+        // dd($idusers);
+        // $count_closed = $this->TeknisiModel->count_closed($iduser);
+        // dd($count_closed);
+
         $data = [
-            'title' => 'Waiting for Close'
+            'title' => 'Waiting for Close',
+            'count_closed' => $this->db->table('v_ticket')->where('ticketstatus', 'Closed')->countAllResults(),
+            'sla' => $sla,
+            'w_for_close' => $w_for_close->paginate(3, 'w_for_close'),
+            'pager' => $this->TeknisiModel->pager
         ];
         return view('w_for_close/index', $data);
     }
 
-    public function detail_w_for_close()
+    public function detail_w_for_close($idtickets)
     {
+        $tickets = $this->TeknisiModel->getTicket($idtickets);
+
         $data = [
-            'title' => 'Detail Waiting for Close'
+            'title' => 'Detail Waiting for Close',
+            'tickets' => $tickets
         ];
         return view('detail_w_for_close/index', $data);
     }
@@ -216,11 +240,11 @@ class Admin extends BaseController
         }
 
         $sla = $this->TeknisiModel->sla();
-        $count = $this->TeknisiModel->count();
+        $count_resolve = $this->TeknisiModel->count_resolve();
 
         $data = [
             'title' => 'Popular Solution',
-            'count' => $this->db->table('v_ticket')->countAll(),
+            'count_resolve' => $count_resolve,
             'sla' => $sla,
             'popular_solution' => $popular_solution->paginate(3, 'v_all_ticket'),
             'pager' => $this->TeknisiModel->pager
@@ -623,6 +647,175 @@ class Admin extends BaseController
         return redirect()->to(base_url('/admin/list_user'));
     }
 
+    public function list_project()
+    {
+        // getVar() bisa ambil get dan post
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $list_project = $this->ProjectModel->search_project($search);
+        } else {
+            $list_project = $this->ProjectModel;
+        }
+        $data = [
+            'title' => 'List Project',
+            // 'count' => $this->AdminModel->getUser(),
+            'count' => $this->db->table('v_project')->countAll(),
+            // 'user' => $this->AdminModel->paginate(3, 'users'),
+            'list_project' => $list_project->paginate(3, 'list_project'),
+            'pager' => $this->ProjectModel->pager
+        ];
+        return view('list_project/index', $data);
+    }
+
+    public function detail_project($idproject)
+    {
+        // $iduser = $this->request->getVar('iduser');
+        // dd($iduser);
+
+        $data = [
+            'title' => 'Detail Project',
+            'project' => $this->ProjectModel->getProject($idproject),
+            'customer' => $this->ProjectModel->getCustomer(),
+        ];
+        // dd($data);
+        return view('detail_project/index', $data);
+    }
+
+    public function edit_project($idproject)
+    {
+        $idproject   = $this->request->getPost('idproject');
+        $namaproject   = $this->request->getPost('namaproject');
+        $csnama   = $this->request->getPost('csnama');
+        $dbegin   = $this->request->getPost('dbegin');
+        $dend   = $this->request->getPost('dend');
+        $idate   = $this->request->getPost('idate');
+        $iend   = $this->request->getPost('iend');
+        $uatbegin   = $this->request->getPost('uatbegin');
+        $uatend   = $this->request->getPost('uatend');
+        $billstartd   = $this->request->getPost('billstartd');
+        $billduee   = $this->request->getPost('billduee');
+        $wperiod   = $this->request->getPost('wperiod');
+        $cstartdate   = $this->request->getPost('cstartdate');
+        $cenddate   = $this->request->getPost('cenddate');
+
+        $data = [
+            'idproject'  => $idproject,
+            'namaproject'  => $namaproject,
+            'idcustomer'  => $csnama,
+            'deliveyrbegin'  => $dbegin,
+            'deliveryend'  => $dend,
+            'installdate'  => $idate,
+            'installend'  => $iend,
+            'uatbegin'  => $uatbegin,
+            'uatend'  => $uatend,
+            'billstartdate'  => $billstartd,
+            'billdueend'  => $billduee,
+            'warantyperiod'  => $wperiod,
+            'contractstartdate'  => $cstartdate,
+            'contractenddate'  => $cenddate,
+        ];
+        // dd($data);
+
+        $builder = $this->db->table('projects');
+        $builder->where('idproject', $data['idproject']);
+        if ($builder->update($data)) {
+            session()->setFlashdata('pesan', 'Data kamu berhasil diubah');
+            return redirect()->to(base_url('/admin/list_project'));
+        } else {
+            session()->setFlashdata('failed', 'Data kamu belum berhasil diubah');
+            return redirect()->to(base_url('/admin/detail_project'));
+        }
+    }
+
+    public function delete_pjt($idproject)
+    {
+        // Cara delete konvensional, minus nya bisa dihapus lewat url
+        // dd($iduser);
+        $builder = $this->db->table('projects');
+        $builder->where('idproject', $idproject);
+        if ($builder->delete()) {
+
+
+            // $this->CustomerModel->where('idcustomer', $idcustomer);
+            // $this->CustomerModel->delete($idcustomer);
+            // primary key iduser ada di model.php (vebdor->codeigniter4->Model.php)
+            // $builder = $this->db->table('users');
+            // $builder->where('iduser', $iduser);
+            // $builder->delete();
+            session()->setFlashdata('pesan', 'Data berhasil dihapus');
+            return redirect()->to(base_url('/admin/list_project'));
+        } else {
+            session()->setFlashdata('failed', 'Data belum berhasil dihapus ');
+            return redirect()->to(base_url('/admin/detail_customer'));
+        }
+    }
+
+    public function create_project()
+    {
+        // $db      = \Config\Database::connect();
+        // $builder = $this->db->table('users');
+
+        // $builder->orderBy('iduser', 'DESC');
+        // $builder->limit(1);
+        // $query   = $builder->get();
+        $builder = $this->ProjectModel->viewIdproject();
+
+        // dd($builder);
+        $data = [
+            'title' => 'Create Project',
+            'builder' => $builder,
+            'customer' => $this->ProjectModel->getCustomer(),
+
+        ];
+        return view('create_project/index', $data);
+    }
+
+    public function create_pjt()
+    {
+        $idproject   = $this->request->getPost('idproject');
+        $namaproject   = $this->request->getPost('namaproject');
+        $csnama   = $this->request->getPost('csnama');
+        $dbegin   = $this->request->getPost('dbegin');
+        $dend   = $this->request->getPost('dend');
+        $idate   = $this->request->getPost('idate');
+        $iend   = $this->request->getPost('iend');
+        $uatbegin   = $this->request->getPost('uatbegin');
+        $uatend   = $this->request->getPost('uatend');
+        $billstartd   = $this->request->getPost('billstartd');
+        $billduee   = $this->request->getPost('billduee');
+        $wperiod   = intval($this->request->getPost('wperiod'));
+        $cstartdate   = $this->request->getPost('cstartdate');
+        $cenddate   = intval($this->request->getPost('cenddate'));
+
+        $data = [
+            'idproject'  => $idproject,
+            'namaproject'  => $namaproject,
+            'idcustomer'  => $csnama,
+            'deliveyrbegin'  => $dbegin,
+            'deliveryend'  => $dend,
+            'installdate'  => $idate,
+            'installend'  => $iend,
+            'uatbegin'  => $uatbegin,
+            'uatend'  => $uatend,
+            'billstartdate'  => $billstartd,
+            'billdueend'  => $billduee,
+            'warantyperiod'  => $wperiod,
+            'contractstartdate'  => $cstartdate,
+            'contractenddate'  => $cenddate,
+        ];
+        // dd($data);
+
+        $builder = $this->db->table('projects');
+        if ($builder->insert($data)) {
+            session()->setFlashdata('pesan', 'Data kamu berhasil ditambahkan');
+            return redirect()->to(base_url('/admin/list_project'));
+        } else {
+            session()->setFlashdata('pesan', 'Data kamu belum berhasil ditambahkan');
+            return redirect()->to(base_url('/admin/create_project'));
+        }
+    }
+
     public function list_customer()
     {
         // getVar() bisa ambil get dan post
@@ -836,13 +1029,13 @@ class Admin extends BaseController
 
     }
 
-    public function create_project()
-    {
-        $data = [
-            'title' => 'Create Project'
-        ];
-        return view('create_project/index', $data);
-    }
+    // public function create_project()
+    // {
+    //     $data = [
+    //         'title' => 'Create Project'
+    //     ];
+    //     return view('create_project/index', $data);
+    // }
 
     public function change_status()
     {

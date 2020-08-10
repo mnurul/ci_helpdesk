@@ -47,15 +47,15 @@
                                     <label class="title-1" for="no-ticket">No Ticket</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="no-ticket" name="no-ticket">
+                                    <input type="text" id="no-ticket" name="no-ticket" value="<?= $tickets['noticket']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="urgency">Urgency</label>
+                                    <label class="title-1" for="sla">SLA</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="urgency" name="urgency">
+                                    <input type="text" id="sla" name="sla" value="<?= $tickets['namasla']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -63,31 +63,31 @@
                                     <label class="title-1" for="customer">Customer</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="customer" name="customer">
+                                    <input type="text" id="customer" name="customer" value="<?= $tickets['csnama']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="r-date">Report Date</label>
+                                    <label class="title-1" for="rdate">Report Date</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="r-date" name="r-date">
+                                    <input type="text" id="rdate" name="rdate" value="<?= $tickets['reportdate']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="r-by">Report By</label>
+                                    <label class="title-1" for="rby">Report By</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="r-by" name="r-by">
+                                    <input type="text" id="rby" name="rby" value="<?= $tickets['reportby']; ?>">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="p-summary">Promblem Summary</label>
+                                    <label class="title-1" for="psummary">Promblem Summary</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="p-summary" name="p-summary">
+                                    <input type="text" id="psummary" name="psummary" value="<?= $tickets['problemsummary']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -95,7 +95,7 @@
                                     <label class="title-1" for="status">Status</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="status" name="status">
+                                    <input type="text" id="status" name="status" value="<?= $tickets['ticketstatus']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -103,7 +103,7 @@
                                     <label class="title-1" for="assign">Assign</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="assign" name="assign">
+                                    <input type="text" id="assign" name="assign" value="<?= $tickets['username']; ?>">
                                 </div>
                             </div>
                             <!-- <div class="row">

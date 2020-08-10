@@ -94,7 +94,7 @@
                                     <label class="title-1" for="level">Level</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="level" name="level" style="padding-top: -30px !important;">
+                                    <select id="level" name="level" style="height:45px !important;">
                                         <!-- <option value="" ></option> -->
                                         <option value="<?= (old('level')) ? old('level') : $user['level']; ?>" selected><?= ucwords($user['level']); ?></option>
                                         <option value="customer" <?= ($user['level'] == 'customer' ? 'hidden' : 'customer') ?>>Customer</option>

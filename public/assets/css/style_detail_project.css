@@ -136,6 +136,32 @@ body {
   color: #ffffff;
 }
 
+.title-3 {
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #ffffff;
+  display: block;
+  margin-top: -55px !important;
+  position: absolute;
+  margin-left: 550px !important;
+}
+
+.input-3 {
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  /* color: #ffffff; */
+  display: block;
+  margin-top: -55px !important;
+  position: absolute;
+  margin-left: 500px !important;
+}
+
 /* Form Create Ticket */
 
 * {
@@ -161,7 +187,6 @@ body {
 input[type="text"],
 input[type="date"],
 input[type="email"],
-input[type="number"],
 input[type="password"],
 select,
 textarea {
@@ -178,9 +203,8 @@ textarea {
 }
 
 input[type="text"]:focus,
-input[type="email"]:focus,
 input[type="date"]:focus,
-input[type="number"]:focus,
+input[type="email"]:focus,
 input[type="password"]:focus,
 textarea:focus,
 select:focus {
@@ -216,7 +240,7 @@ option {
   clear: both;
 }
 
-.btn-ticket {
+.btn-edit {
   height: 35px;
   border-radius: 5px;
   margin-top: 5px !important;
@@ -228,11 +252,28 @@ option {
   font-size: 14px;
   line-height: 21px;
   color: white;
-  width: 273px;
+  width: 120px;
   border: none;
 }
 
-.btn-ticket:hover {
+.btn-delete {
+  height: 35px;
+  border-radius: 5px;
+  margin-top: -75px !important;
+  margin-left: 5px;
+  background-color: #244295;
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: white;
+  width: 120px;
+  border: none;
+}
+
+.btn-edit:hover,
+.btn-delete:hover {
   color: white;
   background-color: #1f3980;
 }
@@ -247,13 +288,38 @@ option {
   }
 
   input[type="text"],
-  input[type="number"],
-  input[type="email"],
   input[type="date"],
+  input[type="email"],
   input[type="password"],
   select,
   textarea {
     margin-left: 15px !important;
+  }
+
+  .title-4 {
+    margin-top: 50px;
+  }
+
+  .title-3 {
+    margin-left: -15px !important;
+    margin-top: 0px !important;
+    color: red;
+    font-family: Montserrat, sans-serif;
+    font-style: bold;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    float: left !important;
+    /* display: block; */
+    position: absolute;
+  }
+
+  /* .input-1 {
+    margin-top: 50px !important;
+  } */
+
+  .input-3 {
+    margin-top: 45px !important;
   }
 
   label {
@@ -278,9 +344,14 @@ option {
     box-shadow: 1px 6px 12px 0px rgba(35, 34, 53, 1);
   }
 
-  .btn-ticket {
-    margin-left: 15px !important;
+  .btn-edit {
+    margin-left: 15px;
     margin-top: 20px !important;
+  }
+
+  .btn-delete {
+    margin-left: 1px !important;
+    margin-top: -60px !important;
   }
 }
 

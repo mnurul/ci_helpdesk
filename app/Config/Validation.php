@@ -251,4 +251,16 @@ class Validation
 			'required'      => 'Problem Detail wajib kamu isi'
 		]
 	];
+
+	public $create_pjt = [
+		'wperiod' => 'integer',
+		'cenddate' => 'integer'
+	];
+
+	public $create_pjt_errors = [
+		'wperiod' => [],
+		'cenddate' => [
+			'integer'      => 'Contract End Date harus berisi angka',
+		]
+	];
 }
