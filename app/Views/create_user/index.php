@@ -68,14 +68,14 @@ use Config\Validation;
                             </div>
                         <?php }
                         ?>
-                        <form action="/admin/proses_create" method="post">
+                        <form action="" method="post">
 
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="iduser">Id User</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" class="auto-save form-control" id="iduser" name="iduser" placeholder="Last <?= $builder['iduser']  ?>" autofocus required>
+                                    <input type="text" class="auto-save form-control" id="iduser" name="iduser" placeholder="Last <?= ($_SERVER["REQUEST_METHOD"] == "POST" ? null   : $builder) ?>" value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $iduser   : null) ?>" autofocus required>
                                 </div>
                             </div>
 
@@ -85,7 +85,7 @@ use Config\Validation;
                                     <label class="title-1" for="username">Username</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" class="auto-save form-control" id="username" name="username" required>
+                                    <input type="text" class="auto-save form-control" id="username" name="username" required value="<?= $username; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -101,8 +101,8 @@ use Config\Validation;
                                     <label class="title-1" for="level">Level</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="level" name="level" class="auto-save" style="height: 45px !important;">
-                                        <option value=""></option>
+                                    <select id="level" name="level" onclick="myFunction()" class="auto-save" style="height: 45px !important;">
+                                        <option value="<?= $level; ?>"><?= $level; ?></option>
                                         <option value="customer">Customer</option>
                                         <option value="teknisi">Teknisi</option>
                                         <option value="admin">Admin</option>
@@ -112,10 +112,25 @@ use Config\Validation;
                             </div>
                             <div class="row">
                                 <div class="col-25">
+                                    <label class="title-1" for="idcustomer">Customer</label>
+                                </div>
+                                <div class="col-75">
+                                    <select id="idcustomer" name="idcustomer" class="auto-save" style="height: 45px !important;">
+                                        <option value="<?= $level; ?>"><?= $level; ?></option>
+
+                                        <?php foreach ($product as $p) : ?>
+                                            <option value=""></option>
+                                            <option value="<?= $p['idcustomer']; ?>"><?= $p['csnama']; ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
                                     <label class="title-1" for="fullname">Fullname</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" class="auto-save form-control" id="fullname" name="fullname" required>
+                                    <input type="text" class="auto-save form-control" id="fullname" name="fullname" required value="<?= $fullname; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -123,7 +138,7 @@ use Config\Validation;
                                     <label class="title-1" for="email">Email</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="email" class="auto-save form-control" id="email" name="email" required>
+                                    <input type="email" class="auto-save form-control" id="email" name="email" required value="<?= $email; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -131,7 +146,7 @@ use Config\Validation;
                                     <label class="title-1" for="telp">Telp</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" class="auto-save form-control" id="telp" name="telp" required>
+                                    <input type="text" class="auto-save form-control" id="telp" name="telp" required value="<?= $telp; ?>">
                                 </div>
                             </div>
                             <!-- <div class="row">
@@ -142,14 +157,14 @@ use Config\Validation;
                                     <input type="text" id="emailcode" name="emailcode">
                                 </div>
                             </div> -->
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="time">Time</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" class="auto-save form-control" id="time" name="time" required>
+                                    <input type="text" class="auto-save form-control" id="time" name="time" required value="">
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="confirmed">Confirmed</label>
@@ -163,7 +178,7 @@ use Config\Validation;
                                     <label class="title-1" for="ip">Ip</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" class="auto-save form-control" id="ip" name="ip" required>
+                                    <input type="text" class="auto-save form-control" id="ip" name="ip" required value="<?= $ip; ?>">
                                 </div>
                             </div>
                             <div class="row">

@@ -12,7 +12,21 @@
     <!-- <script src="//code.jquery.com/jquery.min.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="<?= base_url(); ?>/assets/savy/savy.min.js"></script>
-    <title><?= $title ?></title>
+    <title>Create User </title>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#level").on('change', function() {
+                var idcustomer = document.getElementById('idcustomer');
+
+                if (level = $("#level").val() != 'customer') {
+                    document.getElementById("idcustomer").disabled = true;
+                } else {
+                    document.getElementById("idcustomer").disabled = false;
+                }
+            });
+        });
+    </script>
 </head>
 
 <body>

@@ -20,11 +20,11 @@
                 var cperiod = document.getElementById('cperiod');
                 var idproject = $("#csproduct").val();
                 var input = idproject;
-                $.post('<?= base_url(); ?>/user/getCustomer', {
-                    input: input
-                }, function(data) {
-                    // alert(data);
-                });
+                // $.post('<?= base_url(); ?>/user/getCustomer', {
+                //     input: input
+                // }, function(data) {
+                //     // alert(data);
+                // });
                 // alert("Id " + idproject + input);
                 wperiod.value = input;
                 cperiod.value = input;

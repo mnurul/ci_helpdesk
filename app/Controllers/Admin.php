@@ -342,15 +342,216 @@ class Admin extends BaseController
         // $builder->orderBy('iduser', 'DESC');
         // $builder->limit(1);
         // $query   = $builder->get();
-        $builder = $this->AdminModel->viewIduser();
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $builder = session()->getFlashdata('builder');
+            $product = session()->getFlashdata('product');
+            $iduser = $this->request->getPost('iduser');
+            $username = $this->request->getPost('username');
+            $password = $this->request->getPost('password');
+            $level = $this->request->getPost('level');
+            $idcustomer = $this->request->getPost('idcustomer');
+            $fullname = $this->request->getPost('fullname');
+            $email = $this->request->getPost('email');
+            $telp = $this->request->getPost('telp');
+            // $emailcode = $this->request->getPost('emailcode');
+            // $time = $this->request->getPost('time');
+            // $confirmed = $this->request->getPost('confirmed');
+            $ip = $this->request->getPost('ip');
 
-        // dd($builder);
-        $data = [
-            'title' => 'Create User',
-            'builder' => $builder
+            $data = [
+                'iduser'  => $iduser,
+                'username'  => $username,
+                'password' => $password,
+                'level'  => $level,
+                'idcustomer'  => $idcustomer,
+                'fullname'  => $fullname,
+                'email'  => $email,
+                'telp'  => $telp,
+                // 'emailcode'  => $emailcode,
+                // 'time'  => $time,
+                // 'confirmed'  => $confirmed,
+                'ip'  => $ip,
+                'is_active' => 0,
+                'product' => $this->ProductModel->getCustomers()
 
-        ];
-        return view('create_user/index', $data);
+            ];
+            $data1 = [
+                'iduser'  => $iduser,
+                'username'  => $username,
+                'password' => $password,
+                'level'  => $level,
+                'idcustomer'  => $idcustomer,
+                'fullname'  => $fullname,
+                'email'  => $email,
+                'telp'  => $telp,
+                // 'emailcode'  => $emailcode,
+                // 'time'  => $time,
+                // 'confirmed'  => $confirmed,
+                'ip'  => $ip,
+                'is_active' => 0
+            ];
+            if ($builder == $iduser) {
+                session()->setFlashdata('failed', 'Id Customer ini sudah digunakan');
+                return view('create_customer/index', $data);
+            }
+
+            if ($this->form_validation->run($data, 'create_user') == FALSE) {
+                // mengembalikan nilai input yang sudah dimasukan sebelumnya
+                session()->setFlashdata('inputs', $this->request->getPost());
+                // memberikan pesan error pada saat input data
+                session()->setFlashdata('errors', $this->form_validation->getErrors());
+                // kembali ke halaman form
+                return view('create_user/index', $data);
+            } else {
+                $builder = $this->db->table('users');
+                $builder->insert($data1);
+
+                $builder = $this->db->table('user_tokens');
+                $token = base64_encode(random_bytes(32));
+                $data = [
+                    'email' => $email,
+                    'token' => $token,
+                    'data_created' => time()
+                ];
+                $builder->insert($data);
+
+                $mail = new PHPMailer(true);
+                $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.googlemail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'mnurulislam05@gmail.com'; // silahkan ganti dengan alamat email Anda
+                $mail->Password   = 'nurulislam10'; // silahkan ganti dengan password email Anda
+                $mail->SMTPSecure = 'ssl';
+                $mail->Port       = 465;
+
+                $mail->setFrom('mnurulislam05@gmail.com', 'DIMS'); // silahkan ganti dengan alamat email Anda
+                $mail->addAddress($email);
+                $mail->addReplyTo('mnurulislam05@gmail.com', 'DIMS'); // silahkan ganti dengan alamat email Anda
+                // Content
+                $mail->isHTML(true);
+                $subject = 'User Activation';
+                $htmlContent = ' 
+                    <html> 
+                    <head> 
+                        <style>
+                            #nav {
+                                width:100%;
+                                height:80px;
+                                background-color:#F8FAFC; 
+                            }
+    
+                            #header {
+                                color:#BBBFC3;
+                                margin-left:390px !important;
+                                padding-top:25px !important;
+                                font-family: Merriweather, serif;
+                                font-weight: 700;
+                                font-size: 28px;
+                                line-height: 34px;
+                            }
+    
+                            #desc {
+                                margin-left:390px !important;
+                                color:black;
+                            }
+    
+                            #bg-btn{
+                                width:190px;
+                                height:45px;
+                                background-color:#244295; 
+                                border-radius:5px; 
+                                margin-left:510px !important;
+                                margin-top:-30px !important;
+                            }
+    
+                            #btn {
+                                color:white;
+                                font-size:20px !important;
+                                text-decoration:none;
+                                margin-top:-50px !important;
+                                padding-top:5px !important;
+                                padding-left:18px !important;
+                                font-family: Merriweather, serif;
+                                font-weight: 700;
+                                font-size: 28px;
+                                line-height: 34px;
+                                display:block;
+                            }
+    
+                            #desc-1 {
+                                margin-left:390px !important;
+                                color:black;
+                            }
+    
+                            #footer {
+                                margin-left:390px !important;
+                                color:#0F0E20;
+                            }
+                        </style>
+    
+                    </head> 
+                    <body>
+                        <div id="nav">
+                            <h1 id="header" >Hallo, ' . $username . '</h1> 
+                        </div><br>
+                        <h4 id="desc">Email ini Anda terima atas permintaan untuk mengatur ulang kata<br>sandi akun Anda pada Helpdesk System</h4><br>
+                        <div id="bg-btn">
+                            <a href=" ' . base_url() . '/admin/user_activation?email=' . $email . '&token=' . urlencode($token) . '" id="btn" target="_blank">User Activation</a>
+                        </div><br>
+                        <h4 id="desc-1">Jika Anda tidak meminta mengatur ulang kata sandi, silahkan abaikan<br>saja email ini (tidak perlu ditindaklanjuti)</h4><br>
+                        <h4 id="footer">Salam hangat,<br><br><br><br>
+                        DIMS</h4>
+                        
+                    
+                    </body> 
+                    </html>';
+
+                $mail->Subject = $subject;
+                $mail->Body    = $htmlContent;
+
+                if ($mail->send()) {
+                    session()->setFlashdata('pesan', 'User sudah ditambahkan, Silakan kamu aktivasi lewat email');
+                    return redirect()->to(base_url('/admin/create_user'));
+                } else {
+                    $data = $mail->printDebugger(['headers']);
+                    // print_r($data);
+                    session()->setFlashdata('failed', $data);
+                    return redirect()->to(base_url('/admin/create_user'));
+                }
+
+                session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+
+                return redirect()->to(base_url('/admin/create_user'));
+            }
+        } else {
+            $builder = $this->AdminModel->viewIduser();
+            $query = $this->db->query("SELECT iduser FROM users ORDER BY iduser DESC LIMIT 1");
+            $row = $query->getRow();
+            // dd($builder);
+            $data = [
+                'title' => 'Create User',
+                'builder' => $row->iduser,
+                'username'  => '',
+                'password' => '',
+                'level'  => '',
+                'idcustomer'  => '',
+                'fullname'  => '',
+                'email'  => '',
+                'telp'  => '',
+                // 'emailcode'  => $emailcode,
+                // 'time'  => $time,
+                // 'confirmed'  => $confirmed,
+                'ip'  => '',
+                'is_active' => '',
+                'product' => $this->ProductModel->getCustomers()
+
+            ];
+            session()->setFlashdata('builder', $data['builder']);
+            session()->setFlashdata('product', $data['product']);
+
+            return view('create_user/index', $data);
+        }
     }
 
     public function proses_create()

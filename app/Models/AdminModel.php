@@ -110,4 +110,22 @@ class AdminModel extends Model
             ->where(array('password' => $oldpassword))
             ->get()->getRowArray();
     }
+
+    public function getCustomers()
+    {
+        // $builder = $this->db->table('users');
+        // $builder->get();
+        // $builder->orderBy('iduser', 'DESC');
+        // $builder->limit(1);
+        // return $builder;
+
+        // return $this->first();
+        // Ga perlu pake else, return langsung keluar dari if
+
+
+        // return $this->where(['iduser' => $iduser])->first();
+
+        return $this->db->table('customers')
+            ->get()->getResultArray();
+    }
 }
