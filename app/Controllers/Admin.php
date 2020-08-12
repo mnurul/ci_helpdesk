@@ -958,27 +958,107 @@ class Admin extends BaseController
 
     public function create_project()
     {
-        // $db      = \Config\Database::connect();
-        // $builder = $this->db->table('users');
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $builder = session()->getFlashdata('builder');
+            $idproject   = $this->request->getPost('idproject');
+            $useid   = $this->request->getPost('useid');
+            $namaproject   = $this->request->getPost('namaproject');
+            $csnama   = $this->request->getPost('csnama');
+            $dbegin   = $this->request->getPost('dbegin');
+            $dend   = $this->request->getPost('dend');
+            $idate   = $this->request->getPost('idate');
+            $iend   = $this->request->getPost('iend');
+            $uatbegin   = $this->request->getPost('uatbegin');
+            $uatend   = $this->request->getPost('uatend');
+            $billstartd   = $this->request->getPost('billstartd');
+            $billduee   = $this->request->getPost('billduee');
+            $wperiod   = intval($this->request->getPost('wperiod'));
+            $cstartdate   = $this->request->getPost('cstartdate');
+            $cenddate   = intval($this->request->getPost('cenddate'));
 
-        // $builder->orderBy('iduser', 'DESC');
-        // $builder->limit(1);
-        // $query   = $builder->get();
-        $builder = $this->ProjectModel->viewIdproject();
+            $data = [
+                'title' => 'Create Project',
+                'idproject'  => $idproject,
+                'namaproject'  => $namaproject,
+                'idcustomer'  => $csnama,
+                'deliveyrbegin'  => $dbegin,
+                'deliveryend'  => $dend,
+                'installdate'  => $idate,
+                'installend'  => $iend,
+                'uatbegin'  => $uatbegin,
+                'uatend'  => $uatend,
+                'billstartdate'  => $billstartd,
+                'billdueend'  => $billduee,
+                'warantyperiod'  => $wperiod,
+                'contractstartdate'  => $cstartdate,
+                'contractenddate'  => $cenddate,
+                'builder' => $this->ProjectModel->viewIdproject(),
+                'customer' => $this->ProjectModel->getCustomer(),
 
-        // dd($builder);
-        $data = [
-            'title' => 'Create Project',
-            'builder' => $builder,
-            'customer' => $this->ProjectModel->getCustomer(),
+            ];
+            $data1 = [
+                'idproject'  => $idproject,
+                'namaproject'  => $namaproject,
+                'idcustomer'  => $csnama,
+                'deliveyrbegin'  => $dbegin,
+                'deliveryend'  => $dend,
+                'installdate'  => $idate,
+                'installend'  => $iend,
+                'uatbegin'  => $uatbegin,
+                'uatend'  => $uatend,
+                'billstartdate'  => $billstartd,
+                'billdueend'  => $billduee,
+                'warantyperiod'  => $wperiod,
+                'contractstartdate'  => $cstartdate,
+                'contractenddate'  => $cenddate,
+            ];
 
-        ];
-        return view('create_project/index', $data);
+            if ($idproject == $useid) {
+                session()->setFlashdata('failed', 'Id Project ini sudah digunakan');
+                return view('create_project/index', $data);
+            }
+
+            $builder = $this->db->table('projects');
+            if ($builder->insert($data1)) {
+                session()->setFlashdata('pesan', 'Data kamu berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/list_project'));
+            } else {
+                session()->setFlashdata('pesan', 'Data kamu belum berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/create_project'));
+            }
+        } else {
+            $builder = $this->ProjectModel->viewIdproject();
+
+            // dd($builder);
+            $data = [
+                'title' => 'Create Project',
+                'builder' => $builder,
+                'customer' => $this->ProjectModel->getCustomer(),
+                'idproject'  => '',
+                'namaproject'  => '',
+                'idcustomer'  => '',
+                'deliveyrbegin'  => '',
+                'deliveryend'  => '',
+                'installdate'  => '',
+                'installend'  => '',
+                'uatbegin'  => '',
+                'uatend'  => '',
+                'billstartdate'  => '',
+                'billdueend'  => '',
+                'warantyperiod'  => '',
+                'contractstartdate'  => '',
+                'contractenddate'  => '',
+
+            ];
+            session()->setFlashdata('builder', $data['builder']);
+            return view('create_project/index', $data);
+        }
     }
 
     public function create_pjt()
     {
         $idproject   = $this->request->getPost('idproject');
+        $useid   = $this->request->getPost('useid');
         $namaproject   = $this->request->getPost('namaproject');
         $csnama   = $this->request->getPost('csnama');
         $dbegin   = $this->request->getPost('dbegin');
@@ -992,6 +1072,8 @@ class Admin extends BaseController
         $wperiod   = intval($this->request->getPost('wperiod'));
         $cstartdate   = $this->request->getPost('cstartdate');
         $cenddate   = intval($this->request->getPost('cenddate'));
+
+
 
         $data = [
             'idproject'  => $idproject,
@@ -1010,6 +1092,12 @@ class Admin extends BaseController
             'contractenddate'  => $cenddate,
         ];
         // dd($data);
+
+        if ($idproject == $useid) {
+            session()->setFlashdata('failed', 'Id Project ini sudah digunakan');
+            // return view('create_project/index');
+            return redirect()->to(base_url('/admin/create_project'));
+        }
 
         $builder = $this->db->table('projects');
         if ($builder->insert($data)) {
