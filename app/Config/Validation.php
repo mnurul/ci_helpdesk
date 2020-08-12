@@ -99,7 +99,7 @@ class Validation
 		],
 		'password' => [
 			'required'      => 'Password wajib kamu isi',
-			'min_length[3]'      => 'Password harus lebih dari 3'
+			'min_length'      => 'Password harus lebih dari 3'
 		],
 		'fullname' => [
 			'required'      => 'Fullname wajib kamu isi'
@@ -174,7 +174,7 @@ class Validation
 		'telp' => 'required',
 		'email' => 'required|trim|valid_email|is_unique[customers.email]',
 		'pic' => 'required',
-		'csproduct' => 'required'
+		// 'csproduct' => 'required'
 	];
 
 	public $create_cs_errors = [
@@ -198,9 +198,9 @@ class Validation
 		'pic' => [
 			'required'      => 'PIC wajib kamu isi'
 		],
-		'csproduct' => [
-			'required'      => 'Product wajib kamu isi'
-		]
+		// 'csproduct' => [
+		// 	'required'      => 'Product wajib kamu isi'
+		// ]
 	];
 
 	public $edit_customer = [

@@ -1,4 +1,4 @@
-<?= $this->extend('detail_customer/template'); ?>
+<?= $this->extend('detail_product/template'); ?>
 
 <?= $this->section('content'); ?>
 <div class="container">
@@ -7,14 +7,14 @@
             <!-- <h6 class="t-customer"><b>Welcome Customer</b></h6> -->
             <div class="topnav" id="myTopnav">
                 <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
-                <a href="<?= base_url(); ?>/admin/list_customer">Back</a>
+                <a href="<?= base_url(); ?>/admin/list_product">Back</a>
                 <!-- <a href="<?= base_url(); ?>/user/v_ticket_status">View Ticket Status</a>
                 <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
                 <a href="" class="">Create Tickets</a> -->
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
             <div style="padding-left:30px;margin-top:15px; ">
-                <h2 class="title font-weight-bold">Detail Customer</h2>
+                <h2 class="title font-weight-bold">Detail Product</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
                         <?php
@@ -46,56 +46,17 @@
                                     <label class="title-1" for="idcustomer">Id Customer</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="idcustomer" name="idcustomer" autofocus value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $idcustomer   : $customer['idcustomer']) ?>" readonly>
+                                    <input type="text" id="idcustomer" name="idcustomer" autofocus value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $idcustomer   : $product['idcustomer']) ?>" readonly>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="csnama">Nama</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="csnama" name="csnama" value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $csnama   : $customer['csnama']) ?>">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="alamat">Alamat</label>
-                                </div>
-                                <div class="col-75">
-                                    <textarea id="alamat" name="alamat" style="height:200px" value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $alamat   : $customer['alamat']) ?>"><?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $alamat   : $customer['alamat']) ?></textarea> </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="telp">Telp</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="telp" name="telp" value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $telp   : $customer['telp']) ?>">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="email">Email</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="email" id="email" name="email" value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $email   : $customer['email']) ?>">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="pic">PIC</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="pic" name="pic" value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $pic   : $customer['pic']) ?>" required>
-                                </div>
-                            </div>
-                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="csproduct">Customer Product</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="csproduct" name="csproduct" required>
+                                    <input type="text" id="csproduct" name="csproduct" required value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $csproduct   : $product['csproduct']) ?>">
                                 </div>
-                            </div> -->
+                            </div>
 
                             <div class=" row">
                                 <div class="col-75">
@@ -126,8 +87,8 @@
                                         <!-- <a href="/admin/edit_user/" class="btn btn-edit">Edit</a> -->
                                     </div>
                                     <div class="col">
-                                        <?php ($_SERVER["REQUEST_METHOD"] == "POST" ? $idcustomer   : $customer['idcustomer']) ?>
-                                        <form action="/customer/<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $idcustomer   : $customer['idcustomer']); ?>" method="post" class="d-inline">
+                                        <?php ($_SERVER["REQUEST_METHOD"] == "POST" ? $idcustomer   : $product['idcustomer']) ?>
+                                        <form action="/product/<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $idcustomer   : $product['idcustomer']); ?>" method="post" class="d-inline">
                                             <!-- Fitur keamanan ci4 buat form!-- -->
                                             <?= csrf_field(); ?>
                                             <input type="hidden" name="_method" value="DELETE">

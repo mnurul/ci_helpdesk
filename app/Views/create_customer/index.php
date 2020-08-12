@@ -38,23 +38,37 @@ use Config\Validation;
                         <?php } elseif (!empty($errors)) { ?>
                             <div class="alert alert-danger alert-error" role="alert">
                                 <ul>
+
                                     <?php foreach ($errors as $error) : ?>
+
                                         <li style="margin-left: -10px;"><?= esc($error) ?></li>
                                     <?php endforeach ?>
                                 </ul>
                             </div>
                         <?php }
                         ?>
-                        <form action="/admin/create_cs" method="post">
+                        <form action="" method="post">
+                            <?php if ($_SERVER["REQUEST_METHOD"] != "POST") { ?>
+                                <label class="title-1" for="" value="<?= $idcustomer1; ?>">Last <?= $idcustomer1; ?></label>
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="idcustomer" hidden>Id Customer</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="idcustomer" name="idcustomer" value="<?= $idcustomer1  ?>" autofocus required hidden>
+                                    </div>
+                                </div>
+                            <?php  } ?>
 
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="idcustomer">Id Customer</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="idcustomer" name="idcustomer" placeholder="Last <?= $builder['idcustomer']  ?>" autofocus required>
+                                    <input type="text" id="idcustomer" name="idcustomer" placeholder="Last <?= ($_SERVER["REQUEST_METHOD"] == "POST" ? null   : $idcustomer1) ?>" value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $idcustomer   : null) ?>" autofocus required>
                                 </div>
                             </div>
+
 
 
                             <div class="row">
@@ -62,7 +76,7 @@ use Config\Validation;
                                     <label class="title-1" for="csnama">Nama</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="csnama" name="csnama" required>
+                                    <input type="text" class="auto-save form-control" id="csnama" value="<?= $csnama; ?>" name="csnama" style="color: black;" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -70,14 +84,14 @@ use Config\Validation;
                                     <label class="title-1" for="alamat">Alamat</label>
                                 </div>
                                 <div class="col-75">
-                                    <textarea id="alamat" name="alamat" style="height:200px"></textarea> </div>
+                                    <textarea id="alamat" name="alamat" style="height:200px"><?= $alamat; ?></textarea> </div>
                             </div>
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="telp">Telp</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="telp" name="telp" required>
+                                    <input type="text" class="auto-save" id="telp" name="telp" value="<?php echo $telp; ?>" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -85,7 +99,7 @@ use Config\Validation;
                                     <label class="title-1" for="email">Email</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="email" id="email" name="email" required>
+                                    <input type="email" class="auto-save" id="email" name="email" value="<?= $email; ?>" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -93,17 +107,17 @@ use Config\Validation;
                                     <label class="title-1" for="pic">PIC</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="pic" name="pic" required>
+                                    <input type="text" id="pic" name="pic" value="<?= $pic; ?>" required>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="csproduct">Customer Product</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="csproduct" name="csproduct" required>
+                                    <input type="text" id="csproduct" name="csproduct" value="" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="time">Time</label>
@@ -200,6 +214,21 @@ use Config\Validation;
             x.className = "topnav";
         }
     }
+</script>
+<script>
+    $('.auto-save').savy('load');
+
+    // you can pass a function to be called when savy is finished loading.
+    $('.auto-save').savy('load', function() {
+        console.log("All data from savy are loaded");
+    });
+
+    $('.auto-save').savy('destroy');
+
+    // you can pass a function to be called when savy is destroyed.
+    $('.auto-save').savy('destroy', function() {
+        console.log("All data from savy are destroyed");
+    });
 </script>
 
 <?= $this->endSection(); ?>

@@ -1,4 +1,4 @@
-<?= $this->extend('list_customer/template'); ?>
+<?= $this->extend('list_product/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -32,10 +32,10 @@
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
-                    <h2 class="title font-weight-bold">List Customer</h2>
+                    <h2 class="title font-weight-bold">List Product</h2>
                     <div class="card bg-card mt-3 mb-5">
                         <class="card-body">
-                            <a href="<?= base_url(); ?>/admin/create_customer" class="a-user ">Create Customer</a>
+                            <a href="<?= base_url(); ?>/admin/create_product" class="a-user ">Create Product</a>
 
 
                             <!-- <div class="input-group mb-3">
@@ -50,22 +50,21 @@
                                 </div>
 
                             </form>
-                            <a href="<?= base_url(); ?>/admin/list_product" class="a-product ">Create Customer Product</a>
                             <?php
                             $pesan = session()->getFlashdata('pesan');
                             $failed = session()->getFlashdata('failed');
                             $inputs = session()->getFlashdata('inputs');
                             $errors = session()->getFlashdata('errors');
                             if (!empty($pesan)) { ?>
-                                <div class="alert alert-success alert-pesan" role="alert">
+                                <div class="alert alert-success alert-pesan mt-5" role="alert">
                                     <?= $pesan; ?>
                                 </div>
                             <?php } elseif (!empty($failed)) { ?>
-                                <div class="alert alert-danger alert-failed " role="alert">
+                                <div class="alert alert-danger alert-failed mt-5" role="alert">
                                     <?= $failed; ?>
                                 </div>
                             <?php } elseif (!empty($errors)) { ?>
-                                <div class="alert alert-danger alert-error" role="alert">
+                                <div class="alert alert-danger alert-error mt-5" role="alert">
                                     <ul>
                                         <?php foreach ($errors as $error) : ?>
                                             <li style="margin-left: -10px;"><?= esc($error) ?></li>
@@ -79,20 +78,21 @@
 
 
                                 <?php $no = 0; ?>
-                                <?php foreach ($customers as $u) : ?>
+                                <?php foreach ($product as $u) : ?>
                                     <div class="column">
                                         <div class="card">
                                             <div class="row no-gutters">
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $u['idcustomer']; ?></h6>
+                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $u['csproduct']; ?></h6>
                                                 </div>
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['pic']; ?></h6>
+                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['csnama']; ?></h6>
+                                                    <h6 class="card-subtitle  st-date text-muted"><?= $u['alamat']; ?></h6>
                                                 </div>
                                             </div>
                                             <hr style="margin-top: 10px;">
-                                            <h5 class="card-title text"><?= $u['csnama']; ?></h5>
-                                            <a href="<?= base_url(); ?>/admin/detail_customer/<?= $u['idcustomer']; ?>" class=" btn-assign">Detail</a>
+                                            <h5 class="card-title text"><?= $u['pic']; ?></h5>
+                                            <a href="<?= base_url(); ?>/admin/detail_product/<?= $u['idcustomer']; ?>" class=" btn-assign">Detail</a>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -119,8 +119,8 @@
 
                             </div>
                             <!-- customers -> nama tabel, user_pagination -> file pagination -->
-                            <?= $pager->links('customers', 'user_pagination') ?>
-                            <a href="<?= base_url(); ?>/admin/list_customer" title="Back to view all data">
+                            <?= $pager->links('product', 'user_pagination') ?>
+                            <a href="<?= base_url(); ?>/admin/list_product" title="Back to view all data">
                                 <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count; ?></h6>
                             </a>
                             <!-- <div class="pagination justify-content-center ">

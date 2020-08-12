@@ -75,7 +75,7 @@ use Config\Validation;
                                     <label class="title-1" for="iduser">Id User</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="iduser" name="iduser" placeholder="Last <?= $builder['iduser']  ?>" autofocus required>
+                                    <input type="text" class="auto-save form-control" id="iduser" name="iduser" placeholder="Last <?= $builder['iduser']  ?>" autofocus required>
                                 </div>
                             </div>
 
@@ -85,7 +85,7 @@ use Config\Validation;
                                     <label class="title-1" for="username">Username</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="username" name="username" required>
+                                    <input type="text" class="auto-save form-control" id="username" name="username" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -93,7 +93,7 @@ use Config\Validation;
                                     <label class="title-1" for="password">Password</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="password" id="password" name="password" required>
+                                    <input type="password" id="password" name="password" class="auto-save form-control" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -101,7 +101,7 @@ use Config\Validation;
                                     <label class="title-1" for="level">Level</label>
                                 </div>
                                 <div class="col-75">
-                                    <select id="level" name="level" style="padding-top: -30px !important;">
+                                    <select id="level" name="level" class="auto-save" style="height: 45px !important;">
                                         <option value=""></option>
                                         <option value="customer">Customer</option>
                                         <option value="teknisi">Teknisi</option>
@@ -115,7 +115,7 @@ use Config\Validation;
                                     <label class="title-1" for="fullname">Fullname</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="fullname" name="fullname" required>
+                                    <input type="text" class="auto-save form-control" id="fullname" name="fullname" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -123,7 +123,7 @@ use Config\Validation;
                                     <label class="title-1" for="email">Email</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="email" id="email" name="email" required>
+                                    <input type="email" class="auto-save form-control" id="email" name="email" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -131,7 +131,7 @@ use Config\Validation;
                                     <label class="title-1" for="telp">Telp</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="telp" name="telp" required>
+                                    <input type="text" class="auto-save form-control" id="telp" name="telp" required>
                                 </div>
                             </div>
                             <!-- <div class="row">
@@ -147,7 +147,7 @@ use Config\Validation;
                                     <label class="title-1" for="time">Time</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="time" name="time">
+                                    <input type="text" class="auto-save form-control" id="time" name="time" required>
                                 </div>
                             </div>
                             <!-- <div class="row">
@@ -163,7 +163,7 @@ use Config\Validation;
                                     <label class="title-1" for="ip">Ip</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="ip" name="ip">
+                                    <input type="text" class="auto-save form-control" id="ip" name="ip" required>
                                 </div>
                             </div>
                             <div class="row">
@@ -246,6 +246,32 @@ use Config\Validation;
             x.className = "topnav";
         }
     }
+</script>
+
+<script>
+    $('.auto-save').savy('load');
+
+    // you can pass a function to be called when savy is finished loading.
+    $('.auto-save').savy('load', function() {
+        console.log("All data from savy are loaded");
+    });
+
+
+
+    $('.auto-save').savy('destroy');
+
+    // you can pass a function to be called when savy is destroyed.
+    $('.auto-save').savy('destroy', function() {
+        console.log("All data from savy are destroyed");
+    });
+
+    // $('.auto-save').savy('load', function() {
+    //     console.log("All data from savy are loaded");
+    // });
+
+    // $('.auto-save').savy('destroy', function() {
+    //     console.log("All data from savy are destroyed");
+    // });
 </script>
 
 <?= $this->endSection(); ?>

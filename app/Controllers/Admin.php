@@ -7,6 +7,7 @@ use App\Models\CustomerModel;
 use App\Models\TicketModel;
 use App\Models\TeknisiModel;
 use App\Models\ProjectModel;
+use App\Models\ProductModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -18,6 +19,7 @@ class Admin extends BaseController
     protected $TicketModel;
     protected $TeknisiModel;
     protected $ProjectModel;
+    protected $ProductModel;
 
     public function __construct()
     {
@@ -25,11 +27,13 @@ class Admin extends BaseController
         // Cara 2 inisialisasi database
         helper('form');
         $session = \Config\Services::session();
+        $request = \Config\Services::request();
         $this->AdminModel = new AdminModel();
         $this->CustomerModel = new CustomerModel();
         $this->TicketModel = new TicketModel();
         $this->TeknisiModel = new TeknisiModel();
         $this->ProjectModel = new ProjectModel();
+        $this->ProductModel = new ProductModel();
         $email = \Config\Services::email();
         $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
@@ -846,15 +850,91 @@ class Admin extends BaseController
         // $builder->orderBy('iduser', 'DESC');
         // $builder->limit(1);
         // $query   = $builder->get();
-        $builder = $this->CustomerModel->viewIduser();
+        //d($this->request->getMethod());
 
-        // dd($builder);
-        $data = [
-            'title' => 'Create Customer',
-            'builder' => $builder
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-        ];
-        return view('create_customer/index', $data);
+            // $idcustomer2 = $this->request->getVar('idcustomer1');
+            $idcustomer2 = session()->getFlashdata('idcustomer1');
+            $idcustomer = $this->request->getPost('idcustomer');
+            // d($idcustomer);
+            // d($idcustomer2);
+
+
+            $csnama = $this->request->getPost('csnama');
+            $alamat = $this->request->getPost('alamat');
+            $telp = $this->request->getPost('telp');
+            $email = $this->request->getPost('email');
+            $pic = $this->request->getPost('pic');
+            // $csproduct = $this->request->getPost('csproduct');
+
+            $data = [
+                'idcustomer'  => $idcustomer,
+                'csnama'  => $csnama,
+                'alamat' => $alamat,
+                'telp'  => $telp,
+                'email'  => $email,
+                'pic'  => $pic,
+                'time'  => time(),
+                'ip'  => 0,
+                // 'csproduct'  => $csproduct,
+            ];
+            $validasi = $data;
+            // d($validasi);
+            if ($idcustomer == $idcustomer2) {
+                session()->setFlashdata('failed', 'Id Customer ini sudah digunakan');
+                return view('create_customer/index', $validasi);
+            }
+
+            if ($this->form_validation->run($validasi, 'create_cs') == FALSE) {
+
+
+
+
+                // mengembalikan nilai input yang sudah dimasukan sebelumnya
+                session()->setFlashdata('inputs', $this->request->getPost());
+                // memberikan pesan error pada saat input data
+                session()->setFlashdata('errors', $this->form_validation->getErrors());
+                // kembali ke halaman form
+
+                return view('create_customer/index', $validasi);
+            } else {
+                $builder = $this->db->table('customers');
+                $builder->insert($data);
+                // $builder1 = $this->db->table('csproduct');
+                // $builder1->insert($data1);
+
+                session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/create_customer'));
+            }
+        } else {
+
+            $builder = $this->CustomerModel->viewIduser();
+            $query = $this->db->query("SELECT idcustomer FROM customers ORDER BY idcustomer DESC LIMIT 1");
+            $row = $query->getRow();
+            // $row->idcustomer;
+            // d($row->idcustomer);
+            // d($idcustomer1);
+            // dd($builder);
+            $data = [
+                'title' => 'Create Customer',
+                'builder' => $builder,
+                'idcustomer1'  => $row->idcustomer,
+                'csnama'  => '',
+                'alamat' => '',
+                'telp'  => '',
+                'email'  => '',
+                'pic'  => '',
+                'csproduct'  => '',
+                'time'  => '',
+                'ip'  => '',
+
+
+            ];
+
+            session()->setFlashdata('idcustomer1', $data['idcustomer1']);
+            return view('create_customer/index', $data);
+        }
     }
 
     public function create_cs()
@@ -902,15 +982,51 @@ class Admin extends BaseController
 
     public function detail_customer($idcustomer)
     {
-        // $iduser = $this->request->getVar('iduser');
-        // dd($iduser);
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $idcustomer = $this->request->getPost('idcustomer');
+            $csnama = $this->request->getPost('csnama');
+            $alamat = $this->request->getPost('alamat');
+            $telp = $this->request->getPost('telp');
+            $email = $this->request->getPost('email');
+            $pic = $this->request->getPost('pic');
+            // $csproduct = $this->request->getPost('csproduct');
+            // d($csproduct);
+            $title =  'Detail Customer';
+            $data = [
+                'idcustomer'  => $idcustomer,
+                'csnama'  => $csnama,
+                'alamat' => $alamat,
+                'telp'  => $telp,
+                'email'  => $email,
+                'pic'  => $pic
+            ];
+            $validasi = $data;
 
-        $data = [
-            'title' => 'Detail Customer',
-            'customer' => $this->CustomerModel->getCustomer($idcustomer)
-        ];
-        // dd($data);
-        return view('detail_customer/index', $data);
+            if ($this->form_validation->run($validasi, 'edit_customer') == FALSE) {
+
+                // mengembalikan nilai input yang sudah dimasukan sebelumnya
+                session()->setFlashdata('inputs', $this->request->getPost());
+                // memberikan pesan error pada saat input data
+                session()->setFlashdata('errors', $this->form_validation->getErrors());
+                // kembali ke halaman form
+
+                return view('detail_customer/index', $validasi);
+            } else {
+                $builder = $this->db->table('customers');
+                $builder->where('idcustomer', $data['idcustomer']);
+                $builder->update($data);
+
+                session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/list_customer'));
+            }
+        } else {
+            $data = [
+                'title' => 'Detail Customer',
+                'customer' => $this->CustomerModel->getCustomer($idcustomer)
+            ];
+            // dd($data);
+            return view('detail_customer/index', $data);
+        }
     }
 
     public function edit_customer($idcustomer)
@@ -922,6 +1038,7 @@ class Admin extends BaseController
         $email = $this->request->getPost('email');
         $pic = $this->request->getPost('pic');
         $csproduct = $this->request->getPost('csproduct');
+        // d($csproduct);
 
         $data = [
             'idcustomer'  => $idcustomer,
@@ -931,6 +1048,8 @@ class Admin extends BaseController
             'email'  => $email,
             'pic'  => $pic
         ];
+
+
         // dd($data);
 
         if ($this->form_validation->run($data, 'edit_customer') == FALSE) {
@@ -939,7 +1058,7 @@ class Admin extends BaseController
             // memberikan pesan error pada saat input data
             session()->setFlashdata('errors', $this->form_validation->getErrors());
             // kembali ke halaman form
-            return redirect()->to(base_url('/admin/list_customer'));
+            return redirect()->to(base_url('/admin/detail_customer'));
         } else {
             $builder = $this->db->table('customers');
             $builder->where('idcustomer', $data['idcustomer']);
@@ -972,6 +1091,105 @@ class Admin extends BaseController
         } else {
             session()->setFlashdata('pesan', 'Data ');
             return redirect()->to(base_url('/admin/list_customer'));
+        }
+    }
+
+    public function list_product()
+    {
+        // getVar() bisa ambil get dan post
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $product = $this->ProductModel->search_cs($search);
+        } else {
+            $product = $this->ProductModel;
+        }
+        // $builder = $this->db->table('customers');
+        // $query   = $builder->get();
+        $data = [
+            'title' => 'List Product',
+            // 'query' => $query,
+            'count' => $this->db->table('csproduct')->countAll(),
+            'product' => $product->paginate(3, 'product'),
+            'pager' => $this->ProductModel->pager
+        ];
+        return view('list_product/index', $data);
+    }
+
+    public function detail_product($idcustomer)
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $idcustomer = $this->request->getPost('idcustomer');
+            $csproduct = $this->request->getPost('csproduct');
+            $data = [
+                'idcustomer'  => $idcustomer,
+                'csproduct'  => $csproduct
+            ];
+            $validasi = $data;
+
+            $builder = $this->db->table('csproduct');
+            $builder->where('idcustomer', $data['idcustomer']);
+            $builder->update($data);
+
+            session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+            return redirect()->to(base_url('/admin/list_product'));
+        } else {
+            $data = [
+                'title' => 'Detail Product',
+                'product' => $this->ProductModel->getProduct($idcustomer)
+            ];
+            // dd($data);
+            return view('detail_product/index', $data);
+        }
+    }
+
+    public function create_product()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $idcustomer = $this->request->getPost('idcustomer');
+            $csproduct = $this->request->getPost('csproduct');
+            $data = [
+                'idcustomer'  => $idcustomer,
+                'csproduct'  => $csproduct
+            ];
+            $validasi = $data;
+
+            $builder = $this->db->table('csproduct');
+            // $builder->where('idcustomer', $data['idcustomer']);
+            $builder->insert($data);
+
+            session()->setFlashdata('pesan', 'Data berhasil ditambahkan');
+            return redirect()->to(base_url('/admin/list_product'));
+        } else {
+            $data = [
+                'title' => 'Create Product',
+                'product' => $this->ProductModel->getCustomers()
+            ];
+            // dd($data);
+            return view('create_product/index', $data);
+        }
+    }
+
+    public function delete_pdc($idcustomer)
+    {
+        // Cara delete konvensional, minus nya bisa dihapus lewat url
+        // dd($iduser);
+        $builder = $this->db->table('csproduct');
+        $builder->where('idcustomer', $idcustomer);
+        if ($builder->delete()) {
+
+
+            // $this->CustomerModel->where('idcustomer', $idcustomer);
+            // $this->CustomerModel->delete($idcustomer);
+            // primary key iduser ada di model.php (vebdor->codeigniter4->Model.php)
+            // $builder = $this->db->table('users');
+            // $builder->where('iduser', $iduser);
+            // $builder->delete();
+            session()->setFlashdata('pesan', 'Data berhasil dihapus');
+            return redirect()->to(base_url('/admin/list_product'));
+        } else {
+            session()->setFlashdata('pesan', 'Data ');
+            return redirect()->to(base_url('/admin/list_product'));
         }
     }
 
