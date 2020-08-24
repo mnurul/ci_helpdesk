@@ -40,7 +40,7 @@
                 <h2 class="title font-weight-bold">View Ticket Status</h2>
                 <div class="card bg-card mt-3 mb-5">
                     <div class="card-body">
-                        <form action="" method="post">
+                        <form action="" method="post" class="t-form">
                             <div class="input-group col-7 justify-content-center" style="margin-left: 195px !important;">
                                 <input type="text" class="form-control" name="search" style="width:543px !important;" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
                             </div>
@@ -180,6 +180,21 @@
 </div>
 </div>
 </div>
+<!--Start of Tawk.to Script-->
+<script type="text/javascript">
+    var Tawk_API = Tawk_API || {},
+        Tawk_LoadStart = new Date();
+    (function() {
+        var s1 = document.createElement("script"),
+            s0 = document.getElementsByTagName("script")[0];
+        s1.async = true;
+        s1.src = 'https://embed.tawk.to/5f3cbc7b1e7ade5df4421a6f/default';
+        s1.charset = 'UTF-8';
+        s1.setAttribute('crossorigin', '*');
+        s0.parentNode.insertBefore(s1, s0);
+    })();
+</script>
+<!--End of Tawk.to Script-->
 
 
 <script>

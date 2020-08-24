@@ -1,6 +1,8 @@
 body {
   margin: 0;
   background-color: #fdf6f0;
+  /* hide scrollbar */
+  overflow: hidden;
 }
 
 .t-customer {
@@ -320,6 +322,11 @@ body {
     width: 100%;
     display: block;
     margin-bottom: 20px;
+    margin-left: -30px !important;
+  }
+
+  .t-form {
+    margin-left: -190px !important;
   }
 }
 
