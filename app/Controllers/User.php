@@ -181,6 +181,17 @@ class User extends BaseController
         return view('v_ticket_status/index', $data);
     }
 
+    public function start_asking()
+    {
+        $userinput = $this->request->getPost('userinput');
+        // d($userinput);
+
+        $data = [
+            'title' => 'Start Asking'
+        ];
+        return view('start_asking/index', $data);
+    }
+
     //--------------------------------------------------------------------
 
 }

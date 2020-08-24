@@ -33,7 +33,8 @@
                 <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
                 <a href="<?= base_url(); ?>/login/logout">Logout</a>
                 <a href=" <?= base_url(); ?>/user/">Back </a> <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
-                <a href="<?= base_url(); ?>/user/create_ticket" class="">Create Tickets</a>
+                <!-- <a href="<?= base_url(); ?>/user/create_ticket" class="">Create Tickets</a> -->
+                <a href="<?= base_url(); ?>/user/start_asking" class="">Start Asking</a>
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
             <div style="padding-left:30px;margin-top:15px; ">
