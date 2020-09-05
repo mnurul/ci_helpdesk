@@ -85,7 +85,7 @@
                                     </tr>
                                     <tr>
                                         <td width="70%"><input required name="tanya" placeholder="Ayo bicara dengan Team IT~!" type="text" id="tanya" size="50" style="width:99%" onKeyUp="inputKeyUp(event)"></td>
-                                        <td width="20%"><input type="button" name="button" onClick="cek()" id="button" value="Kirim" title="Klik tombol untuk mengirim pesan "><input type="button" name="button" id="button" value="Refresh" onclick="refreshbox()" title="Klik tombol untuk merefresh"></td>
+                                        <td width="20%"><input type="button" name="button" onClick="cek()" id="button" value="Kirim" title="Klik tombol untuk mengirim pesan "><input type="button" name="button" id="button1" value="Refresh" onclick="refreshbox()" title="Klik tombol untuk merefresh"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -135,7 +135,13 @@
     }
 
     function historichat(kata, letak) {
-        $('#tampilchat tr:last').after('<tr><td width="10%"></td><td valign="top" align=\"' + letak + '\"><div id="ConR"><div id="ConRspasi">' + kata + '</div></div></td><td width="10%" valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Me</h5></td></tr>');
+
+        if (window.matchMedia('(max-width: 600px)').matches) {
+            // do functionality on screens smaller than 600px
+            $('#tampilchat tr:last').after('<tr ><td width="10%"></td><td valign="top" style="padding-right: 450px !important;" align=\"' + letak + '\"><div id="ConR" ><div id="ConRspasi" >' + kata + '</div></div></td><td width="10%"  valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;margin-left:-915px !important">Me</h5></td></tr>');
+        } else {
+            $('#tampilchat tr:last').after('<tr><td width="10%"></td><td valign="top" align=\"' + letak + '\"><div id="ConR"><div id="ConRspasi">' + kata + '</div></div></td><td width="10%" valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Me</h5></td></tr>');
+        }
     }
 
     function historichatadmin(kata, letak) {
