@@ -1,3 +1,7 @@
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
   background-color: #fdf6f0;
@@ -15,6 +19,120 @@ body {
   line-height: 21px;
   font-size: 12px;
 }
+
+/* Chat */
+
+#ConR {
+  /* float: none;
+  min-width: 100px;
+  max-width: auto;
+  margin: 0;
+  padding: 2px;
+  background-color: #DDF2DD;
+  border: 2px solid #333;
+  border-radius: 5px; */
+  float: none;
+  min-width: 100px;
+  max-width: auto;
+  height: 40px;
+  margin: 0;
+  padding: 5px;
+  background-color: #DDF2DD;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 24px;
+  color: #322f56;
+
+
+}
+
+input[type="text"] {
+  width: 275px;
+  height: 40px;
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+  box-sizing: border-box;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+  outline: none;
+  font-family: Montserrat, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 24px;
+  color: #322f56;
+}
+
+input[type="text"]:focus {
+  border: 2px solid #244295;
+  box-shadow: 0 4px 8px #244295;
+}
+
+#List {
+  float: none;
+  width: 1000px;
+  height: 420px;
+  margin: 0;
+  padding: 0px;
+  /* background-color: #03C; */
+  /* border: 2px solid #333; */
+  border-radius: 5px;
+}
+
+#button {
+  /* margin-top: 10px; */
+  /* margin-left: 267px; */
+  background-color: #244295;
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: white;
+  /* position: relative; */
+  width: 80px;
+  height: 40px;
+  border: none;
+  margin-right: 5px;
+  border-radius: 5px;
+
+}
+
+#button:hover {
+  color: white;
+  background-color: #1f3980;
+}
+
+.scrollit {
+  overflow-y: auto;
+  height: 300px;
+}
+
+.btn-refresh {
+  margin-top: -300px !important;
+  margin-left: 267px;
+  background-color: #244295;
+  font-family: Montserrat, sans-serif;
+  font-style: bold;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 21px;
+  color: white;
+  /* width: 273px; */
+}
+
+/* End Chat */
 
 .logo {
   width: 60px;
