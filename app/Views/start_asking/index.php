@@ -113,6 +113,7 @@
 <script>
     function inputKeyUp(e) {
         e.which = e.which || e.keyCode;
+        // alert(e.which);
         if (e.which == 13) {
             // submit
             cek();
@@ -124,10 +125,33 @@
         // alert(tanya);
         var letak = 'right';
         historichat(tanya, letak)
-        $.post("<?= base_url(); ?>chatsimi/tanyajawab?tanya=" + tanya, $("form").serialize(), function(hasil) {
+        // var javascriptVariable = "John";
+        window.location.href = "<?= base_url(); ?>/User/tanyajawab?tanya=" + tanya;
+
+        data = hasil.split("|");
+        // alert("post");
+        alert(data);
+        var letak = '';
+        var kata = data[0];
+        historichatadmin(kata, letak);
+        // $("#jawab").val(data[0]);
+        document.getElementById('tanya').value = '';
+
+
+
+        // $.post("<?= base_url(); ?>/User/tanyajawab", {
+        //         name: "Donald Duck",
+        //         city: "Duckburg"
+        //     },
+        //     function(data, status) {
+        //         alert("Data: " + data + "\nStatus: " + status);
+        //     });
+        $.post("<?= base_url(); ?>/User/tanyajawab?tanya=" + tanya, $("form").serialize(), function(hasil) {
+            // alert("Data: " + hasil);
             data = hasil.split("|");
             var letak = '';
             var kata = data[0];
+            // alert("kata" + kata);
             historichatadmin(kata, letak);
             //$("#jawab").val(data[0]);
             document.getElementById('tanya').value = '';
@@ -145,7 +169,7 @@
     }
 
     function historichatadmin(kata, letak) {
-        $('#tampilchat tr:last').after('<tr><td valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: white;">Admin</h5><img width="85px" height="75px" src="<?php echo base_url(); ?>images/logokiri.png" /></td><td  valign="top" align=\"' + letak + '\"><div id="ConR"><div id="ConRspasi">' + kata + '</div></div></td><td></td></tr>');
+        $('#tampilchat tr:last').after('<tr><td valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: white;">Admin</h5></td><td  valign="top" align=\"' + letak + '\"><div id="ConR"><div id="ConRspasi">' + kata + '</div></div></td><td></td></tr>');
     }
 
     function refreshbox() {

@@ -137,4 +137,11 @@ class UserModel extends Model
             ->where(array('idcustomer' => $idcs))
             ->get()->getRowArray();
     }
+
+    public function cekVocabs($teks)
+    {
+        return $this->db->table('vocabs')
+            ->where(array('ask' => $teks))
+            ->get()->getRowArray();
+    }
 }
