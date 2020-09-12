@@ -126,31 +126,35 @@
         var letak = 'right';
         historichat(tanya, letak)
         // var javascriptVariable = "John";
-        window.location.href = "<?= base_url(); ?>/User/tanyajawab?tanya=" + tanya;
+        // window.location.href = "<?= base_url(); ?>/User/tanyajawab?tanya=" + tanya;
 
-        data = hasil.split("|");
-        // alert("post");
-        alert(data);
-        var letak = '';
-        var kata = data[0];
-        historichatadmin(kata, letak);
-        // $("#jawab").val(data[0]);
-        document.getElementById('tanya').value = '';
+        // data = hasil.split("|");
+        // // alert("post");
+        // alert(data);
+        // var letak = '';
+        // var kata = data[0];
+        // historichatadmin(kata, letak);
+        // // $("#jawab").val(data[0]);
+        // document.getElementById('tanya').value = '';
 
 
 
-        // $.post("<?= base_url(); ?>/User/tanyajawab", {
-        //         name: "Donald Duck",
-        //         city: "Duckburg"
+        // $.post("<?= base_url(); ?>/User/tanyajawab?tanya=", {
+        //         tanya: tanya,
         //     },
         //     function(data, status) {
         //         alert("Data: " + data + "\nStatus: " + status);
         //     });
+
         $.post("<?= base_url(); ?>/User/tanyajawab?tanya=" + tanya, $("form").serialize(), function(hasil) {
-            // alert("Data: " + hasil);
+            //$.post("<?= base_url(); ?>/User/tanyajawab", {tanya: tanya}, function(hasil) {
+            //alert("udah post. " + tanya);
             data = hasil.split("|");
+            alert("hasil : " + hasil);
             var letak = '';
             var kata = data[0];
+            alert("kata : " + kata);
+            //alert("letak: " + letak + "kata: " + kata);
             // alert("kata" + kata);
             historichatadmin(kata, letak);
             //$("#jawab").val(data[0]);
@@ -164,13 +168,18 @@
             // do functionality on screens smaller than 600px
             $('#tampilchat tr:last').after('<tr ><td width="10%"></td><td valign="top" style="padding-right: 450px !important;" align=\"' + letak + '\"><div id="ConR" ><div id="ConRspasi" >' + kata + '</div></div></td><td width="10%"  valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;margin-left:-915px !important">Me</h5></td></tr>');
         } else {
-            $('#tampilchat tr:last').after('<tr><td width="10%"></td><td valign="top" align=\"' + letak + '\"><div id="ConR"><div id="ConRspasi">' + kata + '</div></div></td><td width="10%" valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Me</h5></td></tr>');
+            $('#tampilchat tr:last').after('<tr><td width="10%"></td><td valign="top" align=\"' + letak + '\"><div id="ConR"><div id="ConRspasi" style="font-size:15px;">' + kata + '</div></div></td><td width="10%" valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Me</h5></td></tr>');
         }
     }
 
     function historichatadmin(kata, letak) {
-        $('#tampilchat tr:last').after('<tr><td valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: white;">Admin</h5></td><td  valign="top" align=\"' + letak + '\"><div id="ConR"><div id="ConRspasi">' + kata + '</div></div></td><td></td></tr>');
+        if (window.matchMedia('(max-width: 600px)').matches) {
+            $('#tampilchat tr:last').after('<tr><td valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Admin</h5></td><td  valign="top" style="padding-right: 450px !important;" align=\"' + letak + '\"><div id="ConR" style="height:65px !important;"><div id="ConRspasi">' + kata + '</div></div></td><td></td></tr>');
+        } else {
+            $('#tampilchat tr:last').after('<tr ><td  valign="top" ><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Admin</h5></td><td valign="top" align=\"' + letak + '\"><div id="ConR" style="height:65px !important;"><div id="ConRspasi" style="font-size:15px;">' + kata + '</div></div></td><td></td></tr>');
+        }
     }
+
 
     function refreshbox() {
         window.open("<?php echo base_url(); ?>/user/start_asking", "_self");

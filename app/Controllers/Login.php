@@ -125,6 +125,8 @@ class Login extends BaseController
                 session()->set('idcustomer', $cek['idcustomer']);
                 session()->set('username', $cek['username']);
                 session()->set('level', $cek['level']);
+                session()->set('ipclient', '192.168.56.3');
+                // dd($this->request->getIPAddress());
 
                 return redirect()->to(base_url('user'));
             } elseif (!$cek) {
