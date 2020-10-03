@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\TicketModel;
+use App\Models\VocabsModel;
 use CodeIgniter\I18n\Time;
 
 
@@ -19,6 +20,7 @@ class User extends BaseController
 
     protected $UserModel;
     protected $TicketModel;
+    protected $VocabsModel;
 
 
     public function __construct()
@@ -30,6 +32,7 @@ class User extends BaseController
         $session = \Config\Services::session();
         $this->UserModel = new UserModel();
         $this->TicketModel = new TicketModel();
+        $this->VocabsModel = new VocabsModel();
         $email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
         $this->db      = \Config\Database::connect();
@@ -186,16 +189,38 @@ class User extends BaseController
         $userinput = $this->request->getPost('userinput');
         // d($userinput);
 
+
+
         $data = [
-            'title' => 'Start Asking'
+            'title' => 'Start Asking',
+            // 'arr_result' => null
+            // 'json' => json_encode($w)
         ];
         return view('start_asking/index', $data);
+    }
+
+    public function auto()
+    {
+        // echo "auto";
+        if (isset($_GET['term'])) {
+            $result = $this->VocabsModel->search($_GET['term']);
+            if (count($result) > 0) {
+                foreach ($result as $row)
+                    $arr_result[] = $row->ask;
+                echo json_encode($arr_result);
+                // $arr_result =  json_encode($arr_result);
+            }
+        }
+        // $data = [
+        //     'arr_result' =>  json_encode($arr_result)
+        // ];
+        // return view('v_ticket_status/index', $data);
     }
 
     public function simpanemail()
     {
         $getid = $this->input->get('getid');
-        $email = $this->input->get('email');
+        $email = $this->request->getVar('email');
         $this->db->query("UPDATE `askpending` SET `email`='" . $email . "' WHERE (`id`='" . $getid . "')");
     }
 
@@ -245,6 +270,11 @@ class User extends BaseController
         // $ipclient = '192.168.56.1';
         // $idcustomer = session()->get('idcustomer');
         $tesklama = session()->get('kataterakhir');
+        // $teksawal = session()->set('tanya', $tanya);
+        $teksawal = $teks;
+        // $test = session()->markAsTempdata($teksawal, 300);
+        // d($teksawal);
+        // d($test);
         $correctword = explode(" ", $teks);
         // d($correctword);
         $jumdata = count($correctword);
@@ -282,7 +312,9 @@ class User extends BaseController
                 // echo "tidak";
                 $idvocab = session()->get('idvocab');
                 $idcustomer = session()->get('idcustomer1');
+                $ask = session()->get('ask');
                 // d($idvocab);
+                // d($ask);
                 // d($idcustomer);
 
                 if ($idvocab <> '') {
@@ -299,7 +331,31 @@ class User extends BaseController
                     // $data = mysqli_fetch_array($tampil);
                     // $data = $tampil->getResult('array');
                     if (count($tampil->getResult('array')) == 0) {
-                        $arr = "test";
+                        // $arr = "test";
+                        // echo $ask;
+
+                        // Revisi. data diinput ke tabel ticket
+                        $builder = $this->db->table('askpending');
+                        $data = [
+                            'ask' => $ask,
+                            'tglask' => date('Y-m-d H:i:s'),
+                            'idcustomer' => $idcustomer,
+                            'status' => 1,
+                            'email' => session()->get('email')
+                        ];
+
+                        // dd($data);
+                        $getID = $builder->insert($data);
+                        // foreach ($getID->getResult() as $row) {
+                        //     echo $row->ask;
+                        //     echo $row->tglask;
+                        //     echo $row->idcustomer;
+                        // }
+                        // echo $getID;
+                        $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
+
+                        $data = array('idvocab' => '');
+                        session()->set($data);
                     } else {
                         foreach ($tampil->getResult('array') as $data) {
 
@@ -348,6 +404,38 @@ class User extends BaseController
             }
         }
 
+        if ($teks) {
+            $kata = '';
+            $hasil = '';
+            for ($i = 0; $i < $jumdata; $i++) {
+                // $sql = "SELECT correctword FROM correctword WHERE word='" . $correctword[$i] . "'";
+                // $tampil = $this->db->query($sql);
+                // $data = mysqli_fetch_array($tampil);
+                $query = $this->db->query("SELECT correctword FROM correctword WHERE word='" . $correctword[$i] . "'");
+                if (count($query->getResult('array')) == 0) {
+                    $hasil .= $correctword[$i] . " ";
+                    //  .= => $hasil = $hasil + $correctword[$i]
+                } else {
+                    // $data = $query->getResult();
+                    // $data = $tampil->getRow();
+                    $kata = '';
+                    foreach ($query->getResult('array') as $data) {
+
+                        if (trim($data['correctword']) <> '') {
+                            $kata .= $data['correctword'] . " ";
+                        } else {
+                            $kata .= $correctword[$i] . " ";
+                        }
+                    }
+                    $teks = trim($kata);
+                    $hasil .= $teks . " ";
+                }
+            }
+            // echo "hasil: " . $hasil;
+        }
+
+        $cekVocabs = $this->UserModel->cekVocabs($hasil);
+
 
         if ((isset($cekVocabs['idvocab']) != 0) && (isset($cekVocabs['idcustomer']) != 0)) {
             $idvocab = $cekVocabs['idvocab'];
@@ -355,8 +443,31 @@ class User extends BaseController
             // $idcustomer = session()->get('idcustomer');
             session()->set('idcustomer1', $cekVocabs['idcustomer']);
             session()->set('idvocab1', $cekVocabs['idvocab']);
+            session()->set('ask', $cekVocabs['ask']);
         } else {
-            $arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.</p>.';
+            $idcustomer = session()->get('idcustomer1');
+            // d($teks);
+            $builder = $this->db->table('askpending');
+            $data = [
+                'ask' => $teks,
+                'tglask' => date('Y-m-d H:i:s'),
+                'idcustomer' => $idcustomer,
+                'status' => 1,
+                'email' => session()->get('email')
+            ];
+
+            // dd($data);
+            $getID = $builder->insert($data);
+            // foreach ($getID->getResult() as $row) {
+            //     echo $row->ask;
+            //     echo $row->tglask;
+            //     echo $row->idcustomer;
+            // }
+            // echo $getID;
+            $arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.';
+
+            $data = array('idvocab' => '');
+            session()->set($data);
             return $arr;
         };
 
@@ -442,126 +553,132 @@ class User extends BaseController
         //======Exit Konfirmasi Benar atau tidaknya sebuah jawaban=====
 
 
-        if ($teks) {
-            //=====Kamus kata untuk menyamakan atau menyetarakan kata=============
-            // $correctword = explode(" ", $teks);
-            // d($correctword);
-            // $jumdata = count($correctword);
+        // if ($teks) {
+        //=====Kamus kata untuk menyamakan atau menyetarakan kata=============
+        // $correctword = explode(" ", $teks);
+        // d($correctword);
+        // $jumdata = count($correctword);
 
-            //-----Pengecekan Kata Minimal Harus Lebih dari 3 kata-----
-            // if ($jumdata < 3) {
-            //     $arr = "Maaf Coba Masukkan Kembali Pertanyaan Anda, karena kami masih tidak paham maksud anda. Terima kasih";
-            //     echo $arr;
-            //     exit;
-            // }
-            //-----Exit Kata Minimal-----
+        //-----Pengecekan Kata Minimal Harus Lebih dari 3 kata-----
+        // if ($jumdata < 3) {
+        //     $arr = "Maaf Coba Masukkan Kembali Pertanyaan Anda, karena kami masih tidak paham maksud anda. Terima kasih";
+        //     echo $arr;
+        //     exit;
+        // }
+        //-----Exit Kata Minimal-----
 
-            $kata = '';
-            // echo $teks . "DAN" . $jumdata;
-            for ($i = 0; $i < $jumdata; $i++) {
-                // $sql = "SELECT correctword FROM correctword WHERE word='" . $correctword[$i] . "'";
-                // $tampil = $this->db->query($sql);
-                // $data = mysqli_fetch_array($tampil);
-                // echo "corret word";
-                $query = $this->db->query("SELECT correctword FROM correctword WHERE word='" . $correctword[$i] . "'");
+        // $kata = '';
+        // echo $teks . "DAN" . $jumdata;
+        // for ($i = 0; $i < $jumdata; $i++) {
+        //     // $sql = "SELECT correctword FROM correctword WHERE word='" . $correctword[$i] . "'";
+        //     // $tampil = $this->db->query($sql);
+        //     // $data = mysqli_fetch_array($tampil);
+        //     // echo "corret word";
+        //     $query = $this->db->query("SELECT correctword FROM correctword WHERE word='" . $correctword[$i] . "'");
 
-                // $data = $query->getResult();
-                // $data = $tampil->getRow();
-                foreach ($query->getResult() as $data) {
-                    // d($data['correctword']);
+        //     // $data = $query->getResult();
+        //     // $data = $tampil->getRow();
+        //     foreach ($query->getResult() as $data) {
+        //         // d($data['correctword']);
 
-                    if (trim($data['correctword']) <> '') {
-                        $kata .= $data['correctword'] . " ";
-                        // echo "correct = " . $data['correctword'];
-                    } else {
-                        $kata .= $correctword[$i] . " ";
-                    }
-                }
-            }
-            $teks = trim($kata);
-            // d($teks);
-            //=====Exit Kamus Kata===============
+        //         if (trim($data['correctword']) <> '') {
+        //             $kata .= $data['correctword'] . " ";
+        //             // echo "correct = " . $data['correctword'];
+        //         } else {
+        //             $kata .= $correctword[$i] . " ";
+        //         }
+        //     }
+        // }
+        // $teks = trim($kata);
+        // d($teks);
+        //=====Exit Kamus Kata===============
 
-            //==========Mencari berdasarkan data yang berkemungkinan terbesar berdasarkan kata=====
-            $this->db->query("DELETE FROM tmppropabilityvocab WHERE idcustomer='" . $idcustomer . "'");
-            //echo "delete tmppropabilityvocab ";
-            $correctword = explode(" ", $teks);
-            $jumdata = count($correctword);
-            $kata = '';
-            for ($i = 0; $i < $jumdata; $i++) {
-                $sql = "SELECT * FROM vocabs WHERE MATCH(ask) AGAINST('" . $correctword[$i] . "' IN BOOLEAN MODE)";
-                $tampil = $this->db->query($sql);
-                foreach ($tampil->getResult() as $data) {
-                    $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data['idvocab'] . " AND idcustomer='" . $idcustomer . "'";
-                    $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
-                    $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
-                    $jumtmpvocab = $data_jumtmpvocab['jum'];
-                    //-------------Exit Cek Jumlah Vocab--------
-
-                    //-------------Cek Vocab-------------
-                    $sql_tmpvocab = "SELECT * FROM tmppropabilityvocab WHERE idvocab=" . $data['idvocab'] . " AND idcustomer='" . $idcustomer . "'";
-                    $tampil_tmpvocab = $this->db->query($sql_tmpvocab);
-                    $data_tmpvocab = mysqli_fetch_array($tampil_tmpvocab);
-                    //-------------Exit Cek Vocab--------
-
-                    if ($jumtmpvocab == 0) {
-                        $simpan = "INSERT INTO `tmppropabilityvocab` (`idvocab`, `jumprobability`,`idcustomer`) VALUES ('" . $data['idvocab'] . "', '1','" . $idcustomer . "')";
-                        $this->db->query($simpan);
-                    } else {
-                        $jumprobability = $data_tmpvocab['jumprobability'] + 1;
-                        $update = "UPDATE `tmppropabilityvocab` SET `jumprobability`=" . $jumprobability . " WHERE (`idvocab`='" . $data['idvocab'] . "') AND (`idcustomer`='" . $idcustomer . "')";
-                        $this->db->query($update);
-                    }
-                }
-                // while ($data = mysqli_fetch_array($tampil)) {
-                //     //-------------Cek Jumlah Vocab-------------
-                //     $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data['id'] . " AND ipclient='" . $ipclient . "'";
-                //     $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
-                //     $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
-                //     $jumtmpvocab = $data_jumtmpvocab['jum'];
-                //     //-------------Exit Cek Jumlah Vocab--------
-
-                //     //-------------Cek Vocab-------------
-                //     $sql_tmpvocab = "SELECT * FROM tmppropabilityvocab WHERE idvocab=" . $data['id'] . " AND ipclient='" . $ipclient . "'";
-                //     $tampil_tmpvocab = $this->db->query($sql_tmpvocab);
-                //     $data_tmpvocab = mysqli_fetch_array($tampil_tmpvocab);
-                //     //-------------Exit Cek Vocab--------
-
-                //     if ($jumtmpvocab == 0) {
-                //         $simpan = "INSERT INTO `tmppropabilityvocab` (`idvocab`, `jumprobability`,`ipclient`) VALUES ('" . $data['id'] . "', '1','" . $ipclient . "')";
-                //         $this->db->query($simpan);
-                //     } else {
-                //         $jumprobability = $data_tmpvocab['jumprobability'] + 1;
-                //         $update = "UPDATE `tmppropabilityvocab` SET `jumprobability`=" . $jumprobability . " WHERE (`idvocab`='" . $data['id'] . "') AND (`ipclient`='" . $ipclient . "')";
-                //         $this->db->query($update);
-                //     }
-                // }
-            }
-            //===========Exit Mencara Berdasarkan data berkata==============
-
-
-            //===========Mencari Data Profile Peminta HelpDesk============
-            $sql = "
-				SELECT jenisedc,lokasi,pic FROM edc WHERE idcustomer='" . $idcustomer . "'
-			";
-            // d($sql);
+        //==========Mencari berdasarkan data yang berkemungkinan terbesar berdasarkan kata=====
+        $this->db->query("DELETE FROM tmppropabilityvocab WHERE idcustomer='" . $idcustomer . "'");
+        //echo "delete tmppropabilityvocab ";
+        $correctword = explode(" ", $hasil);
+        $jumdata = count($correctword);
+        $kata = '';
+        for ($i = 0; $i < $jumdata; $i++) {
+            $sql = "SELECT * FROM vocabs WHERE MATCH(ask) AGAINST('" . $correctword[$i] . "' IN BOOLEAN MODE)";
             $tampil = $this->db->query($sql);
             foreach ($tampil->getResult('array') as $data) {
-                $jenisedc = $data['jenisedc'];
-                $lokasi = $data['lokasi'];
-                $pic = $data['pic'];
-            }
-            // d($jenisedc);
-            // while ($data = mysqli_fetch_array($tampil)) {
-            //     $departement = $data['dept'];
-            //     $kantor = $data['lokasi'];
-            //     $server = $data['server'];
-            //     $pengadu = $data['nama_user'];
-            // }
-            //===========Exit Mencari Data Profile Peminta Helpdesk=======
+                $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data['idvocab'] . " AND idcustomer='" . $idcustomer . "'";
+                $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
+                // $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
+                foreach ($tampil_jumtmpvocab->getResult('array') as $data_jumtmpvocab) {
 
-            //===========Memberikan Nilai Bobot Kepada setiap Vocab=======
-            $sql = "
+                    $jumtmpvocab = $data_jumtmpvocab['jum'];
+                }
+                //-------------Exit Cek Jumlah Vocab--------
+
+                //-------------Cek Vocab-------------
+                $sql_tmpvocab = "SELECT * FROM tmppropabilityvocab WHERE idvocab=" . $data['idvocab'] . " AND idcustomer='" . $idcustomer . "'";
+                $tampil_tmpvocab = $this->db->query($sql_tmpvocab);
+                // $data_tmpvocab = mysqli_fetch_array($tampil_tmpvocab);
+                foreach ($tampil_tmpvocab->getResult('array') as $data_tmpvocab) {
+                    $jumprobability = $data_tmpvocab['jumpprobability'];
+                }
+                //-------------Exit Cek Vocab--------
+
+                if ($jumtmpvocab == 0) {
+                    $simpan = "INSERT INTO `tmppropabilityvocab` (`idvocab`, `jumpprobability`,`idcustomer`) VALUES ('" . $data['idvocab'] . "', '1','" . $idcustomer . "')";
+                    $this->db->query($simpan);
+                } else {
+                    $jumprobability = $data_tmpvocab['jumpprobability'] + 1;
+                    $update = "UPDATE `tmppropabilityvocab` SET `jumpprobability`=" . $jumprobability . " WHERE (`idvocab`='" . $data['idvocab'] . "') AND (`idcustomer`='" . $idcustomer . "')";
+                    $this->db->query($update);
+                }
+            }
+            // while ($data = mysqli_fetch_array($tampil)) {
+            //     //-------------Cek Jumlah Vocab-------------
+            //     $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data['id'] . " AND ipclient='" . $ipclient . "'";
+            //     $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
+            //     $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
+            //     $jumtmpvocab = $data_jumtmpvocab['jum'];
+            //     //-------------Exit Cek Jumlah Vocab--------
+
+            //     //-------------Cek Vocab-------------
+            //     $sql_tmpvocab = "SELECT * FROM tmppropabilityvocab WHERE idvocab=" . $data['id'] . " AND ipclient='" . $ipclient . "'";
+            //     $tampil_tmpvocab = $this->db->query($sql_tmpvocab);
+            //     $data_tmpvocab = mysqli_fetch_array($tampil_tmpvocab);
+            //     //-------------Exit Cek Vocab--------
+
+            //     if ($jumtmpvocab == 0) {
+            //         $simpan = "INSERT INTO `tmppropabilityvocab` (`idvocab`, `jumprobability`,`ipclient`) VALUES ('" . $data['id'] . "', '1','" . $ipclient . "')";
+            //         $this->db->query($simpan);
+            //     } else {
+            //         $jumprobability = $data_tmpvocab['jumprobability'] + 1;
+            //         $update = "UPDATE `tmppropabilityvocab` SET `jumprobability`=" . $jumprobability . " WHERE (`idvocab`='" . $data['id'] . "') AND (`ipclient`='" . $ipclient . "')";
+            //         $this->db->query($update);
+            //     }
+            // }
+        }
+        //===========Exit Mencari Berdasarkan data berkata==============
+
+
+        //===========Mencari Data Profile Peminta HelpDesk============
+        $sql = "
+				SELECT jenisedc,lokasi,pic FROM edc WHERE idcustomer='" . $idcustomer . "'
+			";
+        // d($sql);
+        $tampil = $this->db->query($sql);
+        foreach ($tampil->getResult('array') as $data) {
+            $jenisedc = $data['jenisedc'];
+            $lokasi = $data['lokasi'];
+            $pic = $data['pic'];
+        }
+        // d($jenisedc);
+        // while ($data = mysqli_fetch_array($tampil)) {
+        //     $departement = $data['dept'];
+        //     $kantor = $data['lokasi'];
+        //     $server = $data['server'];
+        //     $pengadu = $data['nama_user'];
+        // }
+        //===========Exit Mencari Data Profile Peminta Helpdesk=======
+
+        //===========Memberikan Nilai Bobot Kepada setiap Vocab=======
+        $sql = "
 			SELECT
 				a.id,
 				a.jenisedc,
@@ -572,165 +689,165 @@ class User extends BaseController
 				edc AS a
 				LEFT JOIN tmppropabilityvocab AS b ON b.idtmpvocab  = a.id AND b.idtmpvocab = '" . $idcustomer . "'
 			";
-            $tampil = $this->db->query($sql);
-            //d($tampil);
-            foreach ($tampil->getResult() as $data) {
-                //d($data);
-                $bobotjenisedc = 0.3;
-                $bobotlokasi = 0.2;
-                $bobotpic = 0.3;
-                // $bobotpengadu = '0,5';
+        $tampil = $this->db->query($sql);
+        //d($tampil);
+        foreach ($tampil->getResult() as $data) {
+            //d($data);
+            $bobotjenisedc = 0.3;
+            $bobotlokasi = 0.2;
+            $bobotpic = 0.3;
+            // $bobotpengadu = '0,5';
 
-                $nilaijenisedc = 0;
-                $nilailokasi = 0;
-                $nilaipic = 0;
-                // $nilaipengadu = '0';
-                //d($data->jenisedc);
-                //d($data->lokasi);
-                //d($data->pic);
-                if ($data->jenisedc == $jenisedc) {
-                    $nilaijenisedc = 1;
-                }
-                if ($data->lokasi == $lokasi) {
-                    $nilailokasi = 1;
-                }
-                if ($data->pic == $pic) {
-                    $nilaipic = 1;
-                }
-                // if ($data['pengadu'] == $pengadu) {
-                //     $nilaipengadu = 1;
-                // }
-                //d($data->jumpprobability);
-                $nilai = (($bobotjenisedc * $nilaijenisedc) + ($bobotlokasi * $nilailokasi) + ($bobotpic * $nilaipic)  + $data->jumpprobability);
-                $bobot = $bobotjenisedc + $bobotlokasi + $bobotpic  + $jumdata;
-
-                $hasil = $nilai / $bobot;
-                //d($hasil);
-
-                //-------------Cek Jumlah Vocab-------------
-                $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data->id . " AND idcustomer='" . $idcustomer . "'";
-                $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
-                // $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
-                // foreach ($tampil_jumtmpvocab->getResultArray() as $data_jumtmpvocab) {
-                //     $data_jumtmpvocab['jum'];
-                // }
-
-                foreach ($tampil_jumtmpvocab->getResult('array') as $data_jumtmpvocab) {
-                    $jumtmpvocab = $data_jumtmpvocab['jum'];
-                }
-
-
-                //d($jumtmpvocab);
-                //-------------Exit Cek Jumlah Vocab--------
-                if ($hasil == 0) {
-                    $delete = "DELETE FROM `tmppropabilityvocab` WHERE idvocab=" . $data->id . "";
-                } else {
-                    if ($jumtmpvocab == 0) {
-                        // $simpan = "INSERT INTO `tmppropabilityvocab` (`ipclient`,`idvocab`, `jumpprobability`) VALUES ('" . $ipclient . "','" . $data->id . "', '" . $hasil . "')";
-                        // $this->db->query($simpan);
-
-                        $builder = $this->db->table('tmppropabilityvocab');
-                        $data = [
-                            'idcustomer' => $idcustomer,
-                            'idvocab' => $data->id,
-                            'jumpprobability' => $hasil
-                        ];
-
-                        // dd($data);
-                        $builder->insert($data);
-                    } else {
-                        $update = "UPDATE `tmppropabilityvocab` SET `jumprobability`=" . $hasil . " WHERE (`idvocab`='" . $data->id . "') AND (`idcustomer`='" . $idcustomer . "')";
-                        $this->db->query($update);
-                    }
-                }
+            $nilaijenisedc = 0;
+            $nilailokasi = 0;
+            $nilaipic = 0;
+            // $nilaipengadu = '0';
+            //d($data->jenisedc);
+            //d($data->lokasi);
+            //d($data->pic);
+            if ($data->jenisedc == $jenisedc) {
+                $nilaijenisedc = 1;
             }
-            // while ($data = mysqli_fetch_array($tampil)) {
-            //     $bobotdepartement = '0,1';
-            //     $bobotkantor = '0,2';
-            //     $bobotserver = '0,3';
-            //     $bobotpengadu = '0,5';
-
-            //     $nilaidepartement = '0';
-            //     $nilaikantor = '0';
-            //     $nilaiserver = '0';
-            //     $nilaipengadu = '0';
-
-            //     if ($data['departement'] == $departement) {
-            //         $nilaidepartement = 1;
-            //     }
-            //     if ($data['kantor'] == $kantor) {
-            //         $nilaikantor = 1;
-            //     }
-            //     if ($data['server'] == $server) {
-            //         $nilaiserver = 1;
-            //     }
-            //     if ($data['pengadu'] == $pengadu) {
-            //         $nilaipengadu = 1;
-            //     }
-
-            //     $nilai = (($bobotdepartement * $nilaidepartement) + ($bobotkantor * $nilaikantor) + ($bobotserver * $nilaiserver) + ($bobotpengadu + $nilaipengadu) + $data['jumprobability']);
-            //     $bobot = $bobotdepartement + $bobotkantor + $bobotserver + $bobotpengadu + $jumdata;
-
-            //     $hasil = $nilai / $bobot;
-
-            //     //-------------Cek Jumlah Vocab-------------
-            //     $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmpprobabilityvocab WHERE idvocab=" . $data['id'] . " AND ipclient='" . $ipclient . "'";
-            //     $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
-            //     $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
-            //     $jumtmpvocab = $data_jumtmpvocab['jum'];
-            //     //-------------Exit Cek Jumlah Vocab--------
-            //     if ($hasil == 0) {
-            //         $delete = "DELETE FROM `tmpprobabilityvocab` WHERE idvocab=" . $data['id'] . "";
-            //     } else {
-            //         if ($jumtmpvocab == 0) {
-            //             $simpan = "INSERT INTO `tmpprobabilityvocab` (`idvocab`, `jumprobability`,`ipclient`) VALUES ('" . $data['id'] . "', '" . $hasil . "','" . $ipclient . "')";
-            //             $this->db->query($simpan);
-            //         } else {
-            //             $update = "UPDATE `tmpprobabilityvocab` SET `jumprobability`=" . $hasil . " WHERE (`idvocab`='" . $data['id'] . "') AND (`ipclient`='" . $ipclient . "')";
-            //             $this->db->query($update);
-            //         }
-            //     }
+            if ($data->lokasi == $lokasi) {
+                $nilailokasi = 1;
+            }
+            if ($data->pic == $pic) {
+                $nilaipic = 1;
+            }
+            // if ($data['pengadu'] == $pengadu) {
+            //     $nilaipengadu = 1;
             // }
-            //==========Exit Memberikan Nilai Bobot Kepada Setiap Vocab=====
+            //d($data->jumpprobability);
+            $nilai = (($bobotjenisedc * $nilaijenisedc) + ($bobotlokasi * $nilailokasi) + ($bobotpic * $nilaipic)  + $data->jumpprobability);
+            $bobot = $bobotjenisedc + $bobotlokasi + $bobotpic  + $jumdata;
+
+            $hasil = $nilai / $bobot;
+            //d($hasil);
+
+            //-------------Cek Jumlah Vocab-------------
+            $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data->id . " AND idcustomer='" . $idcustomer . "'";
+            $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
+            // $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
+            // foreach ($tampil_jumtmpvocab->getResultArray() as $data_jumtmpvocab) {
+            //     $data_jumtmpvocab['jum'];
+            // }
+
+            foreach ($tampil_jumtmpvocab->getResult('array') as $data_jumtmpvocab) {
+                $jumtmpvocab = $data_jumtmpvocab['jum'];
+            }
 
 
-            //===========Pemanggilan Data Yang sudah sesuai atau tidak==========
-            $sql = "SELECT b.idvocab, b.answer FROM tmppropabilityvocab AS a INNER JOIN vocabs AS b ON b.idvocab = a.idvocab WHERE a.idcustomer='" . $idcustomer . "' ORDER BY a.jumpprobability DESC LIMIT 1";
-            $tampil = $this->db->query($sql);
+            //d($jumtmpvocab);
+            //-------------Exit Cek Jumlah Vocab--------
+            if ($hasil == 0) {
+                $delete = "DELETE FROM `tmppropabilityvocab` WHERE idvocab=" . $data->id . "";
+            } else {
+                if ($jumtmpvocab == 0) {
+                    // $simpan = "INSERT INTO `tmppropabilityvocab` (`ipclient`,`idvocab`, `jumpprobability`) VALUES ('" . $ipclient . "','" . $data->id . "', '" . $hasil . "')";
+                    // $this->db->query($simpan);
 
-            // $data = mysqli_fetch_array($tampil);
-            foreach ($tampil->getResultArray() as $data) {
-                //d(trim($data['answer']));
-
-                if (trim($data['answer']) <> '') {
-                    //$arr=$data['answer'].'<br><br> Mohon Konfirmasi apakah informasi kami benar atau tidak? jika benar ketik `YA` jika salah ketik `TIDAK`, maka kami akan memberikan informasi lagi yang mungkin... ';
-                    // echo "trim data answer";
-                    $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih';
-                    $data = array('idvocab' => $data['idvocab']);
-                    session()->set('answer', $data);
-                    session()->set('idvocab', $data['idvocab']);
-                } else {
-                    // $this->db->query("INSERT INTO `askpending` (`ask`,`tglask`, `idcustomer`,`status`) VALUES ('" . $teks . "', '1', '" . date('Y-m-d H:i:s') . "','" . $idcustomer . "')");
-                    // $getID = $this->db->insert_id();
-
-                    $builder = $this->db->table('askpending');
+                    $builder = $this->db->table('tmppropabilityvocab');
                     $data = [
-                        'ask' => $teks,
-                        'tglask' => date('Y-m-d H:i:s'),
                         'idcustomer' => $idcustomer,
-                        'status' => 1
+                        'idvocab' => $data->id,
+                        'jumpprobability' => $hasil
                     ];
 
                     // dd($data);
-                    $getID = $builder->insert($data);
-                    // $getID = $this->db->insert_id();
-                    //$arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.<br /> silahkan masukan email anda <input type="text" name="email'.$getID.'" id="email'.$getID.'">&nbsp;<a onclick="simpanemail('.$getID.')" href="#">Kirim</a></p>';	
-                    $arr = '<p>Aduh!! Maaf Sepertinya pertanyaan anda tidak ada di dalam databases kami, akan coba kami diskusikan dulu ya kepada team IT, akan kami informasikan kembali apabila sudah. terima kasih</p>. .<br /> silahkan masukan email anda <input type="text" name="email' . $getID . '" id="email' . $getID . '">&nbsp;<a onclick="simpanemail(' . $getID . ')" href="#">Kirim</a></p>
-				';
+                    $builder->insert($data);
+                } else {
+                    $update = "UPDATE `tmppropabilityvocab` SET `jumpprobability`=" . $hasil . " WHERE (`idvocab`='" . $data->id . "') AND (`idcustomer`='" . $idcustomer . "')";
+                    $this->db->query($update);
                 }
             }
-            //============Exit Pemanggilan Data yang sesuai atau tidak=========
-        } else {
+        }
+        // while ($data = mysqli_fetch_array($tampil)) {
+        //     $bobotdepartement = '0,1';
+        //     $bobotkantor = '0,2';
+        //     $bobotserver = '0,3';
+        //     $bobotpengadu = '0,5';
+
+        //     $nilaidepartement = '0';
+        //     $nilaikantor = '0';
+        //     $nilaiserver = '0';
+        //     $nilaipengadu = '0';
+
+        //     if ($data['departement'] == $departement) {
+        //         $nilaidepartement = 1;
+        //     }
+        //     if ($data['kantor'] == $kantor) {
+        //         $nilaikantor = 1;
+        //     }
+        //     if ($data['server'] == $server) {
+        //         $nilaiserver = 1;
+        //     }
+        //     if ($data['pengadu'] == $pengadu) {
+        //         $nilaipengadu = 1;
+        //     }
+
+        //     $nilai = (($bobotdepartement * $nilaidepartement) + ($bobotkantor * $nilaikantor) + ($bobotserver * $nilaiserver) + ($bobotpengadu + $nilaipengadu) + $data['jumprobability']);
+        //     $bobot = $bobotdepartement + $bobotkantor + $bobotserver + $bobotpengadu + $jumdata;
+
+        //     $hasil = $nilai / $bobot;
+
+        //     //-------------Cek Jumlah Vocab-------------
+        //     $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmpprobabilityvocab WHERE idvocab=" . $data['id'] . " AND ipclient='" . $ipclient . "'";
+        //     $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
+        //     $data_jumtmpvocab = mysqli_fetch_array($tampil_jumtmpvocab);
+        //     $jumtmpvocab = $data_jumtmpvocab['jum'];
+        //     //-------------Exit Cek Jumlah Vocab--------
+        //     if ($hasil == 0) {
+        //         $delete = "DELETE FROM `tmpprobabilityvocab` WHERE idvocab=" . $data['id'] . "";
+        //     } else {
+        //         if ($jumtmpvocab == 0) {
+        //             $simpan = "INSERT INTO `tmpprobabilityvocab` (`idvocab`, `jumprobability`,`ipclient`) VALUES ('" . $data['id'] . "', '" . $hasil . "','" . $ipclient . "')";
+        //             $this->db->query($simpan);
+        //         } else {
+        //             $update = "UPDATE `tmpprobabilityvocab` SET `jumprobability`=" . $hasil . " WHERE (`idvocab`='" . $data['id'] . "') AND (`ipclient`='" . $ipclient . "')";
+        //             $this->db->query($update);
+        //         }
+        //     }
+        // }
+        //==========Exit Memberikan Nilai Bobot Kepada Setiap Vocab=====
+
+
+        //===========Pemanggilan Data Yang sudah sesuai atau tidak==========
+        $sql = "SELECT b.idvocab, b.answer FROM tmppropabilityvocab AS a INNER JOIN vocabs AS b ON b.idvocab = a.idvocab WHERE a.idcustomer='" . $idcustomer . "' ORDER BY a.jumpprobability DESC LIMIT 1";
+        $tampil = $this->db->query($sql);
+
+        // $data = mysqli_fetch_array($tampil);
+        foreach ($tampil->getResultArray() as $data) {
+            //d(trim($data['answer']));
+
+            if (trim($data['answer']) <> '') {
+                //$arr=$data['answer'].'<br><br> Mohon Konfirmasi apakah informasi kami benar atau tidak? jika benar ketik `YA` jika salah ketik `TIDAK`, maka kami akan memberikan informasi lagi yang mungkin... ';
+                // echo "trim data answer";
+                $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih';
+                $data = array('idvocab' => $data['idvocab']);
+                session()->set('answer', $data);
+                session()->set('idvocab', $data['idvocab']);
+            } else {
+                // $this->db->query("INSERT INTO `askpending` (`ask`,`tglask`, `idcustomer`,`status`) VALUES ('" . $teks . "', '1', '" . date('Y-m-d H:i:s') . "','" . $idcustomer . "')");
+                // $getID = $this->db->insert_id();
+
+                $builder = $this->db->table('askpending');
+                $data = [
+                    'ask' => $teks,
+                    'tglask' => date('Y-m-d H:i:s'),
+                    'idcustomer' => $idcustomer,
+                    'status' => 1
+                ];
+
+                // dd($data);
+                $getID = $builder->insert($data);
+                // $getID = $this->db->insert_id();
+                //$arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.<br /> silahkan masukan email anda <input type="text" name="email'.$getID.'" id="email'.$getID.'">&nbsp;<a onclick="simpanemail('.$getID.')" href="#">Kirim</a></p>';	
+                $arr = '<p>Aduh!! Maaf Sepertinya pertanyaan anda tidak ada di dalam databases kami, akan coba kami diskusikan dulu ya kepada team IT, akan kami informasikan kembali apabila sudah. terima kasih</p>. .<br /> silahkan masukan email anda <input type="text" name="email' . $getID . '" id="email' . $getID . '">&nbsp;<a onclick="simpanemail(' . $getID . ')" href="#">Kirim</a></p>
+				';
+            }
+        }
+        //============Exit Pemanggilan Data yang sesuai atau tidak=========
+        if ($hasil == 0) {
             $arr = 'Kamu mau nanya ap?';
         }
         echo $arr;

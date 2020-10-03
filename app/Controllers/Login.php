@@ -123,6 +123,7 @@ class Login extends BaseController
                 // Jika benar
                 session()->set('iduser', $cek['iduser']);
                 session()->set('idcustomer', $cek['idcustomer']);
+                session()->set('email', $cek['email']);
                 session()->set('username', $cek['username']);
                 session()->set('level', $cek['level']);
                 session()->set('ipclient', '192.168.56.3');

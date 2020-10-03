@@ -75,6 +75,7 @@
                                                     </td>
                                                     <td valign="top" align="">
                                                         <div id="ConR">
+
                                                             <div id="ConRspasi">Ada yang bisa saya bantu?</div>
                                                         </div>
                                                     </td>
@@ -84,7 +85,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="70%"><input required name="tanya" placeholder="Ayo bicara dengan Team IT~!" type="text" id="tanya" size="50" style="width:99%" onKeyUp="inputKeyUp(event)"></td>
+                                        <td width="70%"><input required name="tanya" placeholder="Ayo bicara dengan Team IT~!" type="text" class="tanya" id="tanya" size="50" style="width:99%" onKeyUp="inputKeyUp(event)"></td>
                                         <td width="20%"><input type="button" name="button" onClick="cek()" id="button" value="Kirim" title="Klik tombol untuk mengirim pesan "><input type="button" name="button" id="button1" value="Refresh" onclick="refreshbox()" title="Klik tombol untuk merefresh"></td>
                                     </tr>
                                 </table>
@@ -108,6 +109,39 @@
             x.className = "topnav";
         }
     }
+</script>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#tanya").autocomplete({
+            source: "<?= base_url(); ?>/User/auto",
+            select: function(event, ui) {
+                // Set selection
+                $('#tanya').val(ui.item.label); // display the selected text
+                return false;
+            }
+
+        });
+    });
+
+    // $(function() {
+    //     // alert("auto");
+    //     $("#tanya").autocomplete({
+    //         source: "<?= base_url('user/auto/'); ?>"
+    //     });
+    // });
+
+    // $(function() {
+    //     var availableTags = [
+    //         "Python",
+    //         "Ruby",
+    //         "Scala",
+    //         "Scheme"
+    //     ];
+    //     $("#tanya").autocomplete({
+    //         source: availableTags
+    //     });
+    // });
 </script>
 
 <script>
@@ -174,9 +208,9 @@
 
     function historichatadmin(kata, letak) {
         if (window.matchMedia('(max-width: 600px)').matches) {
-            $('#tampilchat tr:last').after('<tr><td valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Admin</h5></td><td  valign="top" style="padding-right: 450px !important;" align=\"' + letak + '\"><div id="ConR" style="height:65px !important;"><div id="ConRspasi">' + kata + '</div></div></td><td></td></tr>');
+            $('#tampilchat tr:last').after('<tr><td valign="top"><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Admin</h5></td><td  valign="top" style="padding-right: 450px !important;" align=\"' + letak + '\"><div id="ConR" style="height:75px !important;"><div id="ConRspasi">' + kata + '</div></div></td><td></td></tr>');
         } else {
-            $('#tampilchat tr:last').after('<tr ><td  valign="top" ><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Admin</h5></td><td valign="top" align=\"' + letak + '\"><div id="ConR" style="height:65px !important;"><div id="ConRspasi" style="font-size:15px;">' + kata + '</div></div></td><td></td></tr>');
+            $('#tampilchat tr:last').after('<tr ><td  valign="top" ><h5 style="font-family:Merriweather-700, serif;font-style: normal;font-weight: 700; font-size: 28px;line-height: 34px; color: #244295;">Admin</h5></td><td valign="top" align=\"' + letak + '\"><div id="ConR" style="height:75px !important;"><div id="ConRspasi" style="font-size:15px;">' + kata + '</div></div></td><td></td></tr>');
         }
     }
 
