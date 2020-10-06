@@ -921,20 +921,58 @@ class User extends BaseController
                 // $this->db->query("INSERT INTO `askpending` (`ask`,`tglask`, `idcustomer`,`status`) VALUES ('" . $teks . "', '1', '" . date('Y-m-d H:i:s') . "','" . $idcustomer . "')");
                 // $getID = $this->db->insert_id();
 
-                $builder = $this->db->table('askpending');
+                // *Revisi => jika pertanyaan tidak ada diknowledge maka otomatis akan dibuatkan ticket 
+                // $builder = $this->db->table('askpending');
+                // $data = [
+                //     'ask' => $teks,
+                //     'tglask' => date('Y-m-d H:i:s'),
+                //     'idcustomer' => $idcustomer,
+                //     'status' => 1
+                // ];
+
+                $teks = $hasil;
+                // dd($teks);
+                $idcustomer = session()->get('idcustomer');
+                $email = session()->get('email');
+                // d($idcustomer);
+                $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
+                // d($cekCsProduct['csproduct']);
+                $csproduct = $cekCsProduct['csproduct'];
+                $getProject1 = $this->UserModel->getProject1($idcustomer);
+                // d($getProject1);
+                $csNama = $this->UserModel->csNama($idcustomer);
+                // d($csNama);
+
                 $data = [
-                    'ask' => $teks,
-                    'tglask' => date('Y-m-d H:i:s'),
-                    'idcustomer' => $idcustomer,
-                    'status' => 1
+                    'csnama' => $csNama['csnama'],
+                    'csproduct' => $getProject1['namaproject'],
+                    'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
+                    'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
+                    'reportdate'  => date('Y-m-d '),
+                    'reportby'  => $csNama['pic'],
+                    'problemsummary'  => $teks,
+                    'status'  => 'Not Approve',
+                    'idcustomer' => $idcustomer
                 ];
+                // dd($data);
+
+                $builder = $this->db->table('while_ticket');
+                if ($builder->insert($data)) {
+                    // session()->setFlashdata('pesan', 'Ticket kamu berhasil dibuat');
+                    $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
+                    // return redirect()->to(base_url('/user/start_asking'));
+                } else {
+                    // session()->setFlashdata('failed', 'Ticket kamu belum berhasil dibuat');
+                    $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
+                    // return redirect()->to(base_url('/user/start_asking'));
+                }
 
                 // dd($data);
-                $getID = $builder->insert($data);
+                // $getID = $builder->insert($data);
                 // $getID = $this->db->insert_id();
                 //$arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.<br /> silahkan masukan email anda <input type="text" name="email'.$getID.'" id="email'.$getID.'">&nbsp;<a onclick="simpanemail('.$getID.')" href="#">Kirim</a></p>';	
-                $arr = '<p>Aduh!! Maaf Sepertinya pertanyaan anda tidak ada di dalam databases kami, akan coba kami diskusikan dulu ya kepada team IT, akan kami informasikan kembali apabila sudah. terima kasih</p>. .<br /> silahkan masukan email anda <input type="text" name="email' . $getID . '" id="email' . $getID . '">&nbsp;<a onclick="simpanemail(' . $getID . ')" href="#">Kirim</a></p>
-				';
+                // $arr = '<p>Aduh!! Maaf Sepertinya pertanyaan anda tidak ada di dalam databases kami, akan coba kami diskusikan dulu ya kepada team IT, akan kami informasikan kembali apabila sudah. terima kasih</p>. .<br /> silahkan masukan email anda <input type="text" name="email' . $getID . '" id="email' . $getID . '">&nbsp;<a onclick="simpanemail(' . $getID . ')" href="#">Kirim</a></p>
+                // ';
             }
         }
         //============Exit Pemanggilan Data yang sesuai atau tidak=========
