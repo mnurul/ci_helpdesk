@@ -383,6 +383,7 @@ div.content {
     margin-top: 0;
   }
 
+
   .card {
     background-color: #fdf6f0;
     -webkit-transition: 0.5s;
@@ -434,12 +435,14 @@ div.content {
 @media screen and (max-width: 600px) {
 
   .column,
-  #myInput,
   .pagination {
     width: 100%;
     display: block;
     margin-bottom: 20px;
   }
+
+
+
 
   .btn-assign {
     width: 100% !important;
@@ -558,6 +561,7 @@ div.content {
   padding: 12px 20px 12px 40px;
   border: none !important;
   margin-bottom: 12px;
+  margin-left: 200px !important;
 }
 
 #myInput:focus {
@@ -577,11 +581,24 @@ div.content {
 
 @media screen and (max-width: 600px) {
 
-  #myInput {
-    width: 100%;
+  /* #myInput {
+    width: 40% !important;
     display: block;
-    margin-bottom: 20px;
+    margin-left: -250px;
+
+    /* margin-bottom: 20px; */
+
+
+  #myInput {
+    margin-left: 5px !important;
+    display: block;
+    position: relative;
+    width: 220px !important;
   }
+
+
+
+
 }
 
 /* End Search Bar */

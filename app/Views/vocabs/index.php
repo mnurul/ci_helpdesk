@@ -1,10 +1,9 @@
-<?= $this->extend('w_for_close/template'); ?>
+<?= $this->extend('vocabs/template'); ?>
 
 <?= $this->section('content'); ?>
 
 <div class="sidebar">
     <?php $uri = service('uri'); ?>
-
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
     <a href="<?= base_url(); ?>/admin/my_assigment_a" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
@@ -30,23 +29,28 @@
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
                     <a href="<?= base_url(); ?>/admin">Back</a>
-                    <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
-                    <!-- <a href=" <?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
+                    <!-- <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
                     <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
-                    <a href="<?= base_url(); ?>/admin/list_user">Users</a>
+                    <!-- <a href="<?= base_url(); ?>/admin/create_user">Create User</a> -->
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
-                    <h2 class="title font-weight-bold">Waiting for Close</h2>
+                    <h2 class="title font-weight-bold">Vocabs</h2>
                     <div class="card bg-card mt-3 mb-5">
                         <div class="card-body">
-                            <div class="myInput">
-                                <form action="" method="post">
-                                    <div class="input-group col-7 justify-content-center " style="margin-left: 195px !important;">
-                                        <input type="text" class="form-control" name="search" style="width:543px !important;" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
-                                    </div>
-                                </form>
-                            </div>
+                            <a href="<?= base_url(); ?>/admin/create_vocabs" class="a-user ">Add Vocabs</a>
+                            <!-- <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Button</button>
+                                </div>
+                            </div> -->
+                            <form action="" method="post">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
+                                </div>
+
+                            </form>
                             <?php
                             $pesan = session()->getFlashdata('pesan');
                             $failed = session()->getFlashdata('failed');
@@ -57,7 +61,7 @@
                                     <?= $pesan; ?>
                                 </div>
                             <?php } elseif (!empty($failed)) { ?>
-                                <div class="alert alert-danger alert-failed" role="alert">
+                                <div class="alert alert-danger alert-failed " role="alert">
                                     <?= $failed; ?>
                                 </div>
                             <?php } elseif (!empty($errors)) { ?>
@@ -71,22 +75,22 @@
                             <?php }
                             ?>
                             <div class="row">
-                                <?php foreach ($w_for_close as $t) : ?>
+
+                                <?php $no = 0; ?>
+                                <?php foreach ($vocabs as $u) : ?>
                                     <div class="column">
                                         <div class="card">
                                             <div class="row no-gutters">
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle st-ticket text-muted mb-2"><?= $t['noticket']; ?></h6>
-                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $t['csnama']; ?></h6>
+                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $u['idvocab']; ?></h6>
                                                 </div>
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $t['reportdate']; ?></h6>
-                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $t['reportby']; ?></h6>
+                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['idcustomer']; ?></h6>
                                                 </div>
                                             </div>
                                             <hr style="margin-top: 10px;">
-                                            <h5 class="card-title text"><?= $t['namasla']; ?></h5>
-                                            <a href="<?= base_url(); ?>/admin/detail_w_for_close/<?= $t['idtickets']; ?>" class=" btn-assign">Detail</a>
+                                            <h5 class="card-title text"><?= $u['ask']; ?></h5>
+                                            <a href="<?= base_url(); ?>/admin/detail_vocabs/<?= $u['idvocab']; ?>" class=" btn-assign">Detail</a>
                                         </div>
                                     </div>
                                 <?php endforeach; ?>
@@ -94,74 +98,27 @@
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">No. Ticket</h6>
-                                                <h6 class="card-subtitle st-ticket text-muted">Customer</h6>
+                                                <h6 class="card-subtitle st-ticket text-muted">Id User</h6>
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported By</h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted">Level</h6>
                                             </div>
                                         </div>
                                         <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Urgency</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_w_for_close" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">No. Ticket</h6>
-                                                <h6 class="card-subtitle st-ticket text-muted">Customer</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported By</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Urgency</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_w_for_close" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">No. Ticket</h6>
-                                                <h6 class="card-subtitle st-ticket text-muted">Customer</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported By</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Urgency</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_w_for_close" class=" btn-assign">Detail</a>
-                                    </div>
-                                </div>
-                                <div class="column">
-                                    <div class="card">
-                                        <div class="row no-gutters">
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle st-ticket text-muted mb-2">No. Ticket</h6>
-                                                <h6 class="card-subtitle st-ticket text-muted">Customer</h6>
-                                            </div>
-                                            <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported Date</h6>
-                                                <h6 class="card-subtitle mb-2 st-date text-muted">Reported By</h6>
-                                            </div>
-                                        </div>
-                                        <hr style="margin-top: 10px;">
-                                        <h5 class="card-title text">Urgency</h5>
-                                        <a href="<?= base_url(); ?>/admin/detail_w_for_close" class=" btn-assign">Detail</a>
+                                        <h5 class="card-title text">Username</h5>
+                                        <a href="<?= base_url(); ?>/admin/form_assigment_a" class=" btn-assign">Detail</a>
                                     </div>
                                 </div> -->
+
+
+
+
+
+
                             </div>
-                            <?= $pager->links('w_for_close', 'user_pagination') ?>
-                            <a href="<?= base_url(); ?>/admin/w_for_close" title="Back to view all data">
-                                <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count_closed; ?></h6>
+                            <?= $pager->links('vocabs', 'user_pagination') ?>
+                            <a href="<?= base_url(); ?>/admin/vocabs" title="Back to view all data">
+                                <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count; ?></h6>
                             </a>
                             <!-- <div class="pagination justify-content-center ">
                                 <a href="#">&laquo;</a>

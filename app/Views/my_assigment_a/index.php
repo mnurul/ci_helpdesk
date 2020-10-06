@@ -11,10 +11,12 @@
     <a href="<?= base_url(); ?>/admin/w_for_close" class="btn navbar <?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
     <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
     <a href="<?= base_url(); ?>/admin/popular_solution" class="btn navbar <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a>
-    <h6 class="t-view-report"><b>View Report</b></h6>
+    <h6 class="t-view-report"><b>Start Asking</b></h6>
     <br>
-    <a href="<?= base_url(); ?>/admin/pivot_table_a" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a>
-    <a href="<?= base_url(); ?>/admin/sla_chart_a" class="btn navbar <?= ($uri->getSegment(2) == 'sla_chart_a' ? 'active' : null) ?>">SLA Chart</a>
+    <!-- <a href="<?= base_url(); ?>/admin/pivot_table_a" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a> -->
+    <a href="<?= base_url(); ?>/admin/correct_word" class="btn navbar <?= ($uri->getSegment(2) == 'correct_word' ? 'active' : null) ?>">Correct Word</a>
+    <a href="<?= base_url(); ?>/admin/edc" class="btn navbar <?= ($uri->getSegment(2) == 'edc' ? 'active' : null) ?>">EDC</a>
+    <a href="<?= base_url(); ?>/admin/vocabs" class="btn navbar <?= ($uri->getSegment(2) == 'vocabs' ? 'active' : null) ?>">Vocabs</a>
 </div>
 
 
@@ -26,6 +28,7 @@
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
+                    <a href="<?= base_url(); ?>/admin">Back</a>
                     <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
                     <!-- <a href=" <?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
                     <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
@@ -37,9 +40,9 @@
                     <div class="card bg-card mt-3 mb-5">
                         <div class="card-body">
                             <form action="" method="post">
-                                <div class="input-group col-7 justify-content-center" style="margin-left: 195px !important;">
-                                    <input type="text" class="form-control" name="search" style="width:543px !important;" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
-                                </div>
+                                <!-- <div class="input-group col-7 justify-content-center" style="margin-left: 195px !important;"> -->
+                                <input type="text" class="form-control" name="search" id="myInput" onkeyup="myFunction()" placeholder="Search for " title="Type in a name">
+                                <!-- </div> -->
                             </form>
                             <?php
                             $pesan = session()->getFlashdata('pesan');
@@ -194,10 +197,11 @@
 </div> -->
 <div class="dropup">
     <div class="col-6" style="bottom: 0; margin-left:170px;margin-bottom:-40px !important">
-        <button class="dropbtn">My Tickets</button>
+        <button class="dropbtn">Start Asking</button>
         <div class="dropup-content">
-            <a href="<?= base_url(); ?>/admin/pivot_table_a" class=" <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a>
-            <a href="<?= base_url(); ?>/admin/sla_chart_a" class=" <?= ($uri->getSegment(2) == 'sla_chart_a' ? 'active' : null) ?>">SLA Chart</a>
+            <a href="<?= base_url(); ?>/admin/correct_word" class="<?= ($uri->getSegment(2) == 'correct_word' ? 'active' : null) ?>">Correct Word</a>
+            <a href="<?= base_url(); ?>/admin/edc" class="<?= ($uri->getSegment(2) == 'edc' ? 'active' : null) ?>">EDC</a>
+            <a href="<?= base_url(); ?>/admin/vocabs" class="<?= ($uri->getSegment(2) == 'vocabs' ? 'active' : null) ?>">Vocabs</a>
         </div>
     </div>
     <div class="col-6" style="margin-left:-15px;">

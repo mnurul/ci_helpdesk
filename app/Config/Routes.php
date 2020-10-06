@@ -45,6 +45,7 @@ $routes->delete('/customer/(:any)', 'Admin::delete_cs/$1');
 $routes->delete('/product/(:any)', 'Admin::delete_pdc/$1');
 $routes->delete('/correctword/(:any)', 'Admin::delete_word/$1');
 $routes->delete('/edc/(:any)', 'Admin::delete_edc/$1');
+$routes->delete('/vocabs/(:any)', 'Admin::delete_vocabs/$1');
 // $routes->post('/user/create_ticket', 'User::getCustomer');
 
 

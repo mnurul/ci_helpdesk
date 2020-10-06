@@ -10,6 +10,7 @@ use App\Models\ProjectModel;
 use App\Models\ProductModel;
 use App\Models\CorrectWordModel;
 use App\Models\EdcModel;
+use App\Models\VocabsModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -24,6 +25,7 @@ class Admin extends BaseController
     protected $ProductModel;
     protected $CorrectWordModel;
     protected $EdcModel;
+    protected $VocabsModel;
 
     public function __construct()
     {
@@ -40,6 +42,7 @@ class Admin extends BaseController
         $this->ProductModel = new ProductModel();
         $this->CorrectWordModel = new CorrectWordModel();
         $this->EdcModel = new EdcModel();
+        $this->VocabsModel = new VocabsModel();
         $email = \Config\Services::email();
         $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
@@ -1100,6 +1103,131 @@ class Admin extends BaseController
             ];
             session()->setFlashdata('builder', $data['builder']);
             return view('create_edc/index', $data);
+        }
+    }
+
+    public function vocabs()
+    {
+        // getVar() bisa ambil get dan post
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $vocabs = $this->VocabsModel->search($search);
+        } else {
+            $vocabs = $this->VocabsModel;
+        }
+        $data = [
+            'title' => 'Vocabs',
+            // 'count' => $this->AdminModel->getUser(),
+            'count' => $this->db->table('vocabs')->countAll(),
+            // 'user' => $this->AdminModel->paginate(3, 'users'),
+            'vocabs' => $vocabs->paginate(3, 'vocabs'),
+            'pager' => $this->VocabsModel->pager
+        ];
+        return view('vocabs/index', $data);
+    }
+
+    public function detail_vocabs($idvocab)
+    {
+        $data = [
+            'title' => 'Detail Vocabs',
+            'vocabs' => $this->VocabsModel->getVocabs($idvocab)
+        ];
+        // dd($data);
+        return view('detail_vocabs/index', $data);
+    }
+
+    public function edit_vocabs($idvocab)
+    {
+        $idvocab   = $this->request->getPost('idvocab');
+        $idcustomer   = $this->request->getPost('idcustomer');
+        $pic   = $this->request->getPost('pic');
+        $ask   = $this->request->getPost('ask');
+        $answer   = $this->request->getPost('answer');
+
+        $data = [
+            'idvocab'  => $idvocab,
+            'idcustomer'  => $idcustomer,
+            'pic'  => $pic,
+            'ask'  => $ask,
+            'answer'  => $answer,
+        ];
+        // dd($data);
+
+        $builder = $this->db->table('vocabs');
+        $builder->where('idvocab', $data['idvocab']);
+
+        if ($builder->update($data)) {
+            session()->setFlashdata('pesan', 'Data kamu berhasil diubah');
+            return redirect()->to(base_url('/admin/vocabs'));
+        } else {
+            session()->setFlashdata('failed', 'Data kamu belum berhasil diubah');
+            return redirect()->to(base_url('/admin/vocabs'));
+        }
+    }
+
+    public function delete_vocabs($idvocab)
+    {
+        $builder = $this->db->table('vocabs');
+        $builder->where('idvocab', $idvocab);
+        if ($builder->delete()) {
+            session()->setFlashdata('pesan', 'Data berhasil dihapus');
+            return redirect()->to(base_url('/admin/vocabs'));
+        } else {
+            session()->setFlashdata('failed', 'Data belum berhasil dihapus ');
+            return redirect()->to(base_url('/admin/vocabs'));
+        }
+    }
+
+    public function create_vocabs()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $idvocab   = $this->request->getPost('idvocab');
+            $idcustomer   = $this->request->getPost('idcustomer');
+            $pic   = $this->request->getPost('pic');
+            $ask   = $this->request->getPost('ask');
+            $answer   = $this->request->getPost('answer');
+
+
+            $data = [
+                'title' => 'Create Vocabs',
+                'idvocab'  => $idvocab,
+                'idcustomer'  => $idcustomer,
+                'pic'  => $pic,
+                'ask'  => $ask,
+                'answer'  => $answer,
+            ];
+            $data1 = [
+                'idvocab'  => $idvocab,
+                'idcustomer'  => $idcustomer,
+                'pic'  => $pic,
+                'ask'  => $ask,
+                'answer'  => $answer,
+            ];
+
+            $builder = $this->db->table('vocabs');
+            if ($builder->insert($data1)) {
+                session()->setFlashdata('pesan', 'Data kamu berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/vocabs'));
+            } else {
+                session()->setFlashdata('pesan', 'Data kamu belum berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/vocabs'));
+            }
+        } else {
+            $builder = $this->VocabsModel->viewIdvocabs();
+
+            // dd($builder);
+            $data = [
+                'title' => 'Create Edc',
+                'builder' => $builder,
+                'idvocab'  => '',
+                'idcustomer'  => '',
+                'pic'  => '',
+                'ask'  => '',
+                'answer'  => '',
+            ];
+            session()->setFlashdata('builder', $data['builder']);
+            return view('create_vocabs/index', $data);
         }
     }
 

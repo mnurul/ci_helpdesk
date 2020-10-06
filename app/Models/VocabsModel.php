@@ -27,4 +27,22 @@ class VocabsModel extends Model
             ->limit(10)
             ->get()->getResult();
     }
+
+    public function getVocabs($idvocab = false)
+    {
+        if ($idvocab == false) {
+            return $this->findAll();
+            // Ga perlu pake else, return langsung keluar dari if
+        }
+
+        return $this->where(['idvocab' => $idvocab])->first();
+    }
+
+    public function viewIdvocabs()
+    {
+        return $this->db->table('vocabs')
+            ->orderBy('idvocab', 'DESC')
+            ->limit(1)
+            ->get()->getRowArray();
+    }
 }
