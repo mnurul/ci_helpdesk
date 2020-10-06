@@ -8,6 +8,8 @@ use App\Models\TicketModel;
 use App\Models\TeknisiModel;
 use App\Models\ProjectModel;
 use App\Models\ProductModel;
+use App\Models\CorrectWordModel;
+use App\Models\EdcModel;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
@@ -20,6 +22,8 @@ class Admin extends BaseController
     protected $TeknisiModel;
     protected $ProjectModel;
     protected $ProductModel;
+    protected $CorrectWordModel;
+    protected $EdcModel;
 
     public function __construct()
     {
@@ -34,6 +38,8 @@ class Admin extends BaseController
         $this->TeknisiModel = new TeknisiModel();
         $this->ProjectModel = new ProjectModel();
         $this->ProductModel = new ProductModel();
+        $this->CorrectWordModel = new CorrectWordModel();
+        $this->EdcModel = new EdcModel();
         $email = \Config\Services::email();
         $this->pager = \Config\Services::pager();
         $this->form_validation = \Config\Services::validation();
@@ -850,6 +856,251 @@ class Admin extends BaseController
         // $builder->delete();
         session()->setFlashdata('pesan', 'Data berhasil dihapus');
         return redirect()->to(base_url('/admin/list_user'));
+    }
+
+    public function correct_word()
+    {
+        // getVar() bisa ambil get dan post
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $correct_word = $this->CorrectWordModel->search($search);
+        } else {
+            $correct_word = $this->CorrectWordModel;
+        }
+        $data = [
+            'title' => 'Correct Word',
+            // 'count' => $this->AdminModel->getUser(),
+            'count' => $this->db->table('correctword')->countAll(),
+            // 'user' => $this->AdminModel->paginate(3, 'users'),
+            'correctword' => $correct_word->paginate(3, 'correctword'),
+            'pager' => $this->CorrectWordModel->pager
+        ];
+        return view('correct_word/index', $data);
+    }
+
+    public function detail_word($id)
+    {
+        $data = [
+            'title' => 'Detail Word',
+            'correct_word' => $this->CorrectWordModel->getWord($id)
+        ];
+        // dd($data);
+        return view('detail_word/index', $data);
+    }
+
+    public function edit_word($id)
+    {
+        $id   = $this->request->getPost('id');
+        $word   = $this->request->getPost('word');
+        $c_word   = $this->request->getPost('c_word');
+
+        $data = [
+            'id'  => $id,
+            'word'  => $word,
+            'correctword'  => $c_word,
+        ];
+        // dd($data);
+
+        $builder = $this->db->table('correctword');
+        $builder->where('id', $data['id']);
+
+        if ($builder->update($data)) {
+            session()->setFlashdata('pesan', 'Data kamu berhasil diubah');
+            return redirect()->to(base_url('/admin/correct_word'));
+        } else {
+            session()->setFlashdata('failed', 'Data kamu belum berhasil diubah');
+            return redirect()->to(base_url('/admin/correct_word'));
+        }
+    }
+
+    public function delete_word($id)
+    {
+        $builder = $this->db->table('correctword');
+        $builder->where('id', $id);
+        if ($builder->delete()) {
+            session()->setFlashdata('pesan', 'Data berhasil dihapus');
+            return redirect()->to(base_url('/admin/correct_word'));
+        } else {
+            session()->setFlashdata('failed', 'Data belum berhasil dihapus ');
+            return redirect()->to(base_url('/admin/correct_word'));
+        }
+    }
+
+    public function create_word()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $builder = session()->getFlashdata('builder');
+            $id   = $this->request->getPost('id');
+            $word   = $this->request->getPost('word');
+            $correctword   = $this->request->getPost('correctword');
+
+            $data = [
+                'title' => 'Create Word',
+                'id'  => $id,
+                'word'  => $word,
+                'correctword'  => $correctword
+            ];
+            $data1 = [
+                'id'  => $id,
+                'word'  => $word,
+                'correctword'  => $correctword
+            ];
+
+            $builder = $this->db->table('correctword');
+            if ($builder->insert($data1)) {
+                session()->setFlashdata('pesan', 'Data kamu berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/correct_word'));
+            } else {
+                session()->setFlashdata('pesan', 'Data kamu belum berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/correct_word'));
+            }
+        } else {
+            $builder = $this->CorrectWordModel->viewIdword();
+
+            // dd($builder);
+            $data = [
+                'title' => 'Create Word',
+                'builder' => $builder,
+                'id'  => '',
+                'word'  => '',
+                'correctword'  => ''
+            ];
+            session()->setFlashdata('builder', $data['builder']);
+            return view('create_word/index', $data);
+        }
+    }
+
+    public function edc()
+    {
+        // getVar() bisa ambil get dan post
+        $search = $this->request->getVar('search');
+        // d($search);
+        if ($search) {
+            $edc = $this->EdcModel->search($search);
+        } else {
+            $edc = $this->EdcModel;
+        }
+        $data = [
+            'title' => 'EDC',
+            // 'count' => $this->AdminModel->getUser(),
+            'count' => $this->db->table('edc')->countAll(),
+            // 'user' => $this->AdminModel->paginate(3, 'users'),
+            'edc' => $edc->paginate(3, 'edc'),
+            'pager' => $this->EdcModel->pager
+        ];
+        return view('edc/index', $data);
+    }
+
+    public function detail_edc($id)
+    {
+        $data = [
+            'title' => 'Detail EDC',
+            'edc' => $this->EdcModel->getEdc($id)
+        ];
+        // dd($data);
+        return view('detail_edc/index', $data);
+    }
+
+    public function edit_edc($id)
+    {
+        $id   = $this->request->getPost('id');
+        $jedc   = $this->request->getPost('jedc');
+        $lokasi   = $this->request->getPost('lokasi');
+        $pic   = $this->request->getPost('pic');
+        $pertanyaan   = $this->request->getPost('pertanyaan');
+        $idcustomer   = $this->request->getPost('idcustomer');
+
+        $data = [
+            'id'  => $id,
+            'jenisedc'  => $jedc,
+            'lokasi'  => $lokasi,
+            'pic'  => $pic,
+            'pertanyaan'  => $pertanyaan,
+            'idcustomer'  => $idcustomer,
+        ];
+        // dd($data);
+
+        $builder = $this->db->table('edc');
+        $builder->where('id', $data['id']);
+
+        if ($builder->update($data)) {
+            session()->setFlashdata('pesan', 'Data kamu berhasil diubah');
+            return redirect()->to(base_url('/admin/edc'));
+        } else {
+            session()->setFlashdata('failed', 'Data kamu belum berhasil diubah');
+            return redirect()->to(base_url('/admin/edc'));
+        }
+    }
+
+    public function delete_edc($id)
+    {
+        $builder = $this->db->table('edc');
+        $builder->where('id', $id);
+        if ($builder->delete()) {
+            session()->setFlashdata('pesan', 'Data berhasil dihapus');
+            return redirect()->to(base_url('/admin/edc'));
+        } else {
+            session()->setFlashdata('failed', 'Data belum berhasil dihapus ');
+            return redirect()->to(base_url('/admin/edc'));
+        }
+    }
+
+    public function create_edc()
+    {
+        if ($_SERVER["REQUEST_METHOD"] == "POST") {
+            $builder = session()->getFlashdata('builder');
+            $id   = $this->request->getPost('id');
+            $jedc   = $this->request->getPost('jedc');
+            $lokasi   = $this->request->getPost('lokasi');
+            $pic   = $this->request->getPost('pic');
+            $pertanyaan   = $this->request->getPost('pertanyaan');
+            $idcustomer   = $this->request->getPost('idcustomer');
+
+
+            $data = [
+                'title' => 'Create EDC',
+                'id'  => $id,
+                'jenisedc'  => $jedc,
+                'lokasi'  => $lokasi,
+                'pic'  => $pic,
+                'pertanyaan'  => $pertanyaan,
+                'idcustomer'  => $idcustomer,
+            ];
+            $data1 = [
+                'id'  => $id,
+                'jenisedc'  => $jedc,
+                'lokasi'  => $lokasi,
+                'pic'  => $pic,
+                'pertanyaan'  => $pertanyaan,
+                'idcustomer'  => $idcustomer,
+            ];
+
+            $builder = $this->db->table('edc');
+            if ($builder->insert($data1)) {
+                session()->setFlashdata('pesan', 'Data kamu berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/edc'));
+            } else {
+                session()->setFlashdata('pesan', 'Data kamu belum berhasil ditambahkan');
+                return redirect()->to(base_url('/admin/edc'));
+            }
+        } else {
+            $builder = $this->EdcModel->viewIdedc();
+
+            // dd($builder);
+            $data = [
+                'title' => 'Create Edc',
+                'builder' => $builder,
+                'id'  => '',
+                'jenisedc'  => '',
+                'lokasi'  => '',
+                'pic'  => '',
+                'pertanyaan'  => '',
+                'idcustomer'  => '',
+            ];
+            session()->setFlashdata('builder', $data['builder']);
+            return view('create_edc/index', $data);
+        }
     }
 
     public function list_project()

@@ -263,4 +263,18 @@ class Validation
 			'integer'      => 'Contract End Date harus berisi angka',
 		]
 	];
+
+	public $edit_word = [
+		'word' => 'required',
+		'c_word' => 'required',
+	];
+
+	public $edit_word_errors = [
+		'word' => [
+			'required'      => 'Word wajib kamu isi'
+		],
+		'c_word' => [
+			'required'      => 'Correct Word wajib kamu isi'
+		]
+	];
 }

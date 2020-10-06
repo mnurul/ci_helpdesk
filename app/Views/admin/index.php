@@ -15,8 +15,9 @@
     <a href="<?= base_url(); ?>/admin/popular_solution" class="btn navbar <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a>
     <h6 class="t-view-report"><b>View Report</b></h6>
     <br>
-    <a href="<?= base_url(); ?>/admin/pivot_table_a" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a>
-    <a href="<?= base_url(); ?>/admin/sla_chart_a" class="btn navbar <?= ($uri->getSegment(2) == 'sla_chart_a' ? 'active' : null) ?>">SLA Chart</a>
+    <!-- <a href="<?= base_url(); ?>/admin/pivot_table_a" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a> -->
+    <a href="<?= base_url(); ?>/admin/correct_word" class="btn navbar <?= ($uri->getSegment(2) == 'correct_word' ? 'active' : null) ?>">Correct Word</a>
+    <a href="<?= base_url(); ?>/admin/edc" class="btn navbar <?= ($uri->getSegment(2) == 'edc' ? 'active' : null) ?>">EDC</a>
 </div>
 
 
