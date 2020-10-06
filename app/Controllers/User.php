@@ -243,44 +243,17 @@ class User extends BaseController
 
     public function tanyajawab()
     {
-        //echo "tanyajawab";
-        // $teks = $this->input->get('tanya');
-        // $tanya = $_GET['tanya'];
         $tanya = $this->request->getVar('tanya');
-        //echo $tanya;
-        //d($tanya);
         $teks = strtolower($tanya);
-        // if ($teks != "ya") {
-        // echo "jalan";
-
-        // d($teks);
-        // d($teks1);
-        // session()->get('answer');
-
-        // echo "test";
-        // $idcustomer = session()->get('idcustomer');
         $cekVocabs = $this->UserModel->cekVocabs($teks);
-        // d($cekVocabs);
-        // d($teks);
-        // $idvocab = $this->session->get('idvocab');
 
-
-
-        // $idvocab = 1;
-        // $ipclient = '192.168.56.1';
-        // $idcustomer = session()->get('idcustomer');
         $tesklama = session()->get('kataterakhir');
         // $teksawal = session()->set('tanya', $tanya);
         $teksawal = $teks;
-        // $test = session()->markAsTempdata($teksawal, 300);
-        // d($teksawal);
-        // d($test);
-        $correctword = explode(" ", $teks);
-        // d($correctword);
-        $jumdata = count($correctword);
-        // d($jumdata);
 
-        // d($jumdata);
+        $correctword = explode(" ", $teks);
+        $jumdata = count($correctword);
+
         //-----Pengecekan Kata Minimal Harus Lebih dari 3 kata-----
         $arr = "|";
         if ($jumdata < 3) {
@@ -335,24 +308,64 @@ class User extends BaseController
                         // echo $ask;
 
                         // Revisi. data diinput ke tabel ticket
-                        $builder = $this->db->table('askpending');
+                        // $builder = $this->db->table('askpending');
+                        // $data = [
+                        //     'ask' => $ask,
+                        //     'tglask' => date('Y-m-d H:i:s'),
+                        //     'idcustomer' => $idcustomer,
+                        //     'status' => 1,
+                        //     'email' => session()->get('email')
+                        // ];
+
+                        // $teks = $hasil;
+                        // dd($teks);
+                        $idcustomer = session()->get('idcustomer');
+                        $email = session()->get('email');
+                        // d($idcustomer);
+                        $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
+                        // d($cekCsProduct['csproduct']);
+                        $csproduct = $cekCsProduct['csproduct'];
+                        $getProject1 = $this->UserModel->getProject1($idcustomer);
+                        // d($getProject1);
+                        $csNama = $this->UserModel->csNama($idcustomer);
+                        // d($csNama);
+
+
                         $data = [
-                            'ask' => $ask,
-                            'tglask' => date('Y-m-d H:i:s'),
-                            'idcustomer' => $idcustomer,
-                            'status' => 1,
-                            'email' => session()->get('email')
+                            'csnama' => $csNama['csnama'],
+                            'csproduct' => $getProject1['namaproject'],
+                            'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
+                            'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
+                            'reportdate'  => date('Y-m-d '),
+                            'reportby'  => $csNama['pic'],
+                            'problemsummary'  => $ask,
+                            'status'  => 'Not Approve',
+                            'idcustomer' => $idcustomer
                         ];
+                        // dd($data);
+
+                        $builder = $this->db->table('while_ticket');
+                        if ($builder->insert($data)) {
+                            // session()->setFlashdata('pesan', 'Ticket kamu berhasil dibuat');
+                            $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
+                            // return redirect()->to(base_url('/user/start_asking'));
+                        } else {
+                            // session()->setFlashdata('failed', 'Ticket kamu belum berhasil dibuat');
+                            $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
+                            // return redirect()->to(base_url('/user/start_asking'));
+                        }
+
+
 
                         // dd($data);
-                        $getID = $builder->insert($data);
+                        // $getID = $builder->insert($data);
                         // foreach ($getID->getResult() as $row) {
                         //     echo $row->ask;
                         //     echo $row->tglask;
                         //     echo $row->idcustomer;
                         // }
                         // echo $getID;
-                        $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
+                        // $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis123.';
 
                         $data = array('idvocab' => '');
                         session()->set($data);
@@ -367,17 +380,56 @@ class User extends BaseController
 
                                 // exit;
 
-                                $builder = $this->db->table('askpending');
-                                $data = [
-                                    'ask' => $teks,
-                                    'tglask' => date('Y-m-d H:i:s'),
-                                    'idcustomer' => $idcustomer,
-                                    'status' => 1
-                                ];
+                                // Revisi. data diinput ke tabel ticket
+                                // $builder = $this->db->table('askpending');
+                                // $data = [
+                                //     'ask' => $teks,
+                                //     'tglask' => date('Y-m-d H:i:s'),
+                                //     'idcustomer' => $idcustomer,
+                                //     'status' => 1
+                                // ];
 
                                 // dd($data);
-                                $getID = $builder->insert($data);
-                                $arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.<br /> silahkan masukan email anda <input type="text" name="email' . $getID . '" id="email' . $getID . '">&nbsp;<a onclick="simpanemail(' . $getID . ')" href="#">Kirim</a></p>';
+
+                                $idcustomer = session()->get('idcustomer');
+                                $email = session()->get('email');
+                                // d($idcustomer);
+                                $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
+                                // d($cekCsProduct['csproduct']);
+                                $csproduct = $cekCsProduct['csproduct'];
+                                $getProject1 = $this->UserModel->getProject1($idcustomer);
+                                // d($getProject1);
+                                $csNama = $this->UserModel->csNama($idcustomer);
+                                // d($csNama);
+
+
+                                $data = [
+                                    'csnama' => $csNama['csnama'],
+                                    'csproduct' => $getProject1['namaproject'],
+                                    'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
+                                    'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
+                                    'reportdate'  => date('Y-m-d '),
+                                    'reportby'  => $csNama['pic'],
+                                    'problemsummary'  => $teks,
+                                    'status'  => 'Not Approve',
+                                    'idcustomer' => $idcustomer
+                                ];
+                                // dd($data);
+
+                                $builder = $this->db->table('while_ticket');
+                                if ($builder->insert($data)) {
+                                    // session()->setFlashdata('pesan', 'Ticket kamu berhasil dibuat');
+                                    $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
+                                    // return redirect()->to(base_url('/user/start_asking'));
+                                } else {
+                                    // session()->setFlashdata('failed', 'Ticket kamu belum berhasil dibuat');
+                                    $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
+                                    // return redirect()->to(base_url('/user/start_asking'));
+                                }
+
+
+                                // $getID = $builder->insert($data);
+                                // $arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.<br /> silahkan masukan email anda <input type="text" name="email' . $getID . '" id="email' . $getID . '">&nbsp;<a onclick="simpanemail(' . $getID . ')" href="#">Kirim</a></p>';
 
                                 $data = array('idvocab' => '');
                                 session()->set($data);
@@ -437,6 +489,7 @@ class User extends BaseController
         $cekVocabs = $this->UserModel->cekVocabs($hasil);
 
 
+
         if ((isset($cekVocabs['idvocab']) != 0) && (isset($cekVocabs['idcustomer']) != 0)) {
             $idvocab = $cekVocabs['idvocab'];
             $idcustomer = $cekVocabs['idcustomer'];
@@ -445,26 +498,64 @@ class User extends BaseController
             session()->set('idvocab1', $cekVocabs['idvocab']);
             session()->set('ask', $cekVocabs['ask']);
         } else {
-            $idcustomer = session()->get('idcustomer1');
-            // d($teks);
-            $builder = $this->db->table('askpending');
+            $teks = $hasil;
+            // dd($teks);
+            $idcustomer = session()->get('idcustomer');
+            $email = session()->get('email');
+            // d($idcustomer);
+            $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
+            // d($cekCsProduct['csproduct']);
+            $csproduct = $cekCsProduct['csproduct'];
+            $getProject1 = $this->UserModel->getProject1($idcustomer);
+            // d($getProject1);
+            $csNama = $this->UserModel->csNama($idcustomer);
+            // d($csNama);
+
+            // *Revisi => jika pertanyaan tidak ada diknowledge maka otomatis akan dibuatkan ticket 
+            // $builder = $this->db->table('askpending');
+            // $data = [
+            //     'ask' => $teks,
+            //     'tglask' => date('Y-m-d H:i:s'),
+            //     'idcustomer' => $idcustomer,
+            //     'status' => 1,
+            //     'email' => $email
+            // ];
+
             $data = [
-                'ask' => $teks,
-                'tglask' => date('Y-m-d H:i:s'),
-                'idcustomer' => $idcustomer,
-                'status' => 1,
-                'email' => session()->get('email')
+                'csnama' => $csNama['csnama'],
+                'csproduct' => $getProject1['namaproject'],
+                'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
+                'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
+                'reportdate'  => date('Y-m-d '),
+                'reportby'  => $csNama['pic'],
+                'problemsummary'  => $teks,
+                'status'  => 'Not Approve',
+                'idcustomer' => $idcustomer
             ];
+            // dd($data);
+
+            $builder = $this->db->table('while_ticket');
+            if ($builder->insert($data)) {
+                // session()->setFlashdata('pesan', 'Ticket kamu berhasil dibuat');
+                $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
+                // return redirect()->to(base_url('/user/start_asking'));
+            } else {
+                // session()->setFlashdata('failed', 'Ticket kamu belum berhasil dibuat');
+                $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
+                // return redirect()->to(base_url('/user/start_asking'));
+            }
 
             // dd($data);
-            $getID = $builder->insert($data);
+            // $getID = $builder->insert($data);
+
+            // $builder->insert($data);
             // foreach ($getID->getResult() as $row) {
             //     echo $row->ask;
             //     echo $row->tglask;
             //     echo $row->idcustomer;
             // }
-            // echo $getID;
-            $arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.';
+            // // echo $getID;
+            // $arr = '<p>Maaf untuk sementara ini, pertanyaan yang anda ajukan akan kami diskusikan terlebih dahulu dan akan ditindak lanjuti melalui email apabila sudah ada solusinya.';
 
             $data = array('idvocab' => '');
             session()->set($data);

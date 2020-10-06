@@ -87,6 +87,13 @@ class UserModel extends Model
             ->get()->getRowArray();
     }
 
+    public function getProject1($idcustomer)
+    {
+        return $this->db->table('projects')
+            ->where(array('idcustomer' => $idcustomer))
+            ->get()->getRowArray();
+    }
+
     public function csDate($idproject)
     {
         $builder = $this->db->table('projects');
@@ -142,6 +149,12 @@ class UserModel extends Model
     {
         return $this->db->table('vocabs')
             ->where(array('ask' => $teks))
+            ->get()->getRowArray();
+    }
+    public function cekCsProduct($idcustomer)
+    {
+        return $this->db->table('csproduct')
+            ->where(array('idcustomer' => $idcustomer))
             ->get()->getRowArray();
     }
 }
