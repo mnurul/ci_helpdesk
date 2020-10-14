@@ -184,10 +184,10 @@
             //$.post("<?= base_url(); ?>/User/tanyajawab", {tanya: tanya}, function(hasil) {
             //alert("udah post. " + tanya);
             data = hasil.split("|");
-            alert("hasil : " + hasil);
+            // alert("hasil : " + hasil);
             var letak = '';
             var kata = data[0];
-            alert("kata : " + kata);
+            // alert("kata : " + kata);
             //alert("letak: " + letak + "kata: " + kata);
             // alert("kata" + kata);
             historichatadmin(kata, letak);
