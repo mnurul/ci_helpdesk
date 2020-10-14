@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Agu 2020 pada 07.40
+-- Waktu pembuatan: 14 Okt 2020 pada 08.22
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.6
 
@@ -24,16 +24,179 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `asking`
+--
+
+CREATE TABLE `asking` (
+  `idasking` int(11) NOT NULL,
+  `jenisedc` varchar(30) NOT NULL,
+  `lokasi` text NOT NULL,
+  `pic` varchar(30) NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `jawaban` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `askpending`
 --
 
 CREATE TABLE `askpending` (
-  `idaskpending` varchar(7) NOT NULL,
+  `idaskpending` int(11) NOT NULL,
   `ask` text NOT NULL,
   `tglask` timestamp NOT NULL DEFAULT current_timestamp(),
   `idcustomer` varchar(5) NOT NULL,
-  `status` varchar(15) NOT NULL
+  `status` varchar(15) NOT NULL,
+  `email` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `askpending`
+--
+
+INSERT INTO `askpending` (`idaskpending`, `ask`, `tglask`, `idcustomer`, `status`, `email`) VALUES
+(1, 'tidak', '2020-09-11 15:50:59', 'cs002', '1', ''),
+(2, 'tidak', '2020-09-11 15:51:08', 'cs002', '1', ''),
+(3, 'tidak', '2020-09-11 15:51:31', 'cs002', '1', ''),
+(4, 'tidak', '2020-09-11 15:51:34', 'cs002', '1', ''),
+(5, 'tidak', '2020-09-11 15:51:35', 'cs002', '1', ''),
+(6, 'tidak', '2020-09-11 15:51:35', 'cs002', '1', ''),
+(7, 'tidak', '2020-09-11 15:52:02', 'cs003', '1', ''),
+(8, 'tidak', '2020-09-11 15:53:46', 'cs003', '1', ''),
+(9, 'tidak', '2020-09-11 15:55:15', 'cs003', '1', ''),
+(10, 'tidak', '2020-09-11 15:58:45', 'cs003', '1', ''),
+(11, 'tidak', '2020-09-11 16:02:50', 'cs003', '1', ''),
+(12, 'tidak', '2020-09-11 16:09:09', 'cs003', '1', ''),
+(13, 'tidak', '2020-09-11 16:10:02', 'cs003', '1', ''),
+(14, 'tidak', '2020-09-11 16:28:37', 'cs003', '1', ''),
+(15, 'tidak', '2020-09-11 16:29:49', 'cs003', '1', ''),
+(16, 'tidak', '2020-09-11 15:35:21', 'cs003', '1', ''),
+(17, 'tidak', '2020-09-11 15:40:12', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(18, 'printer tidak hidup', '2020-09-11 15:45:17', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(19, 'tidak', '2020-09-11 15:49:51', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(20, 'tidak', '2020-09-11 15:52:08', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(21, 'tidak', '2020-09-11 15:54:34', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(22, 'tidak', '2020-09-11 16:03:19', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(23, 'printer tidak hidup', '2020-09-11 16:06:06', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(24, 'tidak', '2020-09-11 16:10:07', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(25, 'card edc error', '2020-09-11 16:11:31', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(26, 'card edc error', '2020-09-11 15:35:31', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(27, 'card edc error', '2020-09-11 15:39:27', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(28, 'card edc eror', '2020-09-11 15:40:44', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(29, 'error', '2020-09-11 15:44:25', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(30, 'error', '2020-09-11 15:44:54', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(31, 'error', '2020-09-11 15:45:26', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(32, 'error', '2020-09-11 15:48:42', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(33, 'error error', '2020-09-11 15:50:30', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(34, 'error error', '2020-09-11 15:50:50', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(35, 'error error', '2020-09-11 15:51:33', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(36, 'error error', '2020-09-11 15:53:39', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(37, 'error error', '2020-09-11 15:54:14', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(38, 'error', '2020-09-11 15:54:29', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(39, 'error', '2020-09-11 15:59:53', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(40, 'error', '2020-09-11 16:00:51', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(41, 'error', '2020-09-11 16:03:41', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(42, 'error', '2020-09-11 16:04:04', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(43, 'error', '2020-09-11 16:05:47', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(44, 'error', '2020-09-11 16:06:03', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(45, 'error', '2020-09-11 16:06:14', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(46, 'error', '2020-10-03 02:07:06', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(47, 'error', '2020-10-03 02:07:07', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(48, 'error', '2020-10-03 02:07:43', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(49, 'error', '2020-10-03 02:08:10', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(50, 'error', '2020-10-03 02:18:50', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(51, 'error', '2020-10-03 02:19:18', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(52, 'error', '2020-10-03 02:20:13', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(53, 'error', '2020-10-03 02:22:38', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(54, 'error', '2020-10-03 02:24:53', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(55, 'error', '2020-10-03 02:25:17', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(56, 'error', '2020-10-03 02:30:02', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(57, 'error', '2020-10-03 02:30:03', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(58, 'error', '2020-10-03 02:30:09', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(59, 'error', '2020-10-03 02:31:04', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(60, 'error', '2020-10-03 02:31:30', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(61, 'error', '2020-10-03 02:33:44', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(62, 'error', '2020-10-03 02:34:20', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(63, 'error', '2020-10-03 02:36:53', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(64, 'error', '2020-10-03 02:38:28', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(65, 'error', '2020-10-03 02:42:28', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(66, 'error', '2020-10-03 02:43:48', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(67, 'error', '2020-10-03 02:46:22', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(68, 'error', '2020-10-03 02:46:56', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(69, 'error', '2020-10-03 02:48:00', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(70, 'error', '2020-10-03 02:49:10', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(71, 'error', '2020-10-03 02:49:44', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(72, 'error', '2020-10-03 02:52:11', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(73, 'error', '2020-10-03 02:03:55', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(74, 'error', '2020-10-03 02:04:20', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(75, 'error', '2020-10-03 02:00:16', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(76, 'error', '2020-10-03 02:10:06', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(77, 'error', '2020-10-03 02:19:16', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(78, 'error', '2020-10-03 02:19:56', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(79, 'error', '2020-10-03 02:22:07', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(80, 'error', '2020-10-03 02:23:31', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(81, 'error', '2020-10-03 02:24:12', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(82, 'error', '2020-10-03 02:24:59', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(83, 'error', '2020-10-03 02:25:22', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(84, 'error', '2020-10-03 02:25:38', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(85, 'error', '2020-10-03 02:31:41', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(86, 'error', '2020-10-03 02:31:54', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(87, 'error', '2020-10-03 02:32:11', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(88, 'edc', '2020-10-03 02:33:53', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(89, 'card', '2020-10-03 02:39:12', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(90, 'card', '2020-10-03 02:42:54', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(91, 'card', '2020-10-03 02:43:10', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(92, 'card', '2020-10-03 02:51:05', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(93, 'card edc', '2020-10-03 02:51:43', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(94, 'card', '2020-10-03 02:52:11', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(95, 'card edc', '2020-10-03 02:52:46', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(96, 'edc', '2020-10-03 02:53:27', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(97, 'error', '2020-10-03 02:02:17', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(98, 'edc', '2020-10-03 02:02:59', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(99, 'edc', '2020-10-03 02:25:51', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(100, 'edc', '2020-10-03 02:26:27', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(101, 'edc', '2020-10-03 02:26:42', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(102, 'card edc', '2020-10-03 02:27:26', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(103, 'edc', '2020-10-03 02:30:32', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(104, 'edc', '2020-10-03 02:02:31', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(105, 'edc', '2020-10-03 02:03:06', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(106, 'edc', '2020-10-03 02:03:24', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(107, 'printer tidak hidup', '2020-10-05 19:51:39', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(108, 'printer tidak hidup', '2020-10-05 19:53:17', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(109, 'printer tidak hidup', '2020-10-05 19:53:39', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(110, 'printer tidak hidup', '2020-10-05 19:54:22', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(111, 'printer tidak nyala', '2020-10-05 19:56:08', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(112, 'printer tidak nyala', '2020-10-05 19:56:34', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(113, 'printer tidak hidup', '2020-10-05 19:57:40', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(114, 'printer tidak hidup', '2020-10-05 19:58:21', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(115, 'printer tidak hidup', '2020-10-05 20:01:24', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(116, 'printer tidak hidup', '2020-10-05 20:03:28', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(117, 'printer tidak hidup', '2020-10-05 20:04:11', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(118, 'printer tidak hidup', '2020-10-05 20:04:11', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(119, 'printer tidak nyala', '2020-10-05 20:04:52', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(120, 'printer tidak nyala', '2020-10-05 20:04:52', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(121, 'printer tidak nyala', '2020-10-05 20:05:59', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(122, 'printer tidak nyala', '2020-10-05 20:05:59', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(123, 'printer tidak hidup', '2020-10-05 20:07:18', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(124, 'printer tidak hidup', '2020-10-05 20:07:18', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(125, 'printer tidak hidup', '2020-10-05 20:08:28', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(126, 'printer tidak hidup', '2020-10-05 20:08:28', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(127, 'printer tidak nyala', '2020-10-06 08:09:25', 'cs001', '1', ''),
+(128, 'printer tidak nyala', '2020-10-05 20:10:03', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(129, 'printer tidak nyala', '2020-10-05 20:10:03', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(130, 'printer tidak nyala', '2020-10-05 19:26:25', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(131, 'printer tidak nyala', '2020-10-05 19:26:25', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(132, 'printer tidak nyala', '2020-10-05 19:26:34', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(133, 'printer tidak nyala', '2020-10-05 20:10:18', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(134, 'printer tidak nyala', '2020-10-05 20:15:08', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(135, 'printer tidak hidup', '2020-10-05 20:15:40', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(136, 'printer tidak hidup', '2020-10-05 20:15:57', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(137, 'printer tidak hidup', '2020-10-05 20:17:53', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(138, 'printer tidak hidup', '2020-10-05 20:18:23', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(139, 'printer tidak hidup', '2020-10-05 19:37:08', 'cs001', '1', 'nozehoveka@mailinator.com'),
+(140, 'card edc error', '2020-10-05 19:34:18', 'cs003', '1', 'nozehoveka@mailinator.com'),
+(141, 'printer edc error', '2020-10-05 19:37:29', 'cs002', '1', 'nozehoveka@mailinator.com');
 
 -- --------------------------------------------------------
 
@@ -57,10 +220,22 @@ CREATE TABLE `auth_logins` (
 --
 
 CREATE TABLE `correctword` (
-  `idword` varchar(7) NOT NULL,
   `word` varchar(30) NOT NULL,
+  `id` int(11) NOT NULL,
   `correctword` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `correctword`
+--
+
+INSERT INTO `correctword` (`word`, `id`, `correctword`) VALUES
+('eror', 3, 'error'),
+('edv', 4, 'edc'),
+('progra', 5, 'program'),
+('carf', 6, 'card'),
+('printe', 7, 'printer'),
+('q', 8, 'saya');
 
 -- --------------------------------------------------------
 
@@ -70,22 +245,23 @@ CREATE TABLE `correctword` (
 
 CREATE TABLE `csproduct` (
   `idcustomer` varchar(5) NOT NULL,
-  `csproduct` varchar(20) NOT NULL
+  `csproduct` varchar(20) NOT NULL,
+  `jenisedc` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `csproduct`
 --
 
-INSERT INTO `csproduct` (`idcustomer`, `csproduct`) VALUES
-('Conse', 'Penggantian EDC '),
-('cs001', 'EDC'),
-('cs002', 'DATA'),
-('Ex qu', 'Ratione magnam occae'),
-('Expli', 'Aperiam corporis rep'),
-('Verit', 'Doloremque amet quo'),
-('cs001', 'Kabel EDC'),
-('cs001', 'Commodo tempora est ');
+INSERT INTO `csproduct` (`idcustomer`, `csproduct`, `jenisedc`) VALUES
+('Conse', 'Penggantian EDC ', ''),
+('cs001', 'EDC', ''),
+('cs002', 'DATA', ''),
+('Ex qu', 'Ratione magnam occae', ''),
+('Expli', 'Aperiam corporis rep', ''),
+('Verit', 'Doloremque amet quo', ''),
+('cs001', 'Kabel EDC', ''),
+('cs001', 'Commodo tempora est ', '');
 
 -- --------------------------------------------------------
 
@@ -117,6 +293,57 @@ INSERT INTO `customers` (`idcustomer`, `csnama`, `alamat`, `telp`, `email`, `pic
 ('cs006', '', '', '', '', '', '0000-00-00', ''),
 ('cs007', '', '', '', '', '', '0000-00-00', ''),
 ('cs008', '', '', '', '', '', '0000-00-00', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `edc`
+--
+
+CREATE TABLE `edc` (
+  `id` int(11) NOT NULL,
+  `jenisedc` varchar(30) NOT NULL,
+  `lokasi` varchar(50) NOT NULL,
+  `pic` varchar(30) NOT NULL,
+  `pertanyaan` text NOT NULL,
+  `idtmpvocab` varchar(7) NOT NULL,
+  `idcustomer` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `edc`
+--
+
+INSERT INTO `edc` (`id`, `jenisedc`, `lokasi`, `pic`, `pertanyaan`, `idtmpvocab`, `idcustomer`) VALUES
+(1, 'Verifone', 'Bekasi Timur', 'Ari', '', '', 'cs001'),
+(2, 'Pax', 'Bekasi Utara', 'Randi', 'display edc error', '', 'cs002'),
+(3, 'Ingenico', 'Bekasi Selatan', 'Ali', 'card edc error', '', 'cs003'),
+(5, 'Ingenico', 'Bekasi Selatan', 'Indra', 'ecyription edc error', '', 'cs004'),
+(6, 'Verifone', 'Bekasi Timur', 'Jess', 'printer edc error', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `gejala`
+--
+
+CREATE TABLE `gejala` (
+  `idgejala` varchar(6) NOT NULL,
+  `namagejala` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `kerusakan`
+--
+
+CREATE TABLE `kerusakan` (
+  `idkerusakan` varchar(6) NOT NULL,
+  `namakerusakan` varchar(50) NOT NULL,
+  `keterangan` text NOT NULL,
+  `idsolusi` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -166,6 +393,26 @@ CREATE TABLE `migrations` (
 -- --------------------------------------------------------
 
 --
+-- Struktur dari tabel `mst_edc`
+--
+
+CREATE TABLE `mst_edc` (
+  `idedc` int(11) NOT NULL,
+  `jenisedc` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `mst_edc`
+--
+
+INSERT INTO `mst_edc` (`idedc`, `jenisedc`) VALUES
+(1, 'verifone'),
+(2, 'pax'),
+(3, 'ingenico');
+
+-- --------------------------------------------------------
+
+--
 -- Struktur dari tabel `news`
 --
 
@@ -179,6 +426,39 @@ CREATE TABLE `news` (
   `createon` timestamp NOT NULL DEFAULT current_timestamp(),
   `expired` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `probvocabs`
+--
+
+CREATE TABLE `probvocabs` (
+  `idedc` int(11) NOT NULL,
+  `ask` varchar(30) NOT NULL,
+  `answer` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `probvocabs`
+--
+
+INSERT INTO `probvocabs` (`idedc`, `ask`, `answer`) VALUES
+(1, 'program edc error', 'Restart EDC'),
+(1, 'display edc error', 'Restart EDC'),
+(1, 'card edc error', 'Melakukan Insert kartu dengan '),
+(1, 'ecyription edc error', 'Masukkan PIN dengan benar'),
+(1, 'printer edc error', 'Lakukan penggantian Adaptor EDC'),
+(2, 'program edc error', 'Restart EDC'),
+(2, 'display edc error', 'Restart EDC'),
+(2, 'card edc error', 'Melakukan Insert kartu dengan sempurna'),
+(2, 'ecyription edc error', 'Masukkan PIN dengan benar'),
+(2, 'printer edc error', 'Lakukan penggantian Adaptor EDC'),
+(3, 'program edc error', 'Restart EDC'),
+(3, 'display edc error', 'Restart EDC'),
+(3, 'card edc error', 'Melakukan Insert kartu dengan sempurna'),
+(3, 'ecyription edc error', 'Masukkan PIN dengan benar'),
+(3, 'printer edc error', 'Lakukan penggantian Adaptor EDC');
 
 -- --------------------------------------------------------
 
@@ -208,9 +488,35 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`idproject`, `namaproject`, `idcustomer`, `deliveyrbegin`, `deliveryend`, `installdate`, `installend`, `uatbegin`, `uatend`, `billstartdate`, `billdueend`, `warantyperiod`, `contractstartdate`, `contractenddate`) VALUES
-('pjt001', 'Pemasangan EDC Baru', 'cs001', '2020-07-01', '2020-07-14', '2020-07-08', '2020-07-14', '2020-07-15', '2020-07-21', '2020-07-08', '2020-07-14', 2, '2020-07-08', 12),
+('pjt001', 'EDC', 'cs001', '2020-07-01', '2020-07-14', '2020-07-08', '2020-07-14', '2020-07-15', '2020-07-21', '2020-07-08', '2020-07-14', 2, '2020-07-08', 12),
 ('pjt002', 'Pemasangan Kabel', 'cs001', '2020-07-01', '2020-07-14', '2020-07-08', '2020-07-14', '2020-07-15', '2020-07-19', '2020-07-06', '2020-07-14', 2, '2020-07-08', 12),
 ('pjt003', 'Pemasangan EDC dan Ganti Kabel', 'cs002', '2020-08-15', '2020-05-27', '2020-06-08', '2020-02-03', '2020-05-01', '2020-08-27', '2020-04-11', '2020-10-14', 2, '2020-03-13', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `revise`
+--
+
+CREATE TABLE `revise` (
+  `idrevise` varchar(6) NOT NULL,
+  `nilaidiagnosa` int(11) NOT NULL,
+  `idkerusakan` varchar(6) NOT NULL,
+  `idgejala` varchar(6) NOT NULL,
+  `statusrevise` int(2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `rule`
+--
+
+CREATE TABLE `rule` (
+  `idrule` varchar(6) NOT NULL,
+  `namarule` varchar(50) NOT NULL,
+  `idgejala` varchar(6) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -235,6 +541,35 @@ INSERT INTO `sla` (`idsla`, `namasla`, `respontime`, `resolusitime`, `slawarning
 ('2', 'High', 1, 24, 20),
 ('3', 'Medium', 1, 72, 50),
 ('4', 'Low', 1, 360, 270);
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `solusi`
+--
+
+CREATE TABLE `solusi` (
+  `idsolusi` varchar(6) NOT NULL,
+  `namasolusi` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `tester`
+--
+
+CREATE TABLE `tester` (
+  `id` int(11) NOT NULL,
+  `hasil` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tester`
+--
+
+INSERT INTO `tester` (`id`, `hasil`) VALUES
+(1, 7);
 
 -- --------------------------------------------------------
 
@@ -279,7 +614,9 @@ INSERT INTO `tickets` (`idtickets`, `idcustomer`, `iduser`, `noticket`, `idsla`,
 (6, 'cs001', '', '3/HD/Aug/2020', '1', '2020-08-08', 'Animi porro sed cup', '', '', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'Aliqua', '2020-08-08', '', NULL, '', '', NULL, '', NULL, '', NULL),
 (7, 'cs001', '', '2/HD/Aug/2020', '1', '2020-08-02', 'Neque voluptas venia', '', '', 'Kabel ada yang terkelupas', 'Possimus voluptatem', 'Assigned', 'Et cum', '2020-08-10', '', NULL, '', '', NULL, '', NULL, '', NULL),
 (8, 'cs001', '', '2/HD/Aug/2020', '4', '2020-08-02', 'Neque voluptas venia', '', '', 'Kabel ada yang terkelupas', 'Possimus voluptatem', 'Assigned', 'Aliqua', '2020-08-10', '', NULL, '', '', NULL, '', NULL, '', NULL),
-(10, ' cs001', '', '5/HD/Aug/2020', '1', '2020-08-08', 'Occaecat nisi odit e', '', '', 'Necessitatibus volup', 'Aliquid corporis vol', 'Assigned', 'usr002', '2020-08-08', '', NULL, '', '', NULL, '', NULL, '', NULL);
+(10, ' cs001', '', '5/HD/Aug/2020', '1', '2020-08-08', 'Occaecat nisi odit e', '', '', 'Necessitatibus volup', 'Aliquid corporis vol', 'Assigned', 'usr002', '2020-08-08', '', NULL, '', '', NULL, '', NULL, '', NULL),
+(12, ' cs001', '', '7/HD/Oct/2020', '2', '2020-10-06', 'Adi', '', '', 'EDC error', 'EDC tidak mau menyala', 'Assigned', 'Aliqua', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
+(13, ' cs001', '', '14/HD/Oct/2020', '1', '2020-10-06', 'michael', '', '', 'printer tidak hidup ', '', 'Assigned', 'Dolore', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL);
 
 -- --------------------------------------------------------
 
@@ -288,10 +625,21 @@ INSERT INTO `tickets` (`idtickets`, `idcustomer`, `iduser`, `noticket`, `idsla`,
 --
 
 CREATE TABLE `tmppropabilityvocab` (
-  `idtmpvocab` varchar(7) NOT NULL,
-  `idvocab` varchar(6) NOT NULL,
-  `jumpprobability` varchar(15) NOT NULL
+  `idtmpvocab` int(11) NOT NULL,
+  `idcustomer` varchar(5) NOT NULL,
+  `idvocab` int(11) NOT NULL,
+  `jumpprobability` double(10,8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `tmppropabilityvocab`
+--
+
+INSERT INTO `tmppropabilityvocab` (`idtmpvocab`, `idcustomer`, `idvocab`, `jumpprobability`) VALUES
+(2609, 'cs001', 3, 0.55555556),
+(2610, 'cs001', 1, 0.72222222),
+(2611, 'cs001', 2, 0.55555556),
+(2612, 'cs001', 7, 0.69444444);
 
 -- --------------------------------------------------------
 
@@ -403,13 +751,27 @@ INSERT INTO `user_tokens` (`id`, `email`, `token`, `data_created`) VALUES
 --
 
 CREATE TABLE `vocabs` (
-  `idvocab` varchar(6) NOT NULL,
+  `idvocab` int(11) NOT NULL,
   `idcustomer` varchar(5) NOT NULL,
   `pic` varchar(30) NOT NULL,
-  `server` varchar(15) NOT NULL,
+  `ipclient` varchar(15) NOT NULL,
   `ask` text NOT NULL,
-  `answer` text NOT NULL
+  `answer` text NOT NULL,
+  `tolask` int(11) NOT NULL,
+  `jenisedc` varchar(30) NOT NULL,
+  `lokasi` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data untuk tabel `vocabs`
+--
+
+INSERT INTO `vocabs` (`idvocab`, `idcustomer`, `pic`, `ipclient`, `ask`, `answer`, `tolask`, `jenisedc`, `lokasi`) VALUES
+(1, '', 'Ari', '', 'program edc error', 'Restart EDC', 18, 'Verifone', 'Bekasi Timur'),
+(2, '', 'Randi', '', 'display edc error', 'Restart EDC', 6, 'PAX', 'Bekasi Utara'),
+(3, '', 'Ali', '', 'card edc error', 'Melakukan Insert kartu dengan sempurna', 27, 'Ingenico', 'Bekasi Selatan'),
+(6, '', 'Indra', '', 'ecyription edc error', 'Masukkan PIN dengan benar', 2, 'Ingenico', 'Bekasi Selatan'),
+(7, '', 'Jess', '', 'printer edc error', 'Lakukan penggantian adaptor EDC', 3, 'Verifone', 'Bekasi Timur');
 
 -- --------------------------------------------------------
 
@@ -507,7 +869,32 @@ INSERT INTO `while_ticket` (`id`, `noticket`, `csnama`, `csproduct`, `warantyper
 (3, '3/HD/Aug/2020', 'MCD', 'Pemasangan EDC', '2022-07-21', '2022-07-08', '2020-08-08', 'Animi porro sed cup', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'cs001'),
 (4, '4/HD/Aug/2020', 'MCD', 'Pemasangan Kabel', '2022-07-19', '2022-07-06', '2020-08-08', 'Est alias occaecat i', 'Dolore perspiciatis', 'Quis impedit volupt', 'Assigned', 'cs001'),
 (5, '5/HD/Aug/2020', 'MCD', 'Pemasangan EDC', '2022-07-21', '2022-07-08', '2020-08-08', 'Occaecat nisi odit e', 'Necessitatibus volup', 'Aliquid corporis vol', 'Assigned', 'cs001'),
-(6, '6/HD/Aug/2020', 'MCD', 'Pemasangan Kabel', '2022-07-19', '2022-07-06', '2020-08-08', 'Occaecat est asperi', 'Ratione sint non sa', 'Nisi quia minus in c', 'Assigned', 'cs001');
+(6, '6/HD/Aug/2020', 'MCD', 'Pemasangan Kabel', '2022-07-19', '2022-07-06', '2020-08-08', 'Occaecat est asperi', 'Ratione sint non sa', 'Nisi quia minus in c', 'Assigned', 'cs001'),
+(7, '7/HD/Oct/2020', 'MCD', 'Pemasangan EDC Baru', '2022-07-21', '2022-07-08', '2020-10-06', 'Adi', 'EDC error', 'EDC tidak mau menyala', 'Assigned', 'cs001'),
+(8, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(9, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(10, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(11, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(12, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(13, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(14, '14/HD/Oct/2020', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Assigned', 'cs001'),
+(15, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(16, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc error ', '', 'Not Approve', 'cs001'),
+(17, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
+(18, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
+(19, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc error ', '', 'Not Approve', 'cs001'),
+(20, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
+(21, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(22, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(23, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'ecyription edc error', '', 'Not Approve', 'cs001'),
+(24, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(25, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(26, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(27, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(28, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(29, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(30, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(31, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc mati ', '', 'Not Approve', 'cs001');
 
 -- --------------------------------------------------------
 
@@ -541,6 +928,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 
 --
+-- Indeks untuk tabel `asking`
+--
+ALTER TABLE `asking`
+  ADD PRIMARY KEY (`idasking`);
+
+--
 -- Indeks untuk tabel `askpending`
 --
 ALTER TABLE `askpending`
@@ -558,13 +951,31 @@ ALTER TABLE `auth_logins`
 -- Indeks untuk tabel `correctword`
 --
 ALTER TABLE `correctword`
-  ADD PRIMARY KEY (`idword`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `customers`
 --
 ALTER TABLE `customers`
   ADD PRIMARY KEY (`idcustomer`);
+
+--
+-- Indeks untuk tabel `edc`
+--
+ALTER TABLE `edc`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `gejala`
+--
+ALTER TABLE `gejala`
+  ADD PRIMARY KEY (`idgejala`);
+
+--
+-- Indeks untuk tabel `kerusakan`
+--
+ALTER TABLE `kerusakan`
+  ADD PRIMARY KEY (`idkerusakan`);
 
 --
 -- Indeks untuk tabel `log_emails`
@@ -577,6 +988,12 @@ ALTER TABLE `log_emails`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indeks untuk tabel `mst_edc`
+--
+ALTER TABLE `mst_edc`
+  ADD PRIMARY KEY (`idedc`);
 
 --
 -- Indeks untuk tabel `news`
@@ -595,6 +1012,18 @@ ALTER TABLE `projects`
 --
 ALTER TABLE `sla`
   ADD PRIMARY KEY (`idsla`);
+
+--
+-- Indeks untuk tabel `solusi`
+--
+ALTER TABLE `solusi`
+  ADD PRIMARY KEY (`idsolusi`);
+
+--
+-- Indeks untuk tabel `tester`
+--
+ALTER TABLE `tester`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indeks untuk tabel `tickets`
@@ -625,6 +1054,7 @@ ALTER TABLE `user_tokens`
 --
 ALTER TABLE `vocabs`
   ADD PRIMARY KEY (`idvocab`);
+ALTER TABLE `vocabs` ADD FULLTEXT KEY `ask` (`ask`);
 
 --
 -- Indeks untuk tabel `while_ticket`
@@ -637,10 +1067,34 @@ ALTER TABLE `while_ticket`
 --
 
 --
+-- AUTO_INCREMENT untuk tabel `asking`
+--
+ALTER TABLE `asking`
+  MODIFY `idasking` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `askpending`
+--
+ALTER TABLE `askpending`
+  MODIFY `idaskpending` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=142;
+
+--
 -- AUTO_INCREMENT untuk tabel `auth_logins`
 --
 ALTER TABLE `auth_logins`
   MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT untuk tabel `correctword`
+--
+ALTER TABLE `correctword`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT untuk tabel `edc`
+--
+ALTER TABLE `edc`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT untuk tabel `migrations`
@@ -649,10 +1103,28 @@ ALTER TABLE `migrations`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT untuk tabel `mst_edc`
+--
+ALTER TABLE `mst_edc`
+  MODIFY `idedc` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT untuk tabel `tester`
+--
+ALTER TABLE `tester`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT untuk tabel `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `idtickets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `idtickets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- AUTO_INCREMENT untuk tabel `tmppropabilityvocab`
+--
+ALTER TABLE `tmppropabilityvocab`
+  MODIFY `idtmpvocab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2613;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_tokens`
@@ -661,10 +1133,16 @@ ALTER TABLE `user_tokens`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
+-- AUTO_INCREMENT untuk tabel `vocabs`
+--
+ALTER TABLE `vocabs`
+  MODIFY `idvocab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT untuk tabel `while_ticket`
 --
 ALTER TABLE `while_ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

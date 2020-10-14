@@ -273,7 +273,7 @@ class User extends BaseController
 
 
                     echo "Syukur deh kalo sudah bisa.. kalo ada apa-apa lagi silahkan saja hubungi kami kembali ya? terima kasih";
-                } else {
+                } elseif ($idvocab == '') {
                     echo "Ya, Apakah ada yang bisa kami bantu?";
                 }
                 exit;
