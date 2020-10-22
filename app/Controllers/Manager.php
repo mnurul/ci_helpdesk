@@ -64,8 +64,12 @@ class Manager extends BaseController
 
     public function pivot_table()
     {
+        $sql = "SELECT csproduct,COUNT(csproduct) AS jum FROM while_ticket GROUP BY csproduct";
+        $chart = $this->db->query($sql)->getResult('array');
+
         $data = [
-            'title' => 'Pivot Table'
+            'title' => 'Pivot Table',
+            'chart' => $chart
         ];
         return view('pivot_table/index', $data);
     }

@@ -10,7 +10,7 @@
     <a href="<?= base_url(); ?>/manager/v_all_ticket_m" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_m' ? 'active' : null) ?>">View All Tickets</a>
     <h6 class="t-view-report"><b>View Report</b></h6>
     <br>
-    <a href="<?= base_url(); ?>/manager/pivot_table" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Pivot Table</a>
+    <a href="<?= base_url(); ?>/manager/pivot_table" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Chart</a>
     <a href="<?= base_url(); ?>/manager/sla_chart" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">SLA Chart</a>
 </div>
 
@@ -186,7 +186,7 @@
     <div class="col-6" style="bottom: 0; margin-left:170px;margin-bottom:-40px !important">
         <button class="dropbtn">View Report</button>
         <div class="dropup-content">
-            <a href="<?= base_url(); ?>/manager/pivot_table" class="<?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Pivot Table</a>
+            <a href="<?= base_url(); ?>/manager/pivot_table" class="<?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Chart</a>
             <a href="<?= base_url(); ?>/manager/sla_chart" class="<?= ($uri->getSegment(2) == 'sla_chart' ? 'active' : null) ?>">SLA Chart</a>
         </div>
     </div>
