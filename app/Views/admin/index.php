@@ -31,13 +31,11 @@
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
                     <!-- <a href="<?= base_url(); ?>/admin">Back</a> -->
+                    <a href=" <?= base_url(); ?>/admin/">Back </a>
                     <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
-                    <!-- <a href="<?= base_url(); ?>/admin/change_status">Change Status Tickets</a> -->
-                    <!-- <a href="<?= base_url(); ?>/admin/create_project">Create Projects</a> -->
-                    <!-- <a href="<?= base_url(); ?>/admin/create_user">Create User</a> -->
-                    <a href="<?= base_url(); ?>/admin/list_project" class="<?= ($uri->getSegment(2) == 'admin/list_project' ? 'active' : null) ?>">Projects</a>
-                    <a href="<?= base_url(); ?>/admin/list_customer" class="<?= ($uri->getSegment(2) == 'admin/list_customer' ? 'active' : null) ?>">Customers</a>
-                    <a href="<?= base_url(); ?>/admin/list_user" class="<?= ($uri->getSegment(2) == 'admin/list_user' ? 'active' : null) ?>">Users</a>
+                    <a href="<?= base_url(); ?>/admin/list_project" class="<?= ($uri->getSegment(2) == 'list_project' ? 'active' : null) ?>">Projects</a>
+                    <a href="<?= base_url(); ?>/admin/list_customer" class="<?= ($uri->getSegment(2) == 'list_customer' ? 'active' : null) ?>">Customers</a>
+                    <a href="<?= base_url(); ?>/admin/list_user" class="<?= ($uri->getSegment(2) == 'list_user' ? 'active' : null) ?>">Users</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="padding-left:30px;margin-top:15px; ">

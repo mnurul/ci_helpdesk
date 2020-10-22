@@ -63,7 +63,7 @@ class User extends BaseController
             // $ticketcs = $this->TicketModel->search_myassigment($search, $idcs);
 
             $sql = "SELECT * FROM while_ticket  WHERE idcustomer='" . $idcs . "' AND (problemsummary 
-            LIKE '%$search%' OR reportby LIKE '%$search%')";
+            LIKE '%$search%' OR reportby LIKE '%$search%' OR noticket LIKE '%$search%')";
             $ticketcs = $this->db->query($sql)->getResult('array');
         }
 

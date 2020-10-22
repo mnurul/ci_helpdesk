@@ -47,7 +47,7 @@ class Manager extends BaseController
 
 
 
-        $sla = $this->ManagerModel->sla();
+        $sla = $this->TeknisiModel->sla();
         // dd($sla);
 
 

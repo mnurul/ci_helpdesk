@@ -65,7 +65,7 @@ body {
 
 .active {
   background-color: #ff915f;
-  color: white;
+  color: white !important;
 }
 
 .topnav a:hover,

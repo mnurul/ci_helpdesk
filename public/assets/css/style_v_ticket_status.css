@@ -283,6 +283,11 @@ body {
   background-color: #1f3980;
 }
 
+.disable-pointer{
+  pointer-events: none;
+  cursor: default;
+}
+
 /* End Form Create Ticket */
 
 /* Search Bar */
