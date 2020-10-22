@@ -36,29 +36,61 @@ class User extends BaseController
         $email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
         $this->db = \Config\Database::connect();
+        $this->pager = \Config\Services::pager();
     }
 
     public function index()
     {
         $search = $this->request->getVar('search');
-        // d($search);
-        if ($search) {
-            $while_ticket = $this->TicketModel->search_myassigment($search);
+        $idcs = session()->get('idcustomer');
+        $tampil = 2;
+        $mulai = 0;
+        $jumlah = $this->TicketModel->where('idcustomer', $idcs)->findAll();
+        $count = count($jumlah);
+        if ($search == null) {
+            // $ticketcs = $this->TicketModel->search_myassigment($search, $idcs);
+
+            // Agar data tidak dimulai dari nol saat diklik 1 atau 2
+            if (isset($_GET['page'])) {
+                $page = $_GET['page'];
+                $mulai = ($tampil * $page) - $tampil;
+            }
+
+            $ticketcs = $this->TicketModel->where('idcustomer', $idcs)->findAll($tampil, $mulai);
         } else {
-            $while_ticket = $this->TicketModel;
+            // $while_ticket = $this->TicketModel;
+            // $ticketcs = $this->TicketModel->where('idcustomer', $idcs)->like('csnama', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->like('problemsummary', $search)->orLike('problemdetail', $search)->orLike('status', $search)->findAll();
+            // $ticketcs = $this->TicketModel->search_myassigment($search, $idcs);
+
+            $sql = "SELECT * FROM while_ticket  WHERE idcustomer='" . $idcs . "' AND (problemsummary 
+            LIKE '%$search%' OR reportby LIKE '%$search%')";
+            $ticketcs = $this->db->query($sql)->getResult('array');
         }
-        // $idcustomer = session()->get('idcustomer');
-        // // dd($idcustomer);
-        // $noTicket = $this->UserModel->noTicket($idcustomer);
-        // dd($noTicket);
+
+        // $tampil = 2;
+        // $mulai = 0;
+
+        // // Agar data tidak dimulai dari nol saat diklik 1 atau 2
+        // if (isset($_GET['page'])) {
+        //     $page = $_GET['page'];
+        //     $mulai = ($tampil * $page) - $tampil;
+        // }
+
+        // $jumlah = $this->TicketModel->where('idcustomer', $idcs)->findAll();
+        // $count = count($jumlah);
+        // $ticketcs = $this->TicketModel->where('idcustomer', $idcs)->findAll($tampil, $mulai);
+
 
         $data = [
             'title' => 'View Ticket Status',
-            'count' => $this->db->table('while_ticket')->countAll(),
-            // 'statusticket' => $statusticket,
-            'while_ticket' => $while_ticket->paginate(3, 'while_ticket'),
-            'pager' => $this->TicketModel->pager
-            // 'noTikcet' => $noTicket
+            // 'count' => $this->db->table('while_ticket')->like('idcsutomer', $idcs)->count(),
+            'count' => $count,
+            // 'while_ticket' => $while_ticket->paginate(3, 'while_ticket'),
+            // 'pager' => $this->TicketModel->pager,
+            'pager' => $this->pager,
+            'idcs' => $ticketcs,
+            'tampil' => $tampil,
+            'total' => $count
         ];
         return view('v_ticket_status/index', $data);
     }

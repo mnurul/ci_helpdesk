@@ -73,6 +73,15 @@
                                     <input type="text" id="iduser" name="iduser" autofocus value="<?= (old('iduser')) ? old('iduser') : $user['iduser']; ?>" readonly>
                                 </div>
                             </div>
+                            <div class="row <?= ($user['level'] != 'customer' ? 'disabled-comp' : null) ?>">
+                                <div class="col-25">
+                                    <label class="title-1" for="idcustomer">Id Customer</label>
+                                </div>
+                                <!-- <h1><?= $user['level']; ?></h1> -->
+                                <div class="col-75">
+                                    <input type="text" id="idcustomer" name="idcustomer" value="<?= (old('idcustomer')) ? old('idcustomer') : $user['idcustomer']; ?>" class="<?= ($user['level'] != 'customer' ? 'disabled-idcs' : null) ?>">
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="username">Username</label>
@@ -273,6 +282,15 @@
         } else {
             x.className = "topnav";
         }
+    }
+</script>
+<script>
+    function enableText() {
+        document.getElementById("idcustomer").disabled = false;
+    }
+
+    function disableText() {
+        document.getElementById("idcustomer").disabled = true;
     }
 </script>
 

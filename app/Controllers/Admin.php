@@ -813,6 +813,7 @@ class Admin extends BaseController
     public function edit_user($iduser)
     {
         $iduser   = $this->request->getPost('iduser');
+        $idcustomer   = $this->request->getPost('idcustomer');
         $username   = $this->request->getPost('username');
         $level   = $this->request->getPost('level');
         $fullname   = $this->request->getPost('fullname');
@@ -821,6 +822,7 @@ class Admin extends BaseController
 
         $data = [
             'iduser'  => $iduser,
+            'idcustomer'  => $idcustomer,
             'username'  => $username,
             'level'  => $level,
             'fullname'  => $fullname,

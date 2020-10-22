@@ -70,16 +70,15 @@
                         <?php }
                         ?>
                         <div class="row">
-                            <?php foreach ($while_ticket as $w) : ?>
+                            <?php foreach ($idcs as $w) : ?>
                                 <div class="column">
                                     <div class="card">
                                         <div class="row no-gutters">
                                             <div class="col-6">
                                                 <h6 class="card-subtitle st-ticket text-muted"><?= $w['noticket']; ?></h6>
-
                                             </div>
                                             <div class="col-6">
-                                                <h6 class="card-subtitle mb-2 st-date text-muted"><?= $w['reportdate']; ?></h6>
+                                                <h6 class="card-subtitle mb-2 st-date text-muted"><?= $w['idcustomer']; ?></h6>
                                                 <!-- <h6 class="card-subtitle st-date text-muted">Date</h6> -->
                                             </div>
                                         </div>
@@ -89,6 +88,7 @@
                                     </div>
                                 </div>
                             <?php endforeach; ?>
+
                             <!-- <div class="column">
                                 <div class="card">
                                     <div class="row no-gutters">
@@ -158,7 +158,10 @@
                                 </div>
                             </div> -->
                         </div><br><br>
-                        <?= $pager->links('while_ticket', 'user_pagination') ?>
+                        <!-- Menggunakan makeLinks bukan links karna ada where dan atribut nya hanya "key" dan "nama template" -->
+                        <?= $pager->makeLinks(1, $tampil, $total, 'user_pagination') ?>
+
+
 
                         <a href="<?= base_url(); ?>/user/" title="Back to view all data">
                             <h6 class="card-subtitle st-ticket text-muted mt-1">All data <?= $count; ?></h6>
@@ -181,23 +184,6 @@
 </div>
 </div>
 </div>
-<!--Start of Tawk.to Script-->
-<script type="text/javascript">
-    var Tawk_API = Tawk_API || {},
-        Tawk_LoadStart = new Date();
-    (function() {
-        var s1 = document.createElement("script"),
-            s0 = document.getElementsByTagName("script")[0];
-        s1.async = true;
-        s1.src = 'https://embed.tawk.to/5f3cbc7b1e7ade5df4421a6f/default';
-        s1.charset = 'UTF-8';
-        s1.setAttribute('crossorigin', '*');
-        s0.parentNode.insertBefore(s1, s0);
-    })();
-</script>
-<!--End of Tawk.to Script-->
-
-
 <script>
     function myFunction() {
         var x = document.getElementById("myTopnav");
@@ -208,5 +194,7 @@
         }
     }
 </script>
+
+
 
 <?= $this->endSection(); ?>

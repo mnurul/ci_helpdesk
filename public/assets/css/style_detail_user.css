@@ -184,6 +184,17 @@ select:focus {
   box-shadow: 0 4px 8px #244295;
 }
 
+.disabled-comp{
+  display: none;
+}
+
+.disabled-idcs{
+  /* background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAAECAYAAACp8Z5+AAAAIklEQVQIW2NkQAKrVq36zwjjgzhhYWGMYAEYB8RmROaABADeOQ8CXl/xfgAAAABJRU5ErkJggg==) repeat; */
+  pointer-events: none;
+  cursor: default;
+  background: rgb(190, 189, 189);
+}
+
 label {
   padding: 12px 12px 12px 30px;
   display: inline-block;

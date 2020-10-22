@@ -148,6 +148,10 @@ body {
   border: none;
 }
 
+.disabled-card{
+  display:none;
+}
+
 .bg-card {
   background: linear-gradient(to bottom, rgba(15, 14, 32, 1) 0%, rgba(15, 14, 32, 1) 29%, rgba(15, 14, 32, 1) 49%, rgba(255, 255, 255, 1) 49%, rgba(255, 255, 255, 1) 100%);
 }

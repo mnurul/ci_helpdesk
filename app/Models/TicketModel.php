@@ -11,15 +11,21 @@ class TicketModel extends Model
     // protected $useTimestamps = true;
     // protected $allowedFields = ['password'];
 
-    public function getTicket($id = false)
+    public function getTicket($idcs)
     {
         $this->db->table('while_ticket');
-        if ($id == false) {
-            return $this->findAll();
-            // Ga perlu pake else, return langsung keluar dari if
-        }
+        // if ($idcs == "") {
+        //     return $this->findAll();
+        //     // Ga perlu pake else, return langsung keluar dari if
+        // }
 
-        return $this->where(['id' => $id])->first();
+        return $this->where(['idcustomer' => $idcs])->findAll();
+    }
+
+    public function whileTicket($idcs)
+    {
+        $this->db->table('while_ticket');
+        return $this->where(['idcustomer' => $idcs])->get()->getResultArray();
     }
 
     public function sla()
@@ -73,10 +79,12 @@ class TicketModel extends Model
     //     // return $builder->like($array);
     // }
 
-    public function search_myassigment($search)
+    public function search_myassigment($search, $idcs)
     {
         // Metode Chaining
-        return $this->table('while_ticket')->like('csnama', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->orLike('problemsummary', $search)->orLike('problemdetail', $search)->orLike('status', $search);
+        // $builder = $this->table('while_ticket')->where((['idcustomer' => $idcs]))->like('problemsummary', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->orLike('csnama', $search)->orLike('problemdetail', $search);
+
+        // return $builder->findAll();
         // $builder = $this->db->table('while_ticket');
         // $builder->like('csnama', $search);
         // // $builder->like('username', $search);
@@ -110,5 +118,11 @@ class TicketModel extends Model
         return $this->db->table('users')
             ->where(array('password' => $oldpassword))
             ->get()->getRowArray();
+    }
+    public function count($idcs)
+    {
+        return $this->db->table('while_ticket')
+            ->where(array('idcustomer' => $idcs))
+            ->countAllResults();
     }
 }
