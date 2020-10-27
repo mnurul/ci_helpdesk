@@ -61,10 +61,9 @@ class Teknisi extends BaseController
 
         // dd($cek);
 
-        $builder = $this->db->table('tickets');
-        $builder->where('noticket', $noticket);
+        $builder = $this->db->table('tickets')->where('noticket', $cek['noticket']);
         $data = [
-            'assignedate' => date("Y-m-d")
+            'assignedate'  => date("Y-m-d"),
         ];
         $builder->update($data);
         session()->setFlashdata('pesan', 'Proses Assigment kamu berhasil');

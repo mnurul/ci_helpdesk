@@ -75,7 +75,7 @@
                                         <div class="card">
                                             <div class="row no-gutters">
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle st-ticket text-muted mb-2"><?= $t['csnama']; ?></h6>
+                                                    <h6 class="card-subtitle st-ticket text-muted mb-2"><?= $t['idcustomer']; ?></h6>
                                                 </div>
                                                 <div class="col-6">
                                                     <h6 class="card-subtitle mb-2 st-date text-muted"><?= $t['reportdate']; ?></h6>

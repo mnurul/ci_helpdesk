@@ -51,10 +51,34 @@
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="csproduct">Customer Product</label>
+                                    <label class="title-1" for="jenisedc">Jenis Edc</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="csproduct" name="csproduct" required value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $csproduct   : $product['csproduct']) ?>">
+                                    <input type="text" id="jenisedc" name="jenisedc" required value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $jenisedc   : $product['jenisedc']) ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="lokasi">Lokasi</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="lokasi" name="lokasi" required value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $lokasi   : $product['lokasi']) ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="pic">PIC</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="pic" name="pic" required value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $pic   : $product['pic']) ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="pertanyaan">Pertanyaan</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="pertanyaan" name="pertanyaan" required value="<?= ($_SERVER["REQUEST_METHOD"] == "POST" ? $pertanyaan   : $product['pertanyaan']) ?>">
                                 </div>
                             </div>
 

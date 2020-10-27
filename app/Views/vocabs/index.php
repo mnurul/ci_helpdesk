@@ -87,11 +87,11 @@
                                                     <h6 class="card-subtitle st-ticket text-muted"><?= $u['idvocab']; ?></h6>
                                                 </div>
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['idcustomer']; ?></h6>
+                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['lokasi']; ?></h6>
                                                 </div>
                                             </div>
                                             <hr style="margin-top: 10px;">
-                                            <h5 class="card-title text"><?= $u['ask']; ?></h5>
+                                            <h5 class="card-title text"><?= $u['jenisedc']; ?></h5>
                                             <a href="<?= base_url(); ?>/admin/detail_vocabs/<?= $u['idvocab']; ?>" class=" btn-assign">Detail</a>
                                         </div>
                                     </div>

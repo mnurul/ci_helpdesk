@@ -103,14 +103,14 @@ class Admin extends BaseController
     public function detail_assigment_a($id)
     {
         // $iduser = $this->request->getVar('iduser');
-        // dd($iduser);
+        // dd($id);
         $sla = $this->TicketModel->sla();
         $teknisi = $this->TicketModel->teknisi();
         // dd($teknisi);
 
         $data = [
             'title' => 'Detail My Assigment',
-            'ticket' => $this->TicketModel->getTicket($id),
+            'ticket' => $this->TicketModel->getTicket1($id),
             'sla' => $sla,
             'teknisi' => $teknisi
         ];
@@ -140,7 +140,7 @@ class Admin extends BaseController
             'reportdate'  => $rdate,
             'reportby'  => $rby,
             'problemsummary'  => $psummary,
-            'problemdetail'  => $pdetail,
+            // 'problemdetail'  => $pdetail,
             'ticketstatus'  => $ticketstatus,
             'assigne'  => $assigne,
             // 'assignedate'  => date("Y-m-d"),
@@ -156,7 +156,6 @@ class Admin extends BaseController
                 'noticket' => $data['noticket'],
                 'status' => $ticketstatus
             ];
-            $builder1->update($data);
 
             session()->setFlashdata('pesan', 'Proses Assigment kamu berhasil');
             return redirect()->to(base_url('/admin/my_assigment_a'));
@@ -1779,7 +1778,7 @@ class Admin extends BaseController
         $data = [
             'title' => 'List Product',
             // 'query' => $query,
-            'count' => $this->db->table('csproduct')->countAll(),
+            'count' => $this->db->table('edc')->countAll(),
             'product' => $product->paginate(3, 'product'),
             'pager' => $this->ProductModel->pager
         ];
@@ -1790,14 +1789,20 @@ class Admin extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $idcustomer = $this->request->getPost('idcustomer');
-            $csproduct = $this->request->getPost('csproduct');
+            $jenisedc = $this->request->getPost('jenisedc');
+            $lokasi = $this->request->getPost('lokasi');
+            $pic = $this->request->getPost('pic');
+            $pertanyaan = $this->request->getPost('pertanyaan');
             $data = [
+                'jenisedc'  => $jenisedc,
+                'lokasi'  => $lokasi,
+                'pic'  => $pic,
+                'pertanyaan'  => $pertanyaan,
                 'idcustomer'  => $idcustomer,
-                'csproduct'  => $csproduct
             ];
             $validasi = $data;
 
-            $builder = $this->db->table('csproduct');
+            $builder = $this->db->table('edc');
             $builder->where('idcustomer', $data['idcustomer']);
             $builder->update($data);
 
@@ -1817,14 +1822,20 @@ class Admin extends BaseController
     {
         if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $idcustomer = $this->request->getPost('idcustomer');
-            $csproduct = $this->request->getPost('csproduct');
+            $jenisedc = $this->request->getPost('jenisedc');
+            $lokasi = $this->request->getPost('lokasi');
+            $pic = $this->request->getPost('pic');
+            $pertanyaan = $this->request->getPost('pertanyaan');
             $data = [
+                'jenisedc'  => $jenisedc,
+                'lokasi'  => $lokasi,
+                'pic'  => $pic,
+                'pertanyaan'  => $pertanyaan,
                 'idcustomer'  => $idcustomer,
-                'csproduct'  => $csproduct
             ];
             $validasi = $data;
 
-            $builder = $this->db->table('csproduct');
+            $builder = $this->db->table('edc');
             // $builder->where('idcustomer', $data['idcustomer']);
             $builder->insert($data);
 
@@ -1844,7 +1855,7 @@ class Admin extends BaseController
     {
         // Cara delete konvensional, minus nya bisa dihapus lewat url
         // dd($iduser);
-        $builder = $this->db->table('csproduct');
+        $builder = $this->db->table('edc');
         $builder->where('idcustomer', $idcustomer);
         if ($builder->delete()) {
 

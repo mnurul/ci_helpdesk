@@ -21,6 +21,29 @@ class TicketModel extends Model
 
         return $this->where(['idcustomer' => $idcs])->findAll();
     }
+    public function status_ticket($idcs)
+    {
+        $this->db->table('v_tickets');
+        return $this->where(['idcustomer' => $idcs])->get()->getResultArray();
+    }
+    public function getTicketStatus($noticket)
+    {
+        // $this->db->table('tickets');
+        // return $this->where(['noticket' => $noticket])->get()->getResultArray();
+        return $this->table('tickets')->like('noticket', $noticket);
+    }
+
+    public function getTicket1($id = false)
+    {
+        $this->db->table('while_ticket');
+        if ($id == false) {
+            return $this->findAll();
+            // Ga perlu pake else, return langsung keluar dari if
+        }
+
+        return $this->where(['id' => $id])->first();
+    }
+
 
     public function whileTicket($idcs)
     {
@@ -79,10 +102,10 @@ class TicketModel extends Model
     //     // return $builder->like($array);
     // }
 
-    public function search_myassigment($search, $idcs)
+    public function search_myassigment($search)
     {
         // Metode Chaining
-        // $builder = $this->table('while_ticket')->where((['idcustomer' => $idcs]))->like('problemsummary', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->orLike('csnama', $search)->orLike('problemdetail', $search);
+        return $this->table('while_ticket')->like('problemsummary', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->orLike('csnama', $search)->orLike('problemdetail', $search);
 
         // return $builder->findAll();
         // $builder = $this->db->table('while_ticket');

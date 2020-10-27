@@ -73,14 +73,14 @@
                                     <input type="text" id="idvocab" name="idvocab" autofocus value="<?= (old('idvocab')) ? old('idvocab') : $vocabs['idvocab']; ?>" readonly>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="idcustomer">Id Customer</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="idcustomer" name="idcustomer" value="<?= (old('idcustomer')) ? old('idcustomer') : $vocabs['idcustomer']; ?>" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="pic">Pic</label>
@@ -103,6 +103,22 @@
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="answer" name="answer" value="<?= (old('answer')) ? old('answer') : $vocabs['answer']; ?>" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="jenisedc">Jenis Edc</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="jenisedc" name="jenisedc" value="<?= (old('jenisedc')) ? old('jenisedc') : $vocabs['jenisedc']; ?>" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
+                                    <label class="title-1" for="lokasi">Lokasi</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="lokasi" name="lokasi" value="<?= (old('lokasi')) ? old('lokasi') : $vocabs['lokasi']; ?>" required>
                                 </div>
                             </div>
 

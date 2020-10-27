@@ -85,7 +85,8 @@
                                         </div>
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text"><?= $w['problemsummary']; ?></h5>
-                                        <a href="#" class="btn btn-status disable-pointer"><?= $w['status']  ?></a>
+                                        <!-- <a href="#" class="btn btn-status">Detail</a> -->
+                                        <a href="<?= base_url(); ?>/user/detail_t_status/<?= $w['noticket']; ?>" class="btn btn-status">Detail</a>
                                     </div>
                                 </div>
                             <?php endforeach; ?>

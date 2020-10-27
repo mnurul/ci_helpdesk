@@ -6,14 +6,14 @@ use CodeIgniter\Model;
 
 class ProductModel extends Model
 {
-    protected $table = 'v_customers';
+    protected $table = 'edc';
     // protected $primarykey = 'idcustomer';
     // protected $useTimestamps = true;
     // protected $allowedFields = ['password'];
 
     public function getProduct($idcustomer = false)
     {
-        $this->db->table('csproduct');
+        $this->db->table('edc');
         if ($idcustomer == false) {
             return $this->findAll();
             // Ga perlu pake else, return langsung keluar dari if
@@ -62,7 +62,7 @@ class ProductModel extends Model
         // return $builder;
 
         // Metode Chaining
-        return $this->table('v_customers')->like('idcustomer', $search)->orLike('csproduct', $search);
+        return $this->table('edc')->like('idcustomer', $search)->orLike('jenisedc', $search);
 
         // $array = ['iduser' => $search, 'fullname' => $search, 'level' => $search];
         // return $builder->like($array);

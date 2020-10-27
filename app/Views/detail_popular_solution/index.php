@@ -75,10 +75,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-25">
-                                    <label class="title-1" for="customer">Customer</label>
+                                    <label class="title-1" for="customer">Id Customer</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="customer" name="customer" value="<?= $tickets['csnama']; ?>">
+                                    <input type="text" id="customer" name="customer" value="<?= $tickets['idcustomer']; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -97,15 +97,15 @@
                                     <input type="text" id="psummary" name="psummary" value="<?= $tickets['problemsummary']; ?>">
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="pdetail">Problem Detail</label>
                                 </div>
                                 <div class="col-75">
-                                    <!-- <input type="text" id="p-detail" name="p-detail"> -->
+                                    <input type="text" id="p-detail" name="p-detail">
                                     <textarea class="form-control mb-2" id="pdetail" name="pdetail" rows=" 3" style="width: 276px !important;"><?= $tickets['problemdetail']; ?></textarea>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="resolution">Resolve</label>

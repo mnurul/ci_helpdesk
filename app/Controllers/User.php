@@ -4,6 +4,8 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\TicketModel;
+use App\Models\TicketsModelM;
+use App\Models\TeknisiModel;
 use App\Models\VocabsModel;
 use CodeIgniter\I18n\Time;
 
@@ -20,6 +22,8 @@ class User extends BaseController
 
     protected $UserModel;
     protected $TicketModel;
+    protected $TicketsModelM;
+    protected $TeknisiModel;
     protected $VocabsModel;
 
 
@@ -32,6 +36,8 @@ class User extends BaseController
         $session = \Config\Services::session();
         $this->UserModel = new UserModel();
         $this->TicketModel = new TicketModel();
+        $this->TicketsModelM = new TicketsModelM();
+        $this->TeknisiModel = new TeknisiModel();
         $this->VocabsModel = new VocabsModel();
         $email = \Config\Services::email();
         $this->form_validation = \Config\Services::validation();
@@ -56,7 +62,14 @@ class User extends BaseController
                 $mulai = ($tampil * $page) - $tampil;
             }
 
+            // $ticketcs = $this->TeknisiModel->findAll($tampil, $mulai);
             $ticketcs = $this->TicketModel->where('idcustomer', $idcs)->findAll($tampil, $mulai);
+            // $status_ticket = $this->TicketModel->status_ticket($idcs);
+            // dd($idcs);
+            // dd($ticketcs);
+            $sql = "SELECT * FROM v_ticket  WHERE idcustomer='" . $idcs . "'";
+            $status_ticket = $this->db->query($sql)->getResult('array');
+            // dd($ticketcs);
         } else {
             // $while_ticket = $this->TicketModel;
             // $ticketcs = $this->TicketModel->where('idcustomer', $idcs)->like('csnama', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->like('problemsummary', $search)->orLike('problemdetail', $search)->orLike('status', $search)->findAll();
@@ -89,13 +102,31 @@ class User extends BaseController
             // 'pager' => $this->TicketModel->pager,
             'pager' => $this->pager,
             'idcs' => $ticketcs,
+            'status_ticket' => $status_ticket,
             'tampil' => $tampil,
             'total' => $count
         ];
         return view('v_ticket_status/index', $data);
     }
 
+    public function detail_t_status($noticket)
+    {
+        // $noticket = $this->request->getVar('noticket');
 
+        // $t_status = $this->TicketModel->getTicketStatus($noticket);
+        $sql = "SELECT * FROM tickets  WHERE noticket 
+        LIKE '$noticket%'";
+        $t_status = $this->db->query($sql)->getResult('array');
+        // dd($ticketcs);
+        // dd($t_status);
+
+
+        $data = [
+            'title' => 'Detail Waiting for Close',
+            't_status' => $t_status
+        ];
+        return view('detail_t_status/index', $data);
+    }
 
     public function create_ticket()
     {

@@ -24,7 +24,7 @@ class ProjectModel extends Model
 
     public function getCustomer()
     {
-        return $this->db->table('v_customers')->get()->getResultArray();
+        return $this->db->table('customers')->get()->getResultArray();
 
         // return $this->findAll();
         // Ga perlu pake else, return langsung keluar dari if

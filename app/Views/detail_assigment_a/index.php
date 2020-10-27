@@ -105,13 +105,13 @@
                                     <input type="text" id="psummary" name="psummary" value="<?= $ticket['problemsummary']; ?>">
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="pdetail">Problem Detail</label>
                                 </div>
                                 <div class="col-75">
                                     <textarea id="pdetail" name="pdetail" style="height:200px" value="<?= $ticket['problemdetail']; ?>"><?= $ticket['problemdetail']; ?></textarea> </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="idsla">SLA</label>

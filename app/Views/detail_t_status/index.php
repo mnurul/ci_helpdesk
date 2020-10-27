@@ -1,4 +1,4 @@
-<?= $this->extend('detail_w_for_close/template'); ?>
+<?= $this->extend('detail_t_status/template'); ?>
 
 <?= $this->section('content'); ?>
 
@@ -31,7 +31,7 @@
             <!-- <h6 class="t-customer"><b>Welcome Customer</b></h6> -->
             <div class="topnav" id="myTopnav">
                 <img src="<?= base_url(); ?>/assets/home-teknisi.png" class="logo" alt="" loading="lazy">
-                <a href="<?= base_url(); ?>/admin/w_for_close">Back</a>
+                <a href="<?= base_url(); ?>/user/">Back</a>
                 <!-- <a href="<?= base_url(); ?>/user/v_ticket_status">View Ticket Status</a>
                 <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
                 <a href="" class="">Create Tickets</a> -->
@@ -42,70 +42,65 @@
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
                         <form action="/action_page.php">
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="no-ticket">No Ticket</label>
+                            <?php foreach ($t_status as $w) : ?>
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="no-ticket">No Ticket</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="no-ticket" name="no-ticket" value="<?= $w['noticket']; ?>" readonly>
+                                    </div>
                                 </div>
-                                <div class="col-75">
-                                    <input type="text" id="no-ticket" name="no-ticket" value="<?= $tickets['noticket']; ?>">
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="idcustomer">Id Customer</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="idcustomer" name="idcustomer" value="<?= $w['idcustomer']; ?>" readonly>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="sla">SLA</label>
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="problemsummary">Problem Summary</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="problemsummary" name="problemsummary" value="<?= $w['problemsummary']; ?>" readonly>
+                                    </div>
                                 </div>
-                                <div class="col-75">
-                                    <input type="text" id="sla" name="sla" value="<?= $tickets['namasla']; ?>">
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="reportdate">Report Date</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="reportdate" name="reportdate" value="<?= $w['reportdate']; ?>" readonly>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="customer">Id Customer</label>
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="ticketstatus">Ticket Status</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="ticketstatus" name="ticketstatus" value="<?= $w['ticketstatus']; ?>" readonly>
+                                    </div>
                                 </div>
-                                <div class="col-75">
-                                    <input type="text" id="customer" name="customer" value="<?= $tickets['idcustomer']; ?>">
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="assigne">Assigne</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="assigne" name="assigne" value="<?= $w['assigne']; ?>" readonly>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="rdate">Report Date</label>
+                                <div class="row">
+                                    <div class="col-25">
+                                        <label class="title-1" for="resolution">Resolution</label>
+                                    </div>
+                                    <div class="col-75">
+                                        <input type="text" id="resolution" name="resolution" value="<?= $w['resolution']; ?>" readonly>
+                                    </div>
                                 </div>
-                                <div class="col-75">
-                                    <input type="text" id="rdate" name="rdate" value="<?= $tickets['reportdate']; ?>">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="rby">Report By</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="rby" name="rby" value="<?= $tickets['reportby']; ?>">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="psummary">Promblem Summary</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="psummary" name="psummary" value="<?= $tickets['problemsummary']; ?>">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="status">Status</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="status" name="status" value="<?= $tickets['ticketstatus']; ?>">
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-25">
-                                    <label class="title-1" for="assign">Assign</label>
-                                </div>
-                                <div class="col-75">
-                                    <input type="text" id="assign" name="assign" value="<?= $tickets['username']; ?>">
-                                </div>
-                            </div>
+                            <?php endforeach ?>
+
                             <!-- <div class="row">
                                 <div class="col-75">
                                     <button type="submit" class="btn-ticket">Submit</button>

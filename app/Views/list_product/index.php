@@ -85,11 +85,11 @@
                                         <div class="card">
                                             <div class="row no-gutters">
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $u['csproduct']; ?></h6>
+                                                    <h6 class="card-subtitle st-ticket text-muted"><?= $u['jenisedc']; ?></h6>
                                                 </div>
                                                 <div class="col-6">
-                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['csnama']; ?></h6>
-                                                    <h6 class="card-subtitle  st-date text-muted"><?= $u['alamat']; ?></h6>
+                                                    <h6 class="card-subtitle mb-2 st-date text-muted"><?= $u['idcustomer']; ?></h6>
+
                                                 </div>
                                             </div>
                                             <hr style="margin-top: 10px;">

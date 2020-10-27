@@ -77,8 +77,8 @@
                                                 <hr style="margin-top: 10px;">
                                                 <h5 class="card-title text"><?= $t['problemsummary']; ?></h5>
                                                 <!-- <a href="<?= base_url(); ?>/teknisi/proses_my_assigment/" class="btn-assign" type="submit">Assign</a> -->
-                                                <div class="" datahover="test" title="<?= ($t['assignedate'] != '0000-00-00' ? 'Ticket ini udah kamu Assigned'   : null) ?>">
-                                                    <button type="submit" class="btn-assign <?= ($t['assignedate'] != '0000-00-00' ? 'disable'   : null) ?>">Assign</button>
+                                                <div class="" datahover="test" title="<?= ($t['assignedate'] != null ? 'Ticket ini udah kamu Assigned'   : null) ?>">
+                                                    <button type="submit" class="btn-assign <?= ($t['assignedate'] != null ? 'disable'   : null) ?>">Assign</button>
                                                 </div>
 
                                             </form>
