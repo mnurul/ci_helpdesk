@@ -67,8 +67,8 @@ class User extends BaseController
             // $status_ticket = $this->TicketModel->status_ticket($idcs);
             // dd($idcs);
             // dd($ticketcs);
-            $sql = "SELECT * FROM v_ticket  WHERE idcustomer='" . $idcs . "'";
-            $status_ticket = $this->db->query($sql)->getResult('array');
+            // $sql = "SELECT * FROM v_ticket  WHERE idcustomer='" . $idcs . "'";
+            // $status_ticket = $this->db->query($sql)->getResult('array');
             // dd($ticketcs);
         } else {
             // $while_ticket = $this->TicketModel;
@@ -102,7 +102,7 @@ class User extends BaseController
             // 'pager' => $this->TicketModel->pager,
             'pager' => $this->pager,
             'idcs' => $ticketcs,
-            'status_ticket' => $status_ticket,
+            // 'status_ticket' => $status_ticket,
             'tampil' => $tampil,
             'total' => $count
         ];

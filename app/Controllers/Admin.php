@@ -156,6 +156,7 @@ class Admin extends BaseController
                 'noticket' => $data['noticket'],
                 'status' => $ticketstatus
             ];
+            $builder1->update($data);
 
             session()->setFlashdata('pesan', 'Proses Assigment kamu berhasil');
             return redirect()->to(base_url('/admin/my_assigment_a'));
@@ -253,6 +254,7 @@ class Admin extends BaseController
 
         $sla = $this->TeknisiModel->sla();
         $count_resolve = $this->TeknisiModel->count_resolve();
+        // d(session()->get('iduser'));
 
         $data = [
             'title' => 'Popular Solution',

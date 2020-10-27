@@ -86,7 +86,9 @@
                                         <hr style="margin-top: 10px;">
                                         <h5 class="card-title text"><?= $w['problemsummary']; ?></h5>
                                         <!-- <a href="#" class="btn btn-status">Detail</a> -->
-                                        <a href="<?= base_url(); ?>/user/detail_t_status/<?= $w['noticket']; ?>" class="btn btn-status">Detail</a>
+                                        <div class="" datahover="test" title="<?= ($w['noticket'] == null ? 'Ticket kamu belum di Assigned'   : null) ?>">
+                                            <a href="<?= base_url(); ?>/user/detail_t_status/<?= $w['noticket']; ?>" class="btn btn-status <?= ($w['noticket'] == null ? 'disable-pointer' : null) ?>">Detail</a>
+                                        </div>
                                     </div>
                                 </div>
                             <?php endforeach; ?>

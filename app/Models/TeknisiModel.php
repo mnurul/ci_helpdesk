@@ -104,7 +104,8 @@ class TeknisiModel extends Model
     public function count_resolve()
     {
         return $this->db->table('v_ticket')
-            ->where(array('assigne' => session()->get('iduser'), 'ticketstatus' => 'Resolved'))
+            // ->where(array('assigne' => session()->get('iduser'), 'ticketstatus' => 'Resolved'))
+            ->where(array('ticketstatus' => 'Resolved'))
             ->countAllResults();
     }
 
