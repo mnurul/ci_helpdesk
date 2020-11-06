@@ -49,7 +49,7 @@ use Config\Validation;
                         ?>
                         <form action="" method="post">
                             <?php if ($_SERVER["REQUEST_METHOD"] != "POST") { ?>
-                                <label class="title-1" for="" value="<?= $idcustomer1; ?>">Last <?= $idcustomer1; ?></label>
+                                <label class="title-1" for="" value="<?= $idcustomer1; ?>"></label>
                                 <div class="row">
                                     <div class="col-25">
                                         <label class="title-1" for="idcustomer" hidden>Id Customer</label>

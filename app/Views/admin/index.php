@@ -8,7 +8,7 @@
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
     <!-- <a href="<?= base_url(); ?>/admin/my_request" class="active btn navbar">My Request</a> -->
-    <a href="<?= base_url(); ?>/admin/my_assigment_a" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
+    <!-- <a href="<?= base_url(); ?>/admin/my_assigment_a" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a> -->
     <!-- <a href="<?= base_url(); ?>/admin/my_resolution" class=" btn navbar">My Resolution</a> -->
     <a href="<?= base_url(); ?>/admin/w_for_close" class="btn navbar <?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
     <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
@@ -31,7 +31,7 @@
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
                     <!-- <a href="<?= base_url(); ?>/admin">Back</a> -->
-                    <a href=" <?= base_url(); ?>/admin/">Back </a>
+                    <!-- <a href=" <?= base_url(); ?>/admin/">Back </a> -->
                     <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
                     <a href="<?= base_url(); ?>/admin/list_project" class="<?= ($uri->getSegment(2) == 'list_project' ? 'active' : null) ?>">Projects</a>
                     <a href="<?= base_url(); ?>/admin/list_customer" class="<?= ($uri->getSegment(2) == 'list_customer' ? 'active' : null) ?>">Customers</a>
@@ -80,7 +80,7 @@
     <div class="col-6" style="margin-left:-15px;">
         <button class="dropbtn">My Ticket</button>
         <div class="dropup-content">
-            <a href="<?= base_url(); ?>/admin/my_assigment_a" class="<?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
+            <!-- <a href="<?= base_url(); ?>/admin/my_assigment_a" class="<?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a> -->
             <a href="<?= base_url(); ?>/admin/w_for_close" class=" <?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
             <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class=" <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
             <a href="<?= base_url(); ?>/admin/popular_solution" class=" <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a>

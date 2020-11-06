@@ -8,7 +8,7 @@
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
     <a href="<?= base_url(); ?>/teknisi/my_assigment" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment' ? 'active' : null) ?>">My Assigment</a>
-    <a href=" <?= base_url(); ?>/teknisi/v_all_ticket" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View All Tickets</a>
+    <a href=" <?= base_url(); ?>/teknisi/v_all_ticket" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View My Tickets</a>
 </div>
 
 
@@ -182,7 +182,7 @@
     <button class="dropbtn">My Tickets</button>
     <div class="dropup-content">
         <a href="<?= base_url(); ?>/teknisi/my_assigment" class="<?= ($uri->getSegment(2) == 'my_assigment' ? 'active' : null) ?>">My Assigment</a>
-        <a href="<?= base_url(); ?>/teknisi/v_all_ticket" class="<?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View All Tickets</a>
+        <a href="<?= base_url(); ?>/teknisi/v_all_ticket" class="<?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View My Tickets</a>
     </div>
 </div>
 <!-- <div class="dropup">

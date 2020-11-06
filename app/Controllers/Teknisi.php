@@ -84,7 +84,7 @@ class Teknisi extends BaseController
         $count = $this->TeknisiModel->count();
 
         $data = [
-            'title' => 'View All Ticket',
+            'title' => 'View My Ticket',
             'count' => $count,
             'sla' => $sla,
             'v_all_ticket' => $v_all_ticket->paginate(3, 'v_all_ticket'),

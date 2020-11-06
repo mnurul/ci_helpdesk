@@ -186,9 +186,9 @@ div.content {
 }
 
 
-@media screen and (max-width: 1450px) {
+@media screen and (max-width: 2560px) {
   .dropup {
-    display: none;
+    display: none !important;
   }
 }
 

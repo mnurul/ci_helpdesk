@@ -4,19 +4,29 @@
 
 <div class="sidebar">
     <?php $uri = service('uri'); ?>
+    <!-- <h6 class="t-ticket"><b>My Tickets</b></h6> -->
+    <!-- <br> -->
+    <!-- <a href="<?= base_url(); ?>/admin/my_assigment_a" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
+    <a href="<?= base_url(); ?>/admin/my_resolution" class=" btn navbar">My Resolution</a>
+    <a href="<?= base_url(); ?>/admin/w_for_close" class="btn navbar <?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
+    <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
+    <a href="<?= base_url(); ?>/admin/popular_solution" class="btn navbar <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a> -->
+
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
     <a href="<?= base_url(); ?>/admin/my_assigment_a" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
-    <!-- <a href="<?= base_url(); ?>/admin/my_resolution" class=" btn navbar">My Resolution</a> -->
-    <a href="<?= base_url(); ?>/admin/w_for_close" class="btn navbar <?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
-    <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
-    <a href="<?= base_url(); ?>/admin/popular_solution" class="btn navbar <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a>
-    <h6 class="t-view-report"><b>Start Asking</b></h6>
+    <a href="<?= base_url(); ?>/manager/v_all_ticket_m" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_m' ? 'active' : null) ?>">View All Tickets</a>
+
+    <!-- <h6 class="t-view-report"><b>Start Asking</b></h6>
     <br>
-    <!-- <a href="<?= base_url(); ?>/admin/pivot_table_a" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a> -->
+    <a href="<?= base_url(); ?>/admin/pivot_table_a" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table_a' ? 'active' : null) ?>">Pivot Table</a>
     <a href="<?= base_url(); ?>/admin/correct_word" class="btn navbar <?= ($uri->getSegment(2) == 'correct_word' ? 'active' : null) ?>">Correct Word</a>
     <a href="<?= base_url(); ?>/admin/edc" class="btn navbar <?= ($uri->getSegment(2) == 'edc' ? 'active' : null) ?>">EDC</a>
-    <a href="<?= base_url(); ?>/admin/vocabs" class="btn navbar <?= ($uri->getSegment(2) == 'vocabs' ? 'active' : null) ?>">Vocabs</a>
+    <a href="<?= base_url(); ?>/admin/vocabs" class="btn navbar <?= ($uri->getSegment(2) == 'vocabs' ? 'active' : null) ?>">Vocabs</a> -->
+
+    <h6 class="t-view-report"><b>View Report</b></h6>
+    <br>
+    <a href="<?= base_url(); ?>/manager/pivot_table" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Chart</a>
 </div>
 
 
@@ -28,11 +38,13 @@
                 <div class="topnav" id="myTopnav">
                     <img src="<?= base_url(); ?>/assets/home-manager.png" class="logo" alt="" loading="lazy">
                     <a href="<?= base_url(); ?>/login/logout">Logout</a>
-                    <a href=" <?= base_url(); ?>/admin/">Back </a>
+                    <!-- <a href=" <?= base_url(); ?>/admin/">Back </a>
                     <a href="<?= base_url(); ?>/admin/change_password_a" class="">Change Password</a>
                     <a href="<?= base_url(); ?>/admin/list_project" class="<?= ($uri->getSegment(2) == 'list_project' ? 'active' : null) ?>">Projects</a>
                     <a href="<?= base_url(); ?>/admin/list_customer" class="<?= ($uri->getSegment(2) == 'list_customer' ? 'active' : null) ?>">Customers</a>
-                    <a href="<?= base_url(); ?>/admin/list_user" class="<?= ($uri->getSegment(2) == 'list_user' ? 'active' : null) ?>">Users</a>
+                    <a href="<?= base_url(); ?>/admin/list_user" class="<?= ($uri->getSegment(2) == 'list_user' ? 'active' : null) ?>">Users</a> -->
+                    <a href=" <?= base_url(); ?>/manager/">Back </a>
+                    <a href="<?= base_url(); ?>/manager/change_password_m" class="">Change Password</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
@@ -197,20 +209,23 @@
 </div> -->
 <div class="dropup">
     <div class="col-6" style="bottom: 0; margin-left:170px;margin-bottom:-40px !important">
-        <button class="dropbtn">Start Asking</button>
+        <button class="dropbtn">View Report</button>
         <div class="dropup-content">
-            <a href="<?= base_url(); ?>/admin/correct_word" class="<?= ($uri->getSegment(2) == 'correct_word' ? 'active' : null) ?>">Correct Word</a>
+            <!-- <a href="<?= base_url(); ?>/admin/correct_word" class="<?= ($uri->getSegment(2) == 'correct_word' ? 'active' : null) ?>">Correct Word</a>
             <a href="<?= base_url(); ?>/admin/edc" class="<?= ($uri->getSegment(2) == 'edc' ? 'active' : null) ?>">EDC</a>
-            <a href="<?= base_url(); ?>/admin/vocabs" class="<?= ($uri->getSegment(2) == 'vocabs' ? 'active' : null) ?>">Vocabs</a>
+            <a href="<?= base_url(); ?>/admin/vocabs" class="<?= ($uri->getSegment(2) == 'vocabs' ? 'active' : null) ?>">Vocabs</a> -->
+            <a href="<?= base_url(); ?>/manager/pivot_table" class="<?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Chart</a>
         </div>
     </div>
     <div class="col-6" style="margin-left:-15px;">
         <button class="dropbtn">My Ticket</button>
         <div class="dropup-content">
-            <a href="<?= base_url(); ?>/admin/my_assigment_a" class=" <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
+            <!-- <a href="<?= base_url(); ?>/admin/my_assigment_a" class=" <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
             <a href="<?= base_url(); ?>/admin/w_for_close" class="<?= ($uri->getSegment(2) == 'w_for_close' ? 'active' : null) ?>">Waiting for Close</a>
             <a href="<?= base_url(); ?>/admin/v_all_ticket_a" class=" <?= ($uri->getSegment(2) == 'v_all_ticket_a' ? 'active' : null) ?>">View All Tickets</a>
-            <a href="<?= base_url(); ?>/admin/popular_solution" class=" <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a>
+            <a href="<?= base_url(); ?>/admin/popular_solution" class=" <?= ($uri->getSegment(2) == 'popular_solution' ? 'active' : null) ?>">Popular Solution</a> -->
+            <a href="<?= base_url(); ?>/admin/my_assigment_a" class="<?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
+            <a href="<?= base_url(); ?>/manager/v_all_ticket_m" class="<?= ($uri->getSegment(2) == 'v_all_ticket_m' ? 'active' : null) ?>">View All Tickets</a>
         </div>
     </div>
 </div>

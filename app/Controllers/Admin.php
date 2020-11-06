@@ -219,6 +219,37 @@ class Admin extends BaseController
         return view('detail_w_for_close/index', $data);
     }
 
+    public function w_add_vocabs($idtickets)
+    {
+        d($idtickets);
+
+        $psummary = $this->request->getPost('psummary');
+        $resolution = $this->request->getPost('resolution');
+        d($psummary);
+        d($resolution);
+
+        $data = [
+            'ask' => $psummary,
+            'answer' => $resolution,
+            'tolask' => 0,
+        ];
+
+        $builder = $this->db->table('vocabs');
+        if ($builder->insert($data)) {
+            // $builder1 = $this->db->table('v_ticket');
+            // $builder1->where('idtickets', $idtickets);
+            // $data = [
+            //     'ticketstatus' => $status
+            // ];
+            // $builder1->update($data);
+            session()->setFlashdata('pesan', 'Tiket kamu berhasil ditambahkan ke Vocabs');
+            return redirect()->to(base_url('admin/w_for_close'));
+        } else {
+            session()->setFlashdata('failed', 'Tiket kamu belum berhasil ditambahkan');
+            return redirect()->to(base_url('admin/w_for_close'));
+        }
+    }
+
     public function v_all_ticket_a()
     {
         $search = $this->request->getVar('search');

@@ -8,7 +8,7 @@
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
     <a href="<?= base_url(); ?>/teknisi/my_assigment" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment' ? 'active' : null) ?>">My Assigment</a>
-    <a href=" <?= base_url(); ?>/teknisi/v_all_ticket" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View All Tickets</a>
+    <a href=" <?= base_url(); ?>/teknisi/v_all_ticket" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket' ? 'active' : null) ?>">View My Tickets</a>
 </div>
 
 
@@ -25,7 +25,7 @@
                     <a href=" javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
                 <div style="margin-top:15px; ">
-                    <h2 class="title font-weight-bold">View All Ticket</h2>
+                    <h2 class="title font-weight-bold">View My Ticket</h2>
                     <div class="card bg-card mt-3 mb-5">
                         <div class="card-body">
                             <div class="myInput">

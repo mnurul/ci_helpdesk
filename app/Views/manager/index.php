@@ -7,11 +7,12 @@
 
     <h6 class="t-ticket"><b>My Tickets</b></h6>
     <br>
+    <a href="<?= base_url(); ?>/admin/my_assigment_a" class="btn navbar <?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
     <a href="<?= base_url(); ?>/manager/v_all_ticket_m" class="btn navbar <?= ($uri->getSegment(2) == 'v_all_ticket_m' ? 'active' : null) ?>">View All Tickets</a>
     <h6 class="t-view-report"><b>View Report</b></h6>
     <br>
     <a href="<?= base_url(); ?>/manager/pivot_table" class="btn navbar <?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Chart</a>
-    <a href="<?= base_url(); ?>/manager/sla_chart" class="btn navbar <?= ($uri->getSegment(2) == 'sla_chart' ? 'active' : null) ?>">SLA Chart</a>
+    <!-- <a href="<?= base_url(); ?>/manager/sla_chart" class="btn navbar <?= ($uri->getSegment(2) == 'sla_chart' ? 'active' : null) ?>">SLA Chart</a> -->
 </div>
 
 
@@ -37,15 +38,16 @@
 
 <div class="dropup">
     <div class="col-6" style="bottom: 0; margin-left:170px;margin-bottom:-40px !important">
-        <button class="dropbtn">My Tickets</button>
+        <button class="dropbtn">View Report</button>
         <div class="dropup-content">
             <a href="<?= base_url(); ?>/manager/pivot_table" class="<?= ($uri->getSegment(2) == 'pivot_table' ? 'active' : null) ?>">Chart</a>
-            <a href="<?= base_url(); ?>/manager/sla_chart" class="<?= ($uri->getSegment(2) == 'sla_chart' ? 'active' : null) ?>">SLA Chart</a>
+            <!-- <a href="<?= base_url(); ?>/manager/sla_chart" class="<?= ($uri->getSegment(2) == 'sla_chart' ? 'active' : null) ?>">SLA Chart</a> -->
         </div>
     </div>
     <div class="col-6" style="margin-left:-15px;">
         <button class="dropbtn">My Ticket</button>
         <div class="dropup-content">
+            <a href="<?= base_url(); ?>/admin/my_assigment_a" class="<?= ($uri->getSegment(2) == 'my_assigment_a' ? 'active' : null) ?>">My Assigment</a>
             <a href="<?= base_url(); ?>/manager/v_all_ticket_m" class="<?= ($uri->getSegment(2) == 'v_all_ticket_m' ? 'active' : null) ?>">View All Tickets</a>
         </div>
     </div>

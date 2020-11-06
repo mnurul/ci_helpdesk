@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 14 Okt 2020 pada 08.22
+-- Waktu pembuatan: 27 Okt 2020 pada 10.22
 -- Versi server: 10.4.11-MariaDB
 -- Versi PHP: 7.4.6
 
@@ -276,23 +276,22 @@ CREATE TABLE `customers` (
   `telp` varchar(13) NOT NULL,
   `email` varchar(30) NOT NULL,
   `pic` varchar(30) NOT NULL,
-  `time` date NOT NULL DEFAULT current_timestamp(),
-  `ip` varchar(30) NOT NULL
+  `time` date NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data untuk tabel `customers`
 --
 
-INSERT INTO `customers` (`idcustomer`, `csnama`, `alamat`, `telp`, `email`, `pic`, `time`, `ip`) VALUES
-('cs001', 'MCD', 'Bekasi', '0881116785623', 'mcd@gmail.com', 'michael', '2020-08-13', '0'),
-('cs002', 'PHD', 'Bekasi', '0881116785623', 'phd@gmail.com', 'Anya', '2020-08-13', '0'),
-('cs003', 'KFC', 'Aperiam fugiat temp', 'Laborum aperi', 'kfc@gmail.com', 'Dei', '0000-00-00', '0'),
-('cs004', '', '', '', '', '', '2020-08-13', ''),
-('cs005', '', '', '', '', '', '0000-00-00', ''),
-('cs006', '', '', '', '', '', '0000-00-00', ''),
-('cs007', '', '', '', '', '', '0000-00-00', ''),
-('cs008', '', '', '', '', '', '0000-00-00', '');
+INSERT INTO `customers` (`idcustomer`, `csnama`, `alamat`, `telp`, `email`, `pic`, `time`) VALUES
+('cs001', 'MCD', 'Bekasi Timur', '0881116785623', 'mcd@gmail.com', 'ari', '2020-08-13'),
+('cs002', 'PHD', 'Bekasi Utara', '0881116785623', 'phd@gmail.com', 'randi', '2020-08-13'),
+('cs003', 'KFC', 'Bekasi Selatan', '081234555', 'kfc@gmail.com', 'ali', '0000-00-00'),
+('cs004', 'CFC', 'Bekasi Selatan', '089767999', 'cfc@gmail.com', 'indra', '2020-08-13'),
+('cs005', '', '', '', '', '', '0000-00-00'),
+('cs006', '', '', '', '', '', '0000-00-00'),
+('cs007', '', '', '', '', '', '0000-00-00'),
+('cs008', '', '', '', '', '', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -315,11 +314,11 @@ CREATE TABLE `edc` (
 --
 
 INSERT INTO `edc` (`id`, `jenisedc`, `lokasi`, `pic`, `pertanyaan`, `idtmpvocab`, `idcustomer`) VALUES
-(1, 'Verifone', 'Bekasi Timur', 'Ari', '', '', 'cs001'),
+(1, 'Verifone', 'Bekasi Timur', 'Ari', 'program edc error', '', 'cs001'),
 (2, 'Pax', 'Bekasi Utara', 'Randi', 'display edc error', '', 'cs002'),
 (3, 'Ingenico', 'Bekasi Selatan', 'Ali', 'card edc error', '', 'cs003'),
 (5, 'Ingenico', 'Bekasi Selatan', 'Indra', 'ecyription edc error', '', 'cs004'),
-(6, 'Verifone', 'Bekasi Timur', 'Jess', 'printer edc error', '', '');
+(6, 'Verifone', 'Bekasi Timur', 'Jess', 'printer edc error', '', 'cs005');
 
 -- --------------------------------------------------------
 
@@ -488,9 +487,9 @@ CREATE TABLE `projects` (
 --
 
 INSERT INTO `projects` (`idproject`, `namaproject`, `idcustomer`, `deliveyrbegin`, `deliveryend`, `installdate`, `installend`, `uatbegin`, `uatend`, `billstartdate`, `billdueend`, `warantyperiod`, `contractstartdate`, `contractenddate`) VALUES
-('pjt001', 'EDC', 'cs001', '2020-07-01', '2020-07-14', '2020-07-08', '2020-07-14', '2020-07-15', '2020-07-21', '2020-07-08', '2020-07-14', 2, '2020-07-08', 12),
-('pjt002', 'Pemasangan Kabel', 'cs001', '2020-07-01', '2020-07-14', '2020-07-08', '2020-07-14', '2020-07-15', '2020-07-19', '2020-07-06', '2020-07-14', 2, '2020-07-08', 12),
-('pjt003', 'Pemasangan EDC dan Ganti Kabel', 'cs002', '2020-08-15', '2020-05-27', '2020-06-08', '2020-02-03', '2020-05-01', '2020-08-27', '2020-04-11', '2020-10-14', 2, '2020-03-13', 12);
+('pjt001', 'Verifone', 'cs001', '2020-07-01', '2020-07-14', '2020-07-08', '2020-07-14', '2020-07-15', '2020-07-21', '2020-07-08', '2020-07-14', 2, '2020-07-08', 12),
+('pjt002', 'Verifone', 'cs001', '2020-07-01', '2020-07-14', '2020-07-08', '2020-07-14', '2020-07-15', '2020-07-19', '2020-07-06', '2020-07-14', 2, '2020-07-08', 12),
+('pjt003', 'Pax', 'cs002', '2020-08-15', '2020-05-27', '2020-06-08', '2020-02-03', '2020-05-01', '2020-08-27', '2020-04-11', '2020-10-14', 2, '2020-03-13', 12);
 
 -- --------------------------------------------------------
 
@@ -610,13 +609,22 @@ CREATE TABLE `tickets` (
 INSERT INTO `tickets` (`idtickets`, `idcustomer`, `iduser`, `noticket`, `idsla`, `reportdate`, `reportby`, `telp`, `email`, `problemsummary`, `problemdetail`, `ticketstatus`, `assigne`, `assignedate`, `pendingby`, `pendingdate`, `resolution`, `resolveby`, `resolvedate`, `closeby`, `closedate`, `documentby`, `documentdate`) VALUES
 (1, 'cs001', '', '1/HD/Aug/2020', '1', '2020-08-02', 'Ut ad officia reicie', '', '', 'EDC tidak bisa input pin', 'Sunt voluptates exce', 'Closed', 'usr002', '2020-08-10', '', NULL, 'EDC direset ulang', 'usr002', '2020-08-10', 'usr001', '2020-08-10', '', NULL),
 (3, 'cs001', '', '2/HD/Aug/2020', '2', '2020-08-02', 'Neque voluptas venia', '', '', 'Kabel ada yang terkelupas', 'Possimus voluptatem', 'Assigned', 'usr002', '2020-08-10', '', NULL, '', '', NULL, '', NULL, '', NULL),
-(5, 'cs001', '', '3/HD/Aug/2020', '1', '2020-08-08', 'Animi porro sed cup', '', '', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'usr002', '0000-00-00', '', NULL, '', '', NULL, '', NULL, '', NULL),
-(6, 'cs001', '', '3/HD/Aug/2020', '1', '2020-08-08', 'Animi porro sed cup', '', '', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'Aliqua', '2020-08-08', '', NULL, '', '', NULL, '', NULL, '', NULL),
+(5, 'cs001', '', '3/HD/Aug/2020', '1', '2020-08-08', 'Animi porro sed cup', '', '', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'usr002', '2020-10-22', '', NULL, '', '', NULL, '', NULL, '', NULL),
+(6, 'cs001', '', '3/HD/Aug/2020', '1', '2020-08-08', 'Animi porro sed cup', '', '', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'Aliqua', '2020-10-22', '', NULL, '', '', NULL, '', NULL, '', NULL),
 (7, 'cs001', '', '2/HD/Aug/2020', '1', '2020-08-02', 'Neque voluptas venia', '', '', 'Kabel ada yang terkelupas', 'Possimus voluptatem', 'Assigned', 'Et cum', '2020-08-10', '', NULL, '', '', NULL, '', NULL, '', NULL),
 (8, 'cs001', '', '2/HD/Aug/2020', '4', '2020-08-02', 'Neque voluptas venia', '', '', 'Kabel ada yang terkelupas', 'Possimus voluptatem', 'Assigned', 'Aliqua', '2020-08-10', '', NULL, '', '', NULL, '', NULL, '', NULL),
 (10, ' cs001', '', '5/HD/Aug/2020', '1', '2020-08-08', 'Occaecat nisi odit e', '', '', 'Necessitatibus volup', 'Aliquid corporis vol', 'Assigned', 'usr002', '2020-08-08', '', NULL, '', '', NULL, '', NULL, '', NULL),
 (12, ' cs001', '', '7/HD/Oct/2020', '2', '2020-10-06', 'Adi', '', '', 'EDC error', 'EDC tidak mau menyala', 'Assigned', 'Aliqua', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
-(13, ' cs001', '', '14/HD/Oct/2020', '1', '2020-10-06', 'michael', '', '', 'printer tidak hidup ', '', 'Assigned', 'Dolore', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL);
+(13, ' cs001', '', '14/HD/Oct/2020', '1', '2020-10-06', 'michael', '', '', 'printer tidak hidup ', '', 'Assigned', 'Dolore', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
+(14, 'cs002', '', '32/HD/Oct/2020', '2', '2020-10-27', 'randi', '', '', 'ecyription edc error', '', 'Closed', 'usr002', '2020-10-27', '', NULL, 'Mesin edc harus diganti', 'usr002', '2020-10-27', 'usr001', '2020-10-27', '', NULL),
+(15, 'cs002', '', '33/HD/Oct/2020', '1', '2020-10-27', 'randi', '', '', 'card edc error', '', 'Resolved', 'usr002', '2020-10-27', '', NULL, 'Mesin edc ganti', 'usr002', '2020-10-27', '', NULL, '', NULL),
+(16, ' cs001', '', '34/HD/Oct/2020', '1', '2020-10-27', 'ari', '', '', 'printer edc error', '', 'Assigned', 'usr002', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
+(17, ' cs001', '', '35/HD/Oct/2020', '1', '2020-10-27', 'ari', '', '', 'card edc error', '', 'Assigned', 'usr002', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
+(18, ' cs002', '', '36/HD/Oct/2020', '4', '2020-10-27', 'randi', '', '', 'program edc error', '', 'Closed', 'usr002', '2020-10-27', '', NULL, 'Mesin Edc harus direset ulang', 'usr002', '2020-10-27', 'usr001', '2020-10-27', '', NULL),
+(19, ' cs002', '', '36/HD/Oct/2020', '3', '2020-10-27', 'randi', '', '', 'program edc error', '', 'Assigned', 'usr002', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
+(20, ' cs002', '', '36/HD/Oct/2020', '1', '2020-10-27', 'randi', '', '', 'program edc error', '', 'Assigned', 'usr002', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
+(21, ' cs002', '', '36/HD/Oct/2020', '4', '2020-10-27', 'randi', '', '', 'program edc error', '', 'Assigned', 'usr002', NULL, '', NULL, '', '', NULL, '', NULL, '', NULL),
+(22, ' cs002', '', '37/HD/Oct/2020', '3', '2020-10-27', 'randi', '', '', 'printer edc error', '', 'Closed', 'usr002', '2020-10-27', '', NULL, 'Mesin Edc harus diganti', 'usr002', '2020-10-27', 'usr001', '2020-10-27', '', NULL);
 
 -- --------------------------------------------------------
 
@@ -630,16 +638,6 @@ CREATE TABLE `tmppropabilityvocab` (
   `idvocab` int(11) NOT NULL,
   `jumpprobability` double(10,8) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data untuk tabel `tmppropabilityvocab`
---
-
-INSERT INTO `tmppropabilityvocab` (`idtmpvocab`, `idcustomer`, `idvocab`, `jumpprobability`) VALUES
-(2609, 'cs001', 3, 0.55555556),
-(2610, 'cs001', 1, 0.72222222),
-(2611, 'cs001', 2, 0.55555556),
-(2612, 'cs001', 7, 0.69444444);
 
 -- --------------------------------------------------------
 
@@ -691,7 +689,7 @@ INSERT INTO `users` (`iduser`, `idcustomer`, `username`, `password`, `level`, `f
 ('usr002', '', 'teknisi', 'pwteknisi', 'teknisi', 'Teknisi', 'teknisi@gmail.com', '0881116785623', '', '2020-07-11', 0, '', 1, '2020-07-20'),
 ('usr003', 'cs001', 'user', 'customer', 'customer', 'Brett Stokes', 'nozehoveka@mailinator.com', 'Beatae dolore', '', '0000-00-00', 0, 'Incididunt atque con', 1, '2020-07-26'),
 ('usr004', '', 'manager', 'pwmanager', 'manager', 'Clio Mayer', 'dowytasiw@mailinator.com', 'Nulla neque o', 'cypa@mailinator.com', '0000-00-00', 0, 'Rerum id aut dolorem', 1, '2020-07-23'),
-('usr005', 'cs001', 'Dias Burger', 'Pa$$w0rd!', 'customer', 'Kenyon Hart', 'cewarotik@mailinator.com', 'Aute quo quam', '', '2020-08-13', 0, 'Praesentium non repr', 0, '2020-08-13');
+('usr005', 'cs002', 'userdua', 'customer2', 'customer', 'Kenyon Hart', 'cewarotik@mailinator.com', 'Aute quo quam', '', '2020-08-13', 0, 'Praesentium non repr', 1, '2020-08-13');
 
 -- --------------------------------------------------------
 
@@ -703,7 +701,7 @@ CREATE TABLE `user_tokens` (
   `id` int(11) NOT NULL,
   `email` varchar(30) NOT NULL,
   `token` varchar(32) NOT NULL,
-  `data_created` int(11) NOT NULL
+  `data_created` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
@@ -711,38 +709,38 @@ CREATE TABLE `user_tokens` (
 --
 
 INSERT INTO `user_tokens` (`id`, `email`, `token`, `data_created`) VALUES
-(15, 'nurulraws@gmail.com', '8npvI7jH5Vlcc+arX/usjS8o/76RdMYc', 1595342462),
-(16, 'gede@mailinator.com', 'n3E0ltDVzM9LLsELcrF1rwuWIdxQWx5n', 1595428978),
-(17, 'toxefixeqo@mailinator.com', '77oWxNinVRCrPbN44zYrsAQIABz/75VT', 1595429640),
-(18, 'vyhyrica@mailinator.com', 'iNWYk8SUdBYZ2wnVDLAhaoQN6EG/D6on', 1595429832),
-(19, 'qolox@mailinator.com', 'xHCzf6tPwA4Mu7TinVMnSeDvSjF+6RD6', 1595430084),
-(20, 'nurulraws@gmail.com', 'ZUWel4qBW1OuEjwptH5HLj8mVQvM98lA', 1595431879),
-(21, 'nurulraws@gmail.com', 'Q99UHLw3bi1x31nSnLJhhcrekU+QIMGR', 1595432001),
-(22, 'nurulraws@gmail.com', 'N9rGRcMNivjtD62BawO8U3aWuPOer/db', 1595432026),
-(23, 'nurulraws@gmail.com', 'i9MqNXa1DBNda703u8k7Y9Sngs/YFVnO', 1595432048),
-(24, 'nurulraws@gmail.com', 'QwdCofQSmzq/xnQV9XNCvzgoy9MnPl0J', 1595432088),
-(25, 'dowytasiw@mailinator.com', 'FCIq/yTYR+/Jz4x8OWRBWK4XyUW+/E3M', 1595493671),
-(26, 'fobih@mailinator.com', 'zFm5sgj6DgRd2DYC8JGhv9hknD/g42b3', 1595493681),
-(27, 'pamerur@mailinator.com', 'I9/fNqQhV2nEO9w5GWpcBKikmqn+RbeT', 1595493689),
-(28, 'givicukab@mailinator.com', 'bLdyeQyAimaKHGsdCaVT99KVVOFEnMjC', 1595493696),
-(29, 'qahady@mailinator.com', 'Ph6Rbvg3eXDxbnPTN2DPTzhDaxBFnXIb', 1595493703),
-(30, 'wexisixaxi@mailinator.com', 'R+ItGxLEfSC/uMWgmTvWzt1pauYLyG3v', 1595493710),
-(31, 'jyle@mailinator.com', 'wY33nH6MVcip2w+MZDARKgBCH2GLmwQh', 1595494037),
-(32, 'malobecudi@mailinator.com', 'SZdRZcZpiGhxvwSgyvlxj/gY44ctAZta', 1595494044),
-(33, 'jyxyper@mailinator.com', 'UBLmJn52RP0Ax5Ln2XaM+oBwl8dra1pB', 1595494051),
-(34, 'gadulu@mailinator.com', 'yN4MlaUdMl8fOTUS98bggHgecs2TjPhu', 1595494058),
-(35, 'tiqyjesy@mailinator.com', 'OBinhKezRPhQnvWrkPpMC1K9n4v36fvM', 1595494064),
-(36, 'side@mailinator.com', 'i7H6crJ7kl+o6VZRwxCkEXDJ5VgnonqW', 1595494071),
-(37, 'qiragugapa@mailinator.com', 'WpaRSBsUvbG7ifyD1EJam0qDYHSPgcgM', 1595494436),
-(38, 'zeduvapy@mailinator.com', '2uXGt3qDrwR7VOs+DMOta9d0758k+4Wq', 1595494444),
-(39, 'givif@mailinator.com', '783QV4dHL2bcL6Vrdc8aI6I6gPMK6WvT', 1595494452),
-(40, 'gigiced@mailinator.com', 'Qsc3M/UclpRwZ8qbxfbp9QVRaW1UoJjj', 1595494765),
-(41, 'suzikety@mailinator.com', 'AFXqBY+e71wHeJfwkWS9x8q4ErO6LPz1', 1595494772),
-(42, 'zadolyjaxo@mailinator.com', 'FUpARYhtOZ+dneHr+CSNQGdQjAh84C60', 1595494778),
-(43, 'cahuvu@mailinator.com', 'SVyT4jg8S6P/jRxH9Q4BdcxcV1BycmTG', 1595501967),
-(44, 'nozehoveka@mailinator.com', 'vLhcVQD4R0/XsMr3uaklT6NCFrDJD2P1', 1595746437),
-(45, 'nimehuvoto@mailinator.com', 'j1DVF2o+8Eq6MJ4Og+tLOp6/9VRXg9DH', 1597263070),
-(46, 'cewarotik@mailinator.com', 'h0hIM6z2AeGVQ1nf1ZfdCho71hCZRYh3', 1597263450);
+(15, 'nurulraws@gmail.com', '8npvI7jH5Vlcc+arX/usjS8o/76RdMYc', '0000-00-00'),
+(16, 'gede@mailinator.com', 'n3E0ltDVzM9LLsELcrF1rwuWIdxQWx5n', '0000-00-00'),
+(17, 'toxefixeqo@mailinator.com', '77oWxNinVRCrPbN44zYrsAQIABz/75VT', '0000-00-00'),
+(18, 'vyhyrica@mailinator.com', 'iNWYk8SUdBYZ2wnVDLAhaoQN6EG/D6on', '0000-00-00'),
+(19, 'qolox@mailinator.com', 'xHCzf6tPwA4Mu7TinVMnSeDvSjF+6RD6', '0000-00-00'),
+(20, 'nurulraws@gmail.com', 'ZUWel4qBW1OuEjwptH5HLj8mVQvM98lA', '0000-00-00'),
+(21, 'nurulraws@gmail.com', 'Q99UHLw3bi1x31nSnLJhhcrekU+QIMGR', '0000-00-00'),
+(22, 'nurulraws@gmail.com', 'N9rGRcMNivjtD62BawO8U3aWuPOer/db', '0000-00-00'),
+(23, 'nurulraws@gmail.com', 'i9MqNXa1DBNda703u8k7Y9Sngs/YFVnO', '0000-00-00'),
+(24, 'nurulraws@gmail.com', 'QwdCofQSmzq/xnQV9XNCvzgoy9MnPl0J', '0000-00-00'),
+(25, 'dowytasiw@mailinator.com', 'FCIq/yTYR+/Jz4x8OWRBWK4XyUW+/E3M', '0000-00-00'),
+(26, 'fobih@mailinator.com', 'zFm5sgj6DgRd2DYC8JGhv9hknD/g42b3', '0000-00-00'),
+(27, 'pamerur@mailinator.com', 'I9/fNqQhV2nEO9w5GWpcBKikmqn+RbeT', '0000-00-00'),
+(28, 'givicukab@mailinator.com', 'bLdyeQyAimaKHGsdCaVT99KVVOFEnMjC', '0000-00-00'),
+(29, 'qahady@mailinator.com', 'Ph6Rbvg3eXDxbnPTN2DPTzhDaxBFnXIb', '0000-00-00'),
+(30, 'wexisixaxi@mailinator.com', 'R+ItGxLEfSC/uMWgmTvWzt1pauYLyG3v', '0000-00-00'),
+(31, 'jyle@mailinator.com', 'wY33nH6MVcip2w+MZDARKgBCH2GLmwQh', '0000-00-00'),
+(32, 'malobecudi@mailinator.com', 'SZdRZcZpiGhxvwSgyvlxj/gY44ctAZta', '0000-00-00'),
+(33, 'jyxyper@mailinator.com', 'UBLmJn52RP0Ax5Ln2XaM+oBwl8dra1pB', '0000-00-00'),
+(34, 'gadulu@mailinator.com', 'yN4MlaUdMl8fOTUS98bggHgecs2TjPhu', '0000-00-00'),
+(35, 'tiqyjesy@mailinator.com', 'OBinhKezRPhQnvWrkPpMC1K9n4v36fvM', '0000-00-00'),
+(36, 'side@mailinator.com', 'i7H6crJ7kl+o6VZRwxCkEXDJ5VgnonqW', '0000-00-00'),
+(37, 'qiragugapa@mailinator.com', 'WpaRSBsUvbG7ifyD1EJam0qDYHSPgcgM', '0000-00-00'),
+(38, 'zeduvapy@mailinator.com', '2uXGt3qDrwR7VOs+DMOta9d0758k+4Wq', '0000-00-00'),
+(39, 'givif@mailinator.com', '783QV4dHL2bcL6Vrdc8aI6I6gPMK6WvT', '0000-00-00'),
+(40, 'gigiced@mailinator.com', 'Qsc3M/UclpRwZ8qbxfbp9QVRaW1UoJjj', '0000-00-00'),
+(41, 'suzikety@mailinator.com', 'AFXqBY+e71wHeJfwkWS9x8q4ErO6LPz1', '0000-00-00'),
+(42, 'zadolyjaxo@mailinator.com', 'FUpARYhtOZ+dneHr+CSNQGdQjAh84C60', '0000-00-00'),
+(43, 'cahuvu@mailinator.com', 'SVyT4jg8S6P/jRxH9Q4BdcxcV1BycmTG', '0000-00-00'),
+(44, 'nozehoveka@mailinator.com', 'vLhcVQD4R0/XsMr3uaklT6NCFrDJD2P1', '0000-00-00'),
+(45, 'nimehuvoto@mailinator.com', 'j1DVF2o+8Eq6MJ4Og+tLOp6/9VRXg9DH', '0000-00-00'),
+(46, 'cewarotik@mailinator.com', 'h0hIM6z2AeGVQ1nf1ZfdCho71hCZRYh3', '0000-00-00');
 
 -- --------------------------------------------------------
 
@@ -768,10 +766,10 @@ CREATE TABLE `vocabs` (
 
 INSERT INTO `vocabs` (`idvocab`, `idcustomer`, `pic`, `ipclient`, `ask`, `answer`, `tolask`, `jenisedc`, `lokasi`) VALUES
 (1, '', 'Ari', '', 'program edc error', 'Restart EDC', 18, 'Verifone', 'Bekasi Timur'),
-(2, '', 'Randi', '', 'display edc error', 'Restart EDC', 6, 'PAX', 'Bekasi Utara'),
+(2, '', 'Randi', '', 'display edc error', 'Restart EDC', 8, 'PAX', 'Bekasi Utara'),
 (3, '', 'Ali', '', 'card edc error', 'Melakukan Insert kartu dengan sempurna', 27, 'Ingenico', 'Bekasi Selatan'),
-(6, '', 'Indra', '', 'ecyription edc error', 'Masukkan PIN dengan benar', 2, 'Ingenico', 'Bekasi Selatan'),
-(7, '', 'Jess', '', 'printer edc error', 'Lakukan penggantian adaptor EDC', 3, 'Verifone', 'Bekasi Timur');
+(6, '', 'Indra', '', 'ecyription edc error', 'Masukkan PIN dengan benar', 4, 'Ingenico', 'Bekasi Selatan'),
+(7, '', 'Jess', '', 'printer edc error', 'Lakukan penggantian adaptor EDC', 5, 'Verifone', 'Bekasi Timur');
 
 -- --------------------------------------------------------
 
@@ -780,15 +778,6 @@ INSERT INTO `vocabs` (`idvocab`, `idcustomer`, `pic`, `ipclient`, `ask`, `answer
 -- (Lihat di bawah untuk tampilan aktual)
 --
 CREATE TABLE `v_customers` (
-`idcustomer` varchar(5)
-,`csnama` varchar(30)
-,`alamat` text
-,`telp` varchar(13)
-,`email` varchar(30)
-,`pic` varchar(30)
-,`time` date
-,`ip` varchar(30)
-,`csproduct` varchar(20)
 );
 
 -- --------------------------------------------------------
@@ -823,6 +812,7 @@ CREATE TABLE `v_project` (
 --
 CREATE TABLE `v_ticket` (
 `idtickets` int(11)
+,`idcustomer` varchar(6)
 ,`noticket` varchar(30)
 ,`reportdate` date
 ,`reportby` varchar(30)
@@ -864,37 +854,43 @@ CREATE TABLE `while_ticket` (
 --
 
 INSERT INTO `while_ticket` (`id`, `noticket`, `csnama`, `csproduct`, `warantyperiod`, `contractperiod`, `reportdate`, `reportby`, `problemsummary`, `problemdetail`, `status`, `idcustomer`) VALUES
-(1, '1/HD/Aug/2020', 'MCD', 'Pemasangan EDC', '2022-07-21', '2022-07-08', '2020-08-02', 'Ut ad officia reicie', 'EDC tidak bisa input pin', 'Sunt voluptates exce', 'Assigned', 'cs001'),
-(2, '2/HD/Aug/2020', 'MCD', 'Pemasangan Kabel', '2022-07-19', '2022-07-06', '2020-08-02', 'Neque voluptas venia', 'Kabel ada yang terkelupas', 'Possimus voluptatem', 'Assigned', 'cs001'),
-(3, '3/HD/Aug/2020', 'MCD', 'Pemasangan EDC', '2022-07-21', '2022-07-08', '2020-08-08', 'Animi porro sed cup', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'cs001'),
-(4, '4/HD/Aug/2020', 'MCD', 'Pemasangan Kabel', '2022-07-19', '2022-07-06', '2020-08-08', 'Est alias occaecat i', 'Dolore perspiciatis', 'Quis impedit volupt', 'Assigned', 'cs001'),
-(5, '5/HD/Aug/2020', 'MCD', 'Pemasangan EDC', '2022-07-21', '2022-07-08', '2020-08-08', 'Occaecat nisi odit e', 'Necessitatibus volup', 'Aliquid corporis vol', 'Assigned', 'cs001'),
-(6, '6/HD/Aug/2020', 'MCD', 'Pemasangan Kabel', '2022-07-19', '2022-07-06', '2020-08-08', 'Occaecat est asperi', 'Ratione sint non sa', 'Nisi quia minus in c', 'Assigned', 'cs001'),
-(7, '7/HD/Oct/2020', 'MCD', 'Pemasangan EDC Baru', '2022-07-21', '2022-07-08', '2020-10-06', 'Adi', 'EDC error', 'EDC tidak mau menyala', 'Assigned', 'cs001'),
-(8, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
-(9, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
-(10, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
-(11, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
-(12, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
-(13, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
-(14, '14/HD/Oct/2020', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Assigned', 'cs001'),
-(15, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(16, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc error ', '', 'Not Approve', 'cs001'),
-(17, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
-(18, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
-(19, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc error ', '', 'Not Approve', 'cs001'),
-(20, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
-(21, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(22, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(23, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'ecyription edc error', '', 'Not Approve', 'cs001'),
-(24, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(25, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(26, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(27, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(28, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(29, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(30, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
-(31, '', 'MCD', 'EDC', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc mati ', '', 'Not Approve', 'cs001');
+(1, '1/HD/Aug/2020', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-08-02', 'Ut ad officia reicie', 'EDC tidak bisa input pin', 'Sunt voluptates exce', 'Assigned', 'cs001'),
+(2, '2/HD/Aug/2020', 'MCD', 'Pax', '2022-07-19', '2022-07-06', '2020-08-02', 'Neque voluptas venia', 'Kabel ada yang terkelupas', 'Possimus voluptatem', 'Assigned', 'cs001'),
+(3, '3/HD/Aug/2020', 'MCD', 'Pax', '2022-07-21', '2022-07-08', '2020-08-08', 'Animi porro sed cup', 'Nobis vel hic sed es', 'Expedita nemo dolore', 'Assigned', 'cs001'),
+(4, '4/HD/Aug/2020', 'PHD', 'Pax', '2022-07-19', '2022-07-06', '2020-08-08', 'Est alias occaecat i', 'Dolore perspiciatis', 'Quis impedit volupt', 'Assigned', 'cs002'),
+(5, '5/HD/Aug/2020', 'PHD', 'Pax', '2022-07-21', '2022-07-08', '2020-08-08', 'Occaecat nisi odit e', 'Necessitatibus volup', 'Aliquid corporis vol', 'Assigned', 'cs002'),
+(6, '6/HD/Aug/2020', 'PHD', 'Pax', '2022-07-19', '2022-07-06', '2020-08-08', 'Occaecat est asperi', 'Ratione sint non sa', 'Nisi quia minus in c', 'Assigned', 'cs002'),
+(7, '7/HD/Oct/2020', 'PHD', 'Pax', '2022-07-21', '2022-07-08', '2020-10-06', 'Adi', 'edc error', 'EDC tidak mau menyala', 'Assigned', 'cs002'),
+(8, '', 'MCD', 'Ingenico', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(9, '', 'MCD', 'Pax', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(10, '', 'MCD', 'Pax', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(11, '', 'MCD', 'Ingenico', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(12, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(13, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup', '', 'Not Approve', 'cs001'),
+(14, '14/HD/Oct/2020', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Assigned', 'cs001'),
+(15, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(16, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc error ', '', 'Not Approve', 'cs001'),
+(17, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
+(18, '', 'MCD', 'Pax', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
+(19, '', 'MCD', 'Pax', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc error ', '', 'Not Approve', 'cs001'),
+(20, '', 'MCD', 'Pax', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'printer tidak hidup ', '', 'Not Approve', 'cs001'),
+(21, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(22, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(23, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'ecyription edc error', '', 'Not Approve', 'cs001'),
+(24, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(25, '', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(26, '', 'MCD', 'Ingenico', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(27, '', 'MCD', 'Ingenico', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(28, '', 'MCD', 'Pax', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(29, '', 'MCD', 'Ingenico', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(30, '', 'MCD', 'Ingenico', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'card edc error', '', 'Not Approve', 'cs001'),
+(31, '', 'MCD', 'Ingenico', '2022-07-21', '2022-07-08', '2020-10-06', 'michael', 'mesin edc mati ', '', 'Not Approve', 'cs001'),
+(32, '32/HD/Oct/2020', 'PHD', 'Pax', '2022-08-27', '2022-04-11', '2020-10-27', 'randi', 'ecyription edc error', '', 'Assigned', 'cs002'),
+(33, '33/HD/Oct/2020', 'PHD', 'Pax', '2022-08-27', '2022-04-11', '2020-10-27', 'randi', 'card edc error', '', 'Assigned', 'cs002'),
+(34, '34/HD/Oct/2020', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-27', 'ari', 'printer edc error', '', 'Assigned', 'cs001'),
+(35, '35/HD/Oct/2020', 'MCD', 'Verifone', '2022-07-21', '2022-07-08', '2020-10-27', 'ari', 'card edc error', '', 'Assigned', 'cs001'),
+(36, '36/HD/Oct/2020', 'PHD', 'Pax', '2022-08-27', '2022-04-11', '2020-10-27', 'randi', 'program edc error', '', 'Assigned', 'cs002'),
+(37, '37/HD/Oct/2020', 'PHD', 'Pax', '2022-08-27', '2022-04-11', '2020-10-27', 'randi', 'printer edc error', '', 'Assigned', 'cs002');
 
 -- --------------------------------------------------------
 
@@ -921,7 +917,7 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 --
 DROP TABLE IF EXISTS `v_ticket`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_ticket`  AS  select distinct `tickets`.`idtickets` AS `idtickets`,`tickets`.`noticket` AS `noticket`,`tickets`.`reportdate` AS `reportdate`,`tickets`.`reportby` AS `reportby`,`tickets`.`assignedate` AS `assignedate`,`tickets`.`ticketstatus` AS `ticketstatus`,`sla`.`namasla` AS `namasla`,`customers`.`csnama` AS `csnama`,`users`.`username` AS `username`,`tickets`.`problemsummary` AS `problemsummary`,`tickets`.`problemdetail` AS `problemdetail`,`tickets`.`assigne` AS `assigne`,`tickets`.`resolution` AS `resolution`,`tickets`.`resolveby` AS `resolveby` from (((`tickets` left join `sla` on(`tickets`.`idsla` = `sla`.`idsla`)) left join `customers` on(`tickets`.`idcustomer` = `customers`.`idcustomer`)) left join `users` on(`tickets`.`assigne` = `users`.`iduser`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_ticket`  AS  select distinct `tickets`.`idtickets` AS `idtickets`,`tickets`.`idcustomer` AS `idcustomer`,`tickets`.`noticket` AS `noticket`,`tickets`.`reportdate` AS `reportdate`,`tickets`.`reportby` AS `reportby`,`tickets`.`assignedate` AS `assignedate`,`tickets`.`ticketstatus` AS `ticketstatus`,`sla`.`namasla` AS `namasla`,`customers`.`csnama` AS `csnama`,`users`.`username` AS `username`,`tickets`.`problemsummary` AS `problemsummary`,`tickets`.`problemdetail` AS `problemdetail`,`tickets`.`assigne` AS `assigne`,`tickets`.`resolution` AS `resolution`,`tickets`.`resolveby` AS `resolveby` from (((`tickets` left join `sla` on(`tickets`.`idsla` = `sla`.`idsla`)) left join `customers` on(`tickets`.`idcustomer` = `customers`.`idcustomer`)) left join `users` on(`tickets`.`assigne` = `users`.`iduser`)) ;
 
 --
 -- Indexes for dumped tables
@@ -1118,13 +1114,13 @@ ALTER TABLE `tester`
 -- AUTO_INCREMENT untuk tabel `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `idtickets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `idtickets` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT untuk tabel `tmppropabilityvocab`
 --
 ALTER TABLE `tmppropabilityvocab`
-  MODIFY `idtmpvocab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2613;
+  MODIFY `idtmpvocab` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2818;
 
 --
 -- AUTO_INCREMENT untuk tabel `user_tokens`
@@ -1142,7 +1138,7 @@ ALTER TABLE `vocabs`
 -- AUTO_INCREMENT untuk tabel `while_ticket`
 --
 ALTER TABLE `while_ticket`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

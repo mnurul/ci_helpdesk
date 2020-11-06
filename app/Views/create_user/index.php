@@ -173,14 +173,14 @@ use Config\Validation;
                                     <input type="text" id="confirmed" name="confirmed">
                                 </div>
                             </div> -->
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="ip">Ip</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" class="auto-save form-control" id="ip" name="ip" required value="<?= $ip; ?>">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-75">
                                     <button type="submit" class="btn-ticket">Submit</button>

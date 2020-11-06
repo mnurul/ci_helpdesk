@@ -312,11 +312,6 @@ class User extends BaseController
         $cekVocabs = $this->UserModel->cekVocabs($teks);
 
         $tesklama = session()->get('kataterakhir');
-        // session()->set('ask', $teks);
-        // session()->get('ask');
-
-        // d($test);
-
 
         $correctword = explode(" ", $teks);
         $jumdata = count($correctword);
@@ -349,10 +344,7 @@ class User extends BaseController
                 $idvocab = session()->get('idvocab');
                 // $idcustomer = session()->get('idcustomer1');
                 $idcustomer = session()->get('idcustomer');
-                // $ask = session()->get('ask');
-                $tmpteks = session()->get('ask');
-                // $idvocab = session()->get('idvocab');
-                // d($tmpteks);
+                $ask = session()->get('ask');
 
 
                 if ($idvocab <> '') {
@@ -360,7 +352,7 @@ class User extends BaseController
                     $this->db->query($hapus);
 
 
-                    $sql = "SELECT b.idvocab, b.answer,a.jumpprobability FROM tmppropabilityvocab AS a INNER JOIN vocabs AS b ON b.idvocab = a.idvocab WHERE a.idcustomer='" . $idcustomer . "' ORDER BY a.jumpprobability DESC LIMIT 1";
+                    $sql = "SELECT b.idvocab, b.answer FROM tmppropabilityvocab AS a INNER JOIN vocabs AS b ON b.idvocab = a.idvocab WHERE a.idcustomer='" . $idcustomer . "' ORDER BY a.jumpprobability DESC";
                     $tampil = $this->db->query($sql);
 
 
@@ -380,7 +372,7 @@ class User extends BaseController
                             'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
                             'reportdate'  => date('Y-m-d '),
                             'reportby'  => $csNama['pic'],
-                            'problemsummary'  => $tmpteks,
+                            'problemsummary'  => $ask,
                             'status'  => 'Not Approve',
                             'idcustomer' => $idcustomer
                         ];
@@ -396,40 +388,7 @@ class User extends BaseController
                         session()->set($data);
                     } else {
                         foreach ($tampil->getResult('array') as $data) {
-                            // if (trim($data['answer']) == '') {
-                            //     $idcustomer = session()->get('idcustomer');
-                            //     $email = session()->get('email');
-                            //     $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-                            //     $csproduct = $cekCsProduct['csproduct'];
-                            //     $getProject1 = $this->UserModel->getProject1($idcustomer);
-                            //     $csNama = $this->UserModel->csNama($idcustomer);
-
-                            //     $data = [
-                            //         'csnama' => $csNama['csnama'],
-                            //         'csproduct' => $getProject1['namaproject'],
-                            //         'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
-                            //         'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
-                            //         'reportdate'  => date('Y-m-d '),
-                            //         'reportby'  => $csNama['pic'],
-                            //         'problemsummary'  => $tmpteks,
-                            //         'status'  => 'Not Approve',
-                            //         'idcustomer' => $idcustomer
-                            //     ];
-
-                            //     $builder = $this->db->table('while_ticket');
-                            //     if ($builder->insert($data)) {
-                            //         $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
-                            //     } else {
-                            //         $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
-                            //     }
-                            //     $data = array('idvocab' => '');
-                            //     session()->set($data);
-                            // } 
-                            if ($data['jumpprobability'] >= 0.70000000) {
-                                $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih456';
-                                $data = array('idvocab' => $data['idvocab']);
-                                session()->set($data);
-                            } else {
+                            if (trim($data['answer']) == '') {
                                 $idcustomer = session()->get('idcustomer');
                                 $email = session()->get('email');
                                 $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
@@ -444,7 +403,7 @@ class User extends BaseController
                                     'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
                                     'reportdate'  => date('Y-m-d '),
                                     'reportby'  => $csNama['pic'],
-                                    'problemsummary'  => $tmpteks,
+                                    'problemsummary'  => $teks,
                                     'status'  => 'Not Approve',
                                     'idcustomer' => $idcustomer
                                 ];
@@ -456,6 +415,10 @@ class User extends BaseController
                                     $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
                                 }
                                 $data = array('idvocab' => '');
+                                session()->set($data);
+                            } else {
+                                $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih456';
+                                $data = array('idvocab' => $data['idvocab']);
                                 session()->set($data);
                             }
                         }
@@ -496,50 +459,46 @@ class User extends BaseController
             }
         }
         $cekVocabs = $this->UserModel->cekVocabs($tmpkata);
-        // d($tmpkata);
-        session()->set('ask', $tmpkata);
 
-        // if ((isset($cekVocabs['idvocab']) != 0) && (isset($cekVocabs['idcustomer']) != 0)) {
-        //     $idvocab = $cekVocabs['idvocab'];
-        //     //$idcustomer = $cekVocabs['idcustomer'];
-        //     $idcustomer = session()->get('idcustomer');
-        //     session()->set('idcustomer1', $cekVocabs['idcustomer']);
-        //     session()->set('idvocab1', $cekVocabs['idvocab']);
-        //     session()->set('ask', $cekVocabs['ask']);
-        // } else {
-        //     $teks = $tmpkata;
-        //     $idcustomer = session()->get('idcustomer');
-        //     $email = session()->get('email');
-        //     $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-        //     $csproduct = $cekCsProduct['csproduct'];
-        //     $getProject1 = $this->UserModel->getProject1($idcustomer);
-        //     $csNama = $this->UserModel->csNama($idcustomer);
+        if ((isset($cekVocabs['idvocab']) != 0) && (isset($cekVocabs['idcustomer']) != 0)) {
+            $idvocab = $cekVocabs['idvocab'];
+            //$idcustomer = $cekVocabs['idcustomer'];
+            $idcustomer = session()->get('idcustomer');
+            session()->set('idcustomer1', $cekVocabs['idcustomer']);
+            session()->set('idvocab1', $cekVocabs['idvocab']);
+            session()->set('ask', $cekVocabs['ask']);
+        } else {
+            $teks = $tmpkata;
+            $idcustomer = session()->get('idcustomer');
+            $email = session()->get('email');
+            $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
+            $csproduct = $cekCsProduct['csproduct'];
+            $getProject1 = $this->UserModel->getProject1($idcustomer);
+            $csNama = $this->UserModel->csNama($idcustomer);
 
-        //     // *Revisi => jika pertanyaan tidak ada diknowledge maka otomatis akan dibuatkan ticket 
-        //     $data = [
-        //         'csnama' => $csNama['csnama'],
-        //         'csproduct' => $getProject1['namaproject'],
-        //         'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
-        //         'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
-        //         'reportdate'  => date('Y-m-d '),
-        //         'reportby'  => $csNama['pic'],
-        //         'problemsummary'  => $teks,
-        //         'status'  => 'Not Approve',
-        //         'idcustomer' => $idcustomer
-        //     ];
+            // *Revisi => jika pertanyaan tidak ada diknowledge maka otomatis akan dibuatkan ticket 
+            $data = [
+                'csnama' => $csNama['csnama'],
+                'csproduct' => $getProject1['namaproject'],
+                'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
+                'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
+                'reportdate'  => date('Y-m-d '),
+                'reportby'  => $csNama['pic'],
+                'problemsummary'  => $teks,
+                'status'  => 'Not Approve',
+                'idcustomer' => $idcustomer
+            ];
 
-        //     $builder = $this->db->table('while_ticket');
-        //     if ($builder->insert($data)) {
-        //         $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
-        //     } else {
-        //         $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
-        //     }
-        //     $data = array('idvocab' => '');
-        //     session()->set($data);
-        //     return $arr;
-        // };
-        $idcustomer = session()->get('idcustomer');
-        // dd($idcustomer);
+            $builder = $this->db->table('while_ticket');
+            if ($builder->insert($data)) {
+                $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
+            } else {
+                $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
+            }
+            $data = array('idvocab' => '');
+            session()->set($data);
+            return $arr;
+        };
 
         //==========Mencari berdasarkan data yang berkemungkinan terbesar berdasarkan kata=====
         // $this->db->query("DELETE FROM tmppropabilityvocab WHERE idcustomer='" . $idcustomer . "'");
@@ -549,7 +508,6 @@ class User extends BaseController
 
         $teks = trim($tmpkata);
         $correctword = explode(" ", $teks);
-        // d($correctword);
         $jumdata = count($correctword);
         $kata = '';
         for ($i = 0; $i < $jumdata; $i++) {
@@ -557,7 +515,6 @@ class User extends BaseController
             $sql = "SELECT * FROM vocabs WHERE MATCH(ask) AGAINST('" . $correctword[$i] . "' IN BOOLEAN MODE)";
             $tampil = $this->db->query($sql);
             foreach ($tampil->getResult('array') as $data) {
-                // d($data);
                 $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data['idvocab'] . " AND idcustomer='" . $idcustomer . "'";
                 $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
                 foreach ($tampil_jumtmpvocab->getResult('array') as $data_jumtmpvocab) {
@@ -709,47 +666,13 @@ class User extends BaseController
         $tampil = $this->db->query($sql);
 
         foreach ($tampil->getResult('array') as $data) {
-            $tmpteks = session()->get('ask');
-
-            // d($data);
-            // if (trim($data['answer']) <> '') {
-            //     $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih';
-            //     $data = array('idvocab' => $data['idvocab']);
-            //     session()->set('answer', $data);
-            //     session()->set('idvocab', $data['idvocab']);
-            // } else {
-            //     $teks = $tmpkata;
-            //     $idcustomer = session()->get('idcustomer');
-            //     $email = session()->get('email');
-            //     $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-            //     $csproduct = $cekCsProduct['csproduct'];
-            //     $getProject1 = $this->UserModel->getProject1($idcustomer);
-            //     $csNama = $this->UserModel->csNama($idcustomer);
-
-            //     $data = [
-            //         'csnama' => $csNama['csnama'],
-            //         'csproduct' => $getProject1['namaproject'],
-            //         'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
-            //         'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
-            //         'reportdate'  => date('Y-m-d '),
-            //         'reportby'  => $csNama['pic'],
-            //         'problemsummary'  => $teks,
-            //         'status'  => 'Not Approve',
-            //         'idcustomer' => $idcustomer
-            //     ];
-
-            //     $builder = $this->db->table('while_ticket');
-            //     if ($builder->insert($data)) {
-            //         $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
-            //     } else {
-            //         $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
-            //     }
-            // }
-            if ($data['jumpprobability'] >= 0.30000000) {
-                $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih123';
+            if (trim($data['answer']) <> '') {
+                $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih';
                 $data = array('idvocab' => $data['idvocab']);
-                session()->set($data);
+                session()->set('answer', $data);
+                session()->set('idvocab', $data['idvocab']);
             } else {
+                $teks = $tmpkata;
                 $idcustomer = session()->get('idcustomer');
                 $email = session()->get('email');
                 $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
@@ -764,19 +687,17 @@ class User extends BaseController
                     'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
                     'reportdate'  => date('Y-m-d '),
                     'reportby'  => $csNama['pic'],
-                    'problemsummary'  => $tmpteks,
+                    'problemsummary'  => $teks,
                     'status'  => 'Not Approve',
                     'idcustomer' => $idcustomer
                 ];
 
                 $builder = $this->db->table('while_ticket');
                 if ($builder->insert($data)) {
-                    $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis123.';
+                    $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
                 } else {
                     $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
                 }
-                $data = array('idvocab' => '');
-                session()->set($data);
             }
         }
 

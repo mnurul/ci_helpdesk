@@ -74,7 +74,7 @@ use Config\Validation;
                                     <label class="title-1" for="idcustomer">Id Customer</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="idcustomer" name="idcustomer" required value="<?= $idcustomer; ?>">
+                                    <input type="text" id="idcustomer" name="idcustomer" value="<?= $idcustomer; ?>">
                                 </div>
                             </div>
                             <div class="row">
@@ -82,7 +82,7 @@ use Config\Validation;
                                     <label class="title-1" for="pic">Pic</label>
                                 </div>
                                 <div class="col-75">
-                                    <input type="text" id="pic" name="pic" required value="<?= $pic; ?>">
+                                    <input type="text" id="pic" name="pic" value="<?= $pic; ?>">
                                 </div>
                             </div>
                             <div class="row">

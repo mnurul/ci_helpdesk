@@ -85,7 +85,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td width="70%"><input required name="tanya" autofocus placeholder="Ayo bicara dengan Team IT~!" type="text" class="tanya" id="tanya" size="50" style="width:99%" onKeyUp="inputKeyUp(event)"></td>
+                                        <td width="70%"><input required name="tanya" autofocus placeholder="Keyword : edc" type="text" class="tanya" id="tanya" size="50" style="width:99%" onKeyUp="inputKeyUp(event)"></td>
                                         <td width="20%"><input type="button" name="button" onClick="cek()" id="button" value="Kirim" title="Klik tombol untuk mengirim pesan "><input type="button" name="button" id="button1" value="Refresh" onclick="refreshbox()" title="Klik tombol untuk merefresh"></td>
                                     </tr>
                                 </table>

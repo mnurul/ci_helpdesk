@@ -41,7 +41,7 @@
                 <h2 class="title font-weight-bold">Detail Waiting for Close</h2>
                 <div class="card mt-3 mb-5">
                     <div class="card-body">
-                        <form action="/action_page.php">
+                        <form action="/admin/w_add_vocabs/<?= $tickets['idtickets']; ?>" method="POST">
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="no-ticket">No Ticket</label>
@@ -92,6 +92,14 @@
                             </div>
                             <div class="row">
                                 <div class="col-25">
+                                    <label class="title-1" for="resolution">Resolution</label>
+                                </div>
+                                <div class="col-75">
+                                    <input type="text" id="resolution" name="resolution" value="<?= $tickets['resolution']; ?>">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-25">
                                     <label class="title-1" for="status">Status</label>
                                 </div>
                                 <div class="col-75">
@@ -106,6 +114,8 @@
                                     <input type="text" id="assign" name="assign" value="<?= $tickets['username']; ?>">
                                 </div>
                             </div>
+                            <button type="submit" class="btn btn-edit">Add to Vocabs</button>
+
                             <!-- <div class="row">
                                 <div class="col-75">
                                     <button type="submit" class="btn-ticket">Submit</button>
