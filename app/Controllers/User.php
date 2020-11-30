@@ -431,17 +431,19 @@ class User extends BaseController
                                 session()->set($data);
                             } else {
                                 $idcustomer = session()->get('idcustomer');
-                                $email = session()->get('email');
+                                // d($idcustomer);
+                                // $email = session()->get('email');
                                 $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-                                $csproduct = $cekCsProduct['csproduct'];
-                                $getProject1 = $this->UserModel->getProject1($idcustomer);
+                                // $csproduct = $cekCsProduct['csproduct'];
+                                $dataProject1 = $this->UserModel->getProject1($idcustomer);
+                                // d($dataProject1);
                                 $csNama = $this->UserModel->csNama($idcustomer);
 
                                 $data = [
                                     'csnama' => $csNama['csnama'],
-                                    'csproduct' => $getProject1['namaproject'],
-                                    'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
-                                    'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
+                                    'csproduct' => $dataProject1['namaproject'],
+                                    'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($dataProject1['uatend']))),
+                                    'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($dataProject1['billstartdate']))),
                                     'reportdate'  => date('Y-m-d '),
                                     'reportby'  => $csNama['pic'],
                                     'problemsummary'  => $tmpteks,

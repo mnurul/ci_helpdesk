@@ -69,22 +69,22 @@ use Config\Validation;
                         <?php }
                         ?>
                         <form action="" method="post">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="idcustomer">Id Customer</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="idcustomer" name="idcustomer" value="<?= $idcustomer; ?>">
                                 </div>
-                            </div>
-                            <div class="row">
+                            </div> -->
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="pic">Pic</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="pic" name="pic" value="<?= $pic; ?>">
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="ask">Ask</label>

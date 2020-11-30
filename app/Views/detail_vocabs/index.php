@@ -81,14 +81,14 @@
                                     <input type="text" id="idcustomer" name="idcustomer" value="<?= (old('idcustomer')) ? old('idcustomer') : $vocabs['idcustomer']; ?>" required>
                                 </div>
                             </div> -->
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="pic">Pic</label>
                                 </div>
                                 <div class="col-75">
                                     <input type="text" id="pic" name="pic" value="<?= (old('pic')) ? old('pic') : $vocabs['pic']; ?>" required>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="ask">Ask</label>
@@ -105,7 +105,7 @@
                                     <input type="text" id="answer" name="answer" value="<?= (old('answer')) ? old('answer') : $vocabs['answer']; ?>" required>
                                 </div>
                             </div>
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-25">
                                     <label class="title-1" for="jenisedc">Jenis Edc</label>
                                 </div>
@@ -120,7 +120,7 @@
                                 <div class="col-75">
                                     <input type="text" id="lokasi" name="lokasi" value="<?= (old('lokasi')) ? old('lokasi') : $vocabs['lokasi']; ?>" required>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div class="row">
                                 <div class="col-75">
