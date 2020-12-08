@@ -27,9 +27,9 @@
                     <a href="<?= base_url(); ?>/manager/change_password_m" class="">Change Password</a>
                     <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
                 </div>
-                <div style="padding-left:30px;margin-top:15px; ">
-                    <h2>Helpdesk System</h2>
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Qui obcaecati rem quisquam repellat itaque suscipit, quae est laboriosam eos et quos enim cumque provident, ullam ducimus culpa, ab ipsum sapiente.</p>
+                <div style="padding-left:30px;margin-top:35px; ">
+                    <h2 style="font-family:merriweather, serif; font-weight:600; line-height:50px;font-size:36px;text-align:center !important;color:#322F56;">Welcome to Helpdesk System</h2>
+                    <img src="<?= base_url(); ?>/assets/visio-logo.png" alt="" style="display: block;margin-left: auto;margin-right: auto;">
                 </div>
             </div>
         </div>

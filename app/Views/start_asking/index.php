@@ -10,7 +10,6 @@
                 <img src="<?= base_url(); ?>/assets/home-user-1.png" class="logo" alt="" loading="lazy">
                 <a href="<?= base_url(); ?>/login/logout">Logout</a>
                 <a href=" <?= base_url(); ?>/user/">Back </a> <a href="<?= base_url(); ?>/user/change_password" class="">Change Password</a>
-                <!-- <a href="<?= base_url(); ?>/user/create_ticket" class="">Create Tickets</a> -->
                 <a href="<?= base_url(); ?>/user/start_asking" class="">Start Asking</a>
                 <a href="javascript:void(0);" style="font-size:15px;" class="icon" onclick="myFunction()">&#9776;</a>
             </div>
@@ -42,28 +41,7 @@
                         <?php }
                         ?>
                         <div class="row">
-                            <!-- <div class="column">
-                                <form action="" class="form-container" method="POST">
-                                    <textarea type="password" id="admininput" name="admininput" class="admininput" placeholder="Chat with Me" autofocus></textarea>
-                                    <textarea type="password" id="userinput" name="userinput" class="userinput" placeholder="Chat with My Admin" autofocus></textarea>
-                                    <button type="submit" class="btn btn-send">Send</button>
-                                    <input type="reset" value="Refresh" class="btn btn-refresh">
-                                    <button type="reset" class="btn btn-refresh">Refresh</button>
-                                    <div class="card">
-                                    <div class="row no-gutters">
-                                        <div class="col-6">
-                                            <h6 class="card-subtitle st-ticket text-muted"></h6>
-                                        </div>
-                                        <div class="col-6">
-                                            <h6 class="card-subtitle mb-2 st-date text-muted"></h6>
-                                        </div>
-                                    </div>
-                                    <hr style="margin-top: 10px;">
-                                    <h5 class="card-title text"></h5>
-                                    <a href="#" class="btn btn-status"></a>
-                                </div>
-                                </form>
-                            </div> -->
+
                             <div id="List" class="scrollit">
                                 <table width="800" border="0" align="center">
                                     <tr>
@@ -123,31 +101,11 @@
 
         });
     });
-
-    // $(function() {
-    //     // alert("auto");
-    //     $("#tanya").autocomplete({
-    //         source: "<?= base_url('user/auto/'); ?>"
-    //     });
-    // });
-
-    // $(function() {
-    //     var availableTags = [
-    //         "Python",
-    //         "Ruby",
-    //         "Scala",
-    //         "Scheme"
-    //     ];
-    //     $("#tanya").autocomplete({
-    //         source: availableTags
-    //     });
-    // });
 </script>
 
 <script>
     function inputKeyUp(e) {
         e.which = e.which || e.keyCode;
-        // alert(e.which);
         if (e.which == 13) {
             // submit
             cek();
@@ -156,42 +114,17 @@
 
     function cek() {
         var tanya = document.getElementById('tanya').value;
-        // alert(tanya);
         var letak = 'right';
         historichat(tanya, letak)
-        // var javascriptVariable = "John";
-        // window.location.href = "<?= base_url(); ?>/User/tanyajawab?tanya=" + tanya;
 
-        // data = hasil.split("|");
-        // // alert("post");
-        // alert(data);
-        // var letak = '';
-        // var kata = data[0];
-        // historichatadmin(kata, letak);
-        // // $("#jawab").val(data[0]);
-        // document.getElementById('tanya').value = '';
-
-
-
-        // $.post("<?= base_url(); ?>/User/tanyajawab?tanya=", {
-        //         tanya: tanya,
-        //     },
-        //     function(data, status) {
-        //         alert("Data: " + data + "\nStatus: " + status);
-        //     });
 
         $.post("<?= base_url(); ?>/User/tanyajawab?tanya=" + tanya, $("form").serialize(), function(hasil) {
-            //$.post("<?= base_url(); ?>/User/tanyajawab", {tanya: tanya}, function(hasil) {
-            //alert("udah post. " + tanya);
+
             data = hasil.split("|");
-            // alert("hasil : " + hasil);
             var letak = '';
             var kata = data[0];
-            // alert("kata : " + kata);
-            //alert("letak: " + letak + "kata: " + kata);
-            // alert("kata" + kata);
+
             historichatadmin(kata, letak);
-            //$("#jawab").val(data[0]);
             document.getElementById('tanya').value = '';
         });
     }
@@ -217,17 +150,6 @@
 
     function refreshbox() {
         window.open("<?php echo base_url(); ?>/user/start_asking", "_self");
-    }
-
-    function simpanemail(getid) {
-        var email = document.getElementById('email' + getid).value;
-        $.post("<?php echo base_url(); ?>chatsimi/simpanemail?email=" + email + '&getid=' + getid, $("form").serialize(), function(hasil) {
-            data = hasil.split("|");
-            var kata = 'Terima kasih telah menghubungi kami. Apabila ingin berkonsultasi kembali silahkan masukkan pertanyaan anda';
-            var letak = '';
-            historichatadmin(kata, letak);
-
-        });
     }
 </script>
 

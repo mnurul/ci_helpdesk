@@ -103,22 +103,29 @@ class Login extends BaseController
                 session()->set('iduser', $cek['iduser']);
                 session()->set('username', $cek['username']);
                 session()->set('level', $cek['level']);
+                session()->set('email', $cek['email']);
 
-                return redirect()->to(base_url('admin'));
+
+                // return redirect()->to(base_url('admin'));
+                return redirect()->to(base_url('login/send_otp'));
             } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'teknisi') && ($cek['is_active'] == 1)) {
                 // Jika benar
                 session()->set('iduser', $cek['iduser']);
                 session()->set('username', $cek['username']);
                 session()->set('level', $cek['level']);
+                session()->set('email', $cek['email']);
 
-                return redirect()->to(base_url('teknisi'));
+                // return redirect()->to(base_url('teknisi'));
+                return redirect()->to(base_url('login/send_otp'));
             } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'manager') && ($cek['is_active'] == 1)) {
                 // Jika benar
                 session()->set('iduser', $cek['iduser']);
                 session()->set('username', $cek['username']);
                 session()->set('level', $cek['level']);
+                session()->set('email', $cek['email']);
 
-                return redirect()->to(base_url('manager'));
+                // return redirect()->to(base_url('manager'));
+                return redirect()->to(base_url('login/send_otp'));
             } elseif ((isset($cek['username']) == $username) && (isset($cek['password']) == $password) && ($cek['level'] == 'customer') && ($cek['is_active'] == 1)) {
                 // Jika benar
                 session()->set('iduser', $cek['iduser']);
@@ -129,7 +136,9 @@ class Login extends BaseController
                 session()->set('ipclient', '192.168.56.3');
                 // dd($this->request->getIPAddress());
 
-                return redirect()->to(base_url('user'));
+                // return redirect()->to(base_url('user'));
+
+                return redirect()->to(base_url('login/send_otp'));
             } elseif (!$cek) {
                 session()->setFlashdata('salah', 'Username dan Password tidak sesuai');
                 return redirect()->to(base_url('/'));
@@ -146,6 +155,189 @@ class Login extends BaseController
         session()->remove('level');
         session()->remove('logout', 'Kamu sudah logout');
         return redirect()->to(base_url('/'));
+    }
+
+    public function user_otp()
+    {
+        $data = [
+            'title' => 'User OTP'
+        ];
+        return view('user_otp/index', $data);
+    }
+
+    public function send_otp()
+    {
+        $emailOtp = session()->get('email');
+
+        $builder = $this->db->table('user_otp');
+        $otp = rand();
+        $fixOtp = substr($otp, 6);
+        $date = (strtotime("+10 minute"));
+        $now = date("Y-m-d h:i:s ", $date);
+        $data = [
+            'email' => $emailOtp,
+            'otp' => $fixOtp,
+            'data_created' => date("Y-m-d h:i:s"),
+            'exp_date' => $now
+        ];
+
+        $builder->insert($data);
+
+        $mail = new PHPMailer(true);
+        $mail->SMTPDebug = SMTP::DEBUG_SERVER;
+        $mail->isSMTP();
+        $mail->Host       = 'smtp.googlemail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'mnurulislam05@gmail.com'; // silahkan ganti dengan alamat email Anda
+        $mail->Password   = 'nurulislam10'; // silahkan ganti dengan password email Anda
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port       = 465;
+
+        $mail->setFrom('mnurulislam05@gmail.com', 'DIMS'); // silahkan ganti dengan alamat email Anda
+        $mail->addAddress($emailOtp);
+        $mail->addReplyTo('mnurulislam05@gmail.com', 'DIMS'); // silahkan ganti dengan alamat email Anda
+        // Content
+        $mail->isHTML(true);
+        $subject = 'Code OTP';
+
+
+        $start = '<html><body>';
+        $start = '<h4>Hallo </h4>';
+        $start .= '<p style="font-size:16px;color:black;">Email ini Anda terima yang berisi Code OTP untuk Anda dapat login pada Helpdesk System</p>';
+        $start .= '<p style="color:#080;font-size:18px;">Will you marry me?</p>';
+        $start .= '</body></html>';
+
+        $htmlContent = ' 
+                <html> 
+                <head> 
+                    <style>
+                        #nav {
+                            width:100%;
+                            height:80px;
+                            background-color:#F8FAFC; 
+                        }
+
+                        #header {
+                            color:#BBBFC3;
+                            margin-left:390px !important;
+                            padding-top:25px !important;
+                            font-family: Merriweather, serif;
+                            font-weight: 700;
+                            font-size: 28px;
+                            line-height: 34px;
+                        }
+
+                        #otp {
+                            color:#BBBFC3;
+                            margin-left:390px !important;
+                            padding-top:-10px !important;
+                            font-family: Merriweather, serif;
+                            font-weight: 700;
+                            font-size: 28px;
+                            line-height: 34px;
+                        }
+
+                        #desc {
+                            margin-left:390px !important;
+                            color:black;
+                        }
+
+                        #bg-btn{
+                            width:190px;
+                            height:45px;
+                            background-color:#244295; 
+                            border-radius:5px; 
+                            margin-left:510px !important;
+                            margin-top:-30px !important;
+                        }
+
+                        #btn {
+                            color:white;
+                            font-size:20px !important;
+                            text-decoration:none;
+                            margin-top:-50px !important;
+                            padding-top:5px !important;
+                            padding-left:18px !important;
+                            font-family: Merriweather, serif;
+                            font-weight: 700;
+                            font-size: 28px;
+                            line-height: 34px;
+                            display:block;
+                        }
+
+                        #desc-1 {
+                            margin-left:390px !important;
+                            color:black;
+                            margin-top:-50px !important;
+                        }
+
+                        #desc-2 {
+                            margin-left:200px !important;
+                            color:black;
+                        }
+
+                        #footer {
+                            margin-left:390px !important;
+                            color:#0F0E20;
+                        }
+                    </style>
+
+                </head> 
+                <body>
+                    <div id="nav">
+                        <h1 id="header" >Hallo, ' . session()->get('username') . '</h1> 
+                    </div><br>
+                    <h4 id="desc">Email ini Anda terima yang berisi Code OTP untuk
+                    <br>Anda dapat login pada Helpdesk System.<br>
+                    Code ini bertahan selama 10 menit</h4><br> 
+                    <br>
+                    <h1 id="otp" >CODE : ' . $fixOtp . '</h1> 
+                    <h4 id="desc-1">Jika Anda tidak ingin login, silahkan abaikan<br>saja email ini (tidak perlu ditindaklanjuti)</h4><br>
+                    <h4 id="footer">Salam hangat,<br><br><br><br>
+                    DIMS</h4>
+                    
+                
+                </body> 
+                </html>';
+
+        $mail->Subject = $subject;
+        $mail->Body    = $htmlContent;
+
+        if ($mail->send()) {
+            return redirect()->to(base_url('login/user_otp'));
+        } else {
+            $data = $mail->printDebugger(['headers']);
+            // print_r($data);
+            session()->setFlashdata('salah', 'Email tidak terdaftar');
+            return redirect()->to(base_url('/'));
+        }
+    }
+
+    public function proses_otp()
+    {
+        // ambil data dari form input
+        $codeotp = $this->request->getPost('codeotp');
+        $cek = $this->LoginModel->cekOtp($codeotp);
+        $email = $cek['email'];
+        $cekLevel = $this->LoginModel->cekLevel($email);
+        $nowDate = date("Y-m-d h:i:s");
+        // dd($email, $cekLevel['level']);
+
+        if ((isset($cek['otp']) == $codeotp) && (isset($cek['exp_date']) <= $nowDate)) {
+            if (($cekLevel['level']) == "admin") {
+                // dd("admin");
+                return redirect()->to(base_url('admin'));
+            } else if (($cekLevel['level']) == "customer") {
+                return redirect()->to(base_url('user'));
+            } else if (($cekLevel['level']) == "manager") {
+                return redirect()->to(base_url('manager'));
+            } else if (($cekLevel['level']) == "teknisi") {
+                return redirect()->to(base_url('teknisi'));
+            }
+        } else {
+            session()->setFlashdata('salah', 'Code OTP kamu tidak sesuai atau sudah expired');
+            return redirect()->to(base_url('/'));
+        }
     }
 
     public function forgot_password()
@@ -170,7 +362,7 @@ class Login extends BaseController
             $data = [
                 'email' => $inputEmail,
                 'token' => $token,
-                'data_created' => time()
+                // 'data_created' => time()
             ];
 
             // dd($data);

@@ -12,13 +12,7 @@ use CodeIgniter\I18n\Time;
 
 class User extends BaseController
 {
-    // public function index()
-    // {
-    //     $data = [
-    //         'title' => 'Home User'
-    //     ];
-    //     return view('user/index', $data);
-    // }
+
 
     protected $UserModel;
     protected $TicketModel;
@@ -54,7 +48,6 @@ class User extends BaseController
         $jumlah = $this->TicketModel->where('idcustomer', $idcs)->findAll();
         $count = count($jumlah);
         if ($search == null) {
-            // $ticketcs = $this->TicketModel->search_myassigment($search, $idcs);
 
             // Agar data tidak dimulai dari nol saat diklik 1 atau 2
             if (isset($_GET['page'])) {
@@ -62,26 +55,16 @@ class User extends BaseController
                 $mulai = ($tampil * $page) - $tampil;
             }
 
-            // $ticketcs = $this->TeknisiModel->findAll($tampil, $mulai);
             $ticketcs = $this->TicketModel->where('idcustomer', $idcs)->findAll($tampil, $mulai);
-            // $status_ticket = $this->TicketModel->status_ticket($idcs);
-            // dd($idcs);
-            // dd($ticketcs);
-            // $sql = "SELECT * FROM v_ticket  WHERE idcustomer='" . $idcs . "'";
-            // $status_ticket = $this->db->query($sql)->getResult('array');
-            // dd($ticketcs);
         } else {
-            // $while_ticket = $this->TicketModel;
-            // $ticketcs = $this->TicketModel->where('idcustomer', $idcs)->like('csnama', $search)->orLike('csproduct', $search)->orLike('reportby', $search)->like('problemsummary', $search)->orLike('problemdetail', $search)->orLike('status', $search)->findAll();
-            // $ticketcs = $this->TicketModel->search_myassigment($search, $idcs);
+
 
             $sql = "SELECT * FROM while_ticket  WHERE idcustomer='" . $idcs . "' AND (problemsummary 
             LIKE '%$search%' OR reportby LIKE '%$search%' OR noticket LIKE '%$search%')";
             $ticketcs = $this->db->query($sql)->getResult('array');
         }
 
-        // $tampil = 2;
-        // $mulai = 0;
+
 
         // // Agar data tidak dimulai dari nol saat diklik 1 atau 2
         // if (isset($_GET['page'])) {
@@ -96,13 +79,10 @@ class User extends BaseController
 
         $data = [
             'title' => 'View Ticket Status',
-            // 'count' => $this->db->table('while_ticket')->like('idcsutomer', $idcs)->count(),
             'count' => $count,
-            // 'while_ticket' => $while_ticket->paginate(3, 'while_ticket'),
-            // 'pager' => $this->TicketModel->pager,
+
             'pager' => $this->pager,
             'idcs' => $ticketcs,
-            // 'status_ticket' => $status_ticket,
             'tampil' => $tampil,
             'total' => $count
         ];
@@ -111,14 +91,11 @@ class User extends BaseController
 
     public function detail_t_status($noticket)
     {
-        // $noticket = $this->request->getVar('noticket');
 
-        // $t_status = $this->TicketModel->getTicketStatus($noticket);
         $sql = "SELECT * FROM tickets  WHERE noticket 
         LIKE '$noticket%'";
         $t_status = $this->db->query($sql)->getResult('array');
-        // dd($ticketcs);
-        // dd($t_status);
+
 
 
         $data = [
@@ -132,7 +109,6 @@ class User extends BaseController
     {
         $csnama = $this->UserModel->joinCs();
         $namaProject = $this->UserModel->namaProject();
-        // dd($namaProject);
         $rdate = new Time('now');
 
         $data = [
@@ -159,7 +135,6 @@ class User extends BaseController
         $getProject = $this->UserModel->getProject($csproduct);
         $idcs = session()->get('idcustomer');
         $csNama = $this->UserModel->csNama($idcs);
-        // dd($csNama);
 
 
         $data = [
@@ -176,7 +151,6 @@ class User extends BaseController
 
         ];
 
-        // dd($data);
 
         $builder = $this->db->table('while_ticket');
         if ($builder->insert($data)) {
@@ -216,9 +190,7 @@ class User extends BaseController
             // kembali ke halaman form
             return redirect()->to(base_url('/user/change_password'));
         } else {
-            // $email = session()->get('reset_email');
             $iduser = session()->get('iduser');
-            // dd($iduser);
             $cekPassword = $this->UserModel->cekPassword($oldpassword);
             if ($cekPassword) {
                 $builder = $this->db->table('users');
@@ -232,10 +204,6 @@ class User extends BaseController
                 session()->setFlashdata('pesan', 'Password lama kamu tidak sesuai');
                 return redirect()->to(base_url('user/change_password'));
             }
-            // } else {
-            //     session()->setFlashdata('gagalupdate', 'Data belum berhasil diubah');
-            //     return redirect()->to(base_url('/login/change_password_u'));
-            // }
         }
     }
 
@@ -250,34 +218,26 @@ class User extends BaseController
     public function start_asking()
     {
         $userinput = $this->request->getPost('userinput');
-        // d($userinput);
 
 
 
         $data = [
             'title' => 'Start Asking',
-            // 'arr_result' => null
-            // 'json' => json_encode($w)
+
         ];
         return view('start_asking/index', $data);
     }
 
     public function auto()
     {
-        // echo "auto";
         if (isset($_GET['term'])) {
             $result = $this->VocabsModel->search($_GET['term']);
             if (count($result) > 0) {
                 foreach ($result as $row)
                     $arr_result[] = $row->ask;
                 echo json_encode($arr_result);
-                // $arr_result =  json_encode($arr_result);
             }
         }
-        // $data = [
-        //     'arr_result' =>  json_encode($arr_result)
-        // ];
-        // return view('v_ticket_status/index', $data);
     }
 
     public function simpanemail()
@@ -287,35 +247,30 @@ class User extends BaseController
         $this->db->query("UPDATE `askpending` SET `email`='" . $email . "' WHERE (`id`='" . $getid . "')");
     }
 
-    public function caripertanyaan()
-    {
-        echo "caripertanyaan";
-        //-----mengambil data yang di kirim dan mengembalikannya
-        $q = strtolower($_GET["q"]);
-        if (!$q) return;
+    // public function caripertanyaan()
+    // {
+    //     echo "caripertanyaan";
+    //     //-----mengambil data yang di kirim dan mengembalikannya
+    //     $q = strtolower($_GET["q"]);
+    //     if (!$q) return;
 
-        //-----Query untuk mencari data yang dikirimkan berdasarkan npm atau nama
-        $sql = "SELECT * FROM vocabs WHERE ask LIKE '%" . $q . "%'";
-        $tampil = "SELECT * FROM vocabs WHERE ask LIKE '%" . $q . "%'";
+    //     //-----Query untuk mencari data yang dikirimkan berdasarkan npm atau nama
+    //     $sql = "SELECT * FROM vocabs WHERE ask LIKE '%" . $q . "%'";
+    //     $tampil = "SELECT * FROM vocabs WHERE ask LIKE '%" . $q . "%'";
 
-        //-----Menampilkan data dari hasil query
-        while ($data = mysqli_fetch_array($tampil)) {
-            echo $data['ask'] . "\n";
-        }
-    }
+    //     //-----Menampilkan data dari hasil query
+    //     while ($data = mysqli_fetch_array($tampil)) {
+    //         echo $data['ask'] . "\n";
+    //     }
+    // }
 
     public function tanyajawab()
     {
         $tanya = $this->request->getVar('tanya');
         $teks = strtolower($tanya);
 
-        $cekVocabs = $this->UserModel->cekVocabs($teks);
 
-        $tesklama = session()->get('kataterakhir');
-        // session()->set('ask', $teks);
-        // session()->get('ask');
 
-        // d($test);
 
 
         $correctword = explode(" ", $teks);
@@ -347,12 +302,9 @@ class User extends BaseController
                 exit;
             } elseif ($teks == "tidak") {
                 $idvocab = session()->get('idvocab');
-                // $idcustomer = session()->get('idcustomer1');
                 $idcustomer = session()->get('idcustomer');
-                // $ask = session()->get('ask');
                 $tmpteks = session()->get('ask');
-                // $idvocab = session()->get('idvocab');
-                // d($tmpteks);
+
 
 
                 if ($idvocab <> '') {
@@ -396,47 +348,16 @@ class User extends BaseController
                         session()->set($data);
                     } else {
                         foreach ($tampil->getResult('array') as $data) {
-                            // if (trim($data['answer']) == '') {
-                            //     $idcustomer = session()->get('idcustomer');
-                            //     $email = session()->get('email');
-                            //     $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-                            //     $csproduct = $cekCsProduct['csproduct'];
-                            //     $getProject1 = $this->UserModel->getProject1($idcustomer);
-                            //     $csNama = $this->UserModel->csNama($idcustomer);
 
-                            //     $data = [
-                            //         'csnama' => $csNama['csnama'],
-                            //         'csproduct' => $getProject1['namaproject'],
-                            //         'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
-                            //         'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
-                            //         'reportdate'  => date('Y-m-d '),
-                            //         'reportby'  => $csNama['pic'],
-                            //         'problemsummary'  => $tmpteks,
-                            //         'status'  => 'Not Approve',
-                            //         'idcustomer' => $idcustomer
-                            //     ];
-
-                            //     $builder = $this->db->table('while_ticket');
-                            //     if ($builder->insert($data)) {
-                            //         $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
-                            //     } else {
-                            //         $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
-                            //     }
-                            //     $data = array('idvocab' => '');
-                            //     session()->set($data);
-                            // } 
                             if ($data['jumpprobability'] >= 0.70000000) {
                                 $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih456';
                                 $data = array('idvocab' => $data['idvocab']);
                                 session()->set($data);
                             } else {
                                 $idcustomer = session()->get('idcustomer');
-                                // d($idcustomer);
-                                // $email = session()->get('email');
+
                                 $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-                                // $csproduct = $cekCsProduct['csproduct'];
                                 $dataProject1 = $this->UserModel->getProject1($idcustomer);
-                                // d($dataProject1);
                                 $csNama = $this->UserModel->csNama($idcustomer);
 
                                 $data = [
@@ -498,60 +419,18 @@ class User extends BaseController
             }
         }
         $cekVocabs = $this->UserModel->cekVocabs($tmpkata);
-        // d($tmpkata);
         session()->set('ask', $tmpkata);
 
-        // if ((isset($cekVocabs['idvocab']) != 0) && (isset($cekVocabs['idcustomer']) != 0)) {
-        //     $idvocab = $cekVocabs['idvocab'];
-        //     //$idcustomer = $cekVocabs['idcustomer'];
-        //     $idcustomer = session()->get('idcustomer');
-        //     session()->set('idcustomer1', $cekVocabs['idcustomer']);
-        //     session()->set('idvocab1', $cekVocabs['idvocab']);
-        //     session()->set('ask', $cekVocabs['ask']);
-        // } else {
-        //     $teks = $tmpkata;
-        //     $idcustomer = session()->get('idcustomer');
-        //     $email = session()->get('email');
-        //     $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-        //     $csproduct = $cekCsProduct['csproduct'];
-        //     $getProject1 = $this->UserModel->getProject1($idcustomer);
-        //     $csNama = $this->UserModel->csNama($idcustomer);
 
-        //     // *Revisi => jika pertanyaan tidak ada diknowledge maka otomatis akan dibuatkan ticket 
-        //     $data = [
-        //         'csnama' => $csNama['csnama'],
-        //         'csproduct' => $getProject1['namaproject'],
-        //         'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
-        //         'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
-        //         'reportdate'  => date('Y-m-d '),
-        //         'reportby'  => $csNama['pic'],
-        //         'problemsummary'  => $teks,
-        //         'status'  => 'Not Approve',
-        //         'idcustomer' => $idcustomer
-        //     ];
-
-        //     $builder = $this->db->table('while_ticket');
-        //     if ($builder->insert($data)) {
-        //         $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
-        //     } else {
-        //         $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
-        //     }
-        //     $data = array('idvocab' => '');
-        //     session()->set($data);
-        //     return $arr;
-        // };
         $idcustomer = session()->get('idcustomer');
-        // dd($idcustomer);
 
         //==========Mencari berdasarkan data yang berkemungkinan terbesar berdasarkan kata=====
-        // $this->db->query("DELETE FROM tmppropabilityvocab WHERE idcustomer='" . $idcustomer . "'");
         $builder = $this->db->table('tmppropabilityvocab');
         $builder->where('idcustomer ', $idcustomer);
         $builder->delete();
 
         $teks = trim($tmpkata);
         $correctword = explode(" ", $teks);
-        // d($correctword);
         $jumdata = count($correctword);
         $kata = '';
         for ($i = 0; $i < $jumdata; $i++) {
@@ -559,7 +438,6 @@ class User extends BaseController
             $sql = "SELECT * FROM vocabs WHERE MATCH(ask) AGAINST('" . $correctword[$i] . "' IN BOOLEAN MODE)";
             $tampil = $this->db->query($sql);
             foreach ($tampil->getResult('array') as $data) {
-                // d($data);
                 $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data['idvocab'] . " AND idcustomer='" . $idcustomer . "'";
                 $tampil_jumtmpvocab = $this->db->query($sql_jumtmpvocab);
                 foreach ($tampil_jumtmpvocab->getResult('array') as $data_jumtmpvocab) {
@@ -574,12 +452,10 @@ class User extends BaseController
                 $tampil_tmpvocab = $this->db->query($sql_tmpvocab);
                 foreach ($tampil_tmpvocab->getResult('array') as $data_tmpvocab) {
                     $tmpVar = $data_tmpvocab['jumpprobability'];
-                    //$jumprobability = $jumprobability + $data_tmpvocab['jumpprobability'];
                 }
 
                 if ($jumtmpvocab == 0) {
-                    // $simpan = "INSERT INTO `tmppropabilityvocab` (`idvocab`, `jumpprobability`,`idcustomer`) VALUES ('" . $data['idvocab'] . "', '1','" . $idcustomer . "')";
-                    // $this->db->query($simpan);
+
 
                     $builder = $this->db->table('tmppropabilityvocab');
                     $insert = [
@@ -590,8 +466,7 @@ class User extends BaseController
 
                     $builder->insert($insert);
                 } else {
-                    // $update = "UPDATE `tmppropabilityvocab` SET `jumpprobability`=" . $jumprobability . " WHERE (`idvocab`='" . $data['idvocab'] . "') AND (`idcustomer`='" . $idcustomer . "')";
-                    // $this->db->query($update);
+
                     $jumprobability = $tmpVar + 1;
 
                     $builder = $this->db->table('tmppropabilityvocab');
@@ -618,19 +493,7 @@ class User extends BaseController
         //===========Exit Mencari Data Profile Peminta Helpdesk=======
 
         //===========Memberikan Nilai Bobot Kepada setiap Vocab=======
-        // $sql = "
-        // 	SELECT
-        // 		a.id,
-        // 		a.jenisedc,
-        // 		a.lokasi,
-        //         a.pic,
-        //         b.jumpprobability
-        // 	FROM
-        // 		edc AS a
-        // 		LEFT JOIN tmppropabilityvocab AS b ON b.idtmpvocab  = a.id AND b.idcustomer = '" . $idcustomer . "'
-        // 	";
 
-        // * $ipclient diganti $idcustomer, tapi kolom ipclient gaada di tabel tmppropabilityvocab
         $sql = "
         	SELECT
         		a.idvocab,
@@ -667,7 +530,7 @@ class User extends BaseController
             $bobot = $bobotjenisedc + $bobotlokasi + $bobotpic  + $jumdata;
 
             $hasil = $nilai / $bobot;
-            // d($hasil);
+            // dd($hasil);
 
             //-------------Cek Jumlah Vocab-------------
             $sql_jumtmpvocab = "SELECT COUNT(*) jum FROM tmppropabilityvocab WHERE idvocab=" . $data->idvocab . " AND idcustomer='" . $idcustomer . "'";
@@ -678,10 +541,10 @@ class User extends BaseController
             }
             //-------------Exit Cek Jumlah Vocab--------
             if ($hasil == 0) {
-                // $delete = "DELETE FROM `tmppropabilityvocab` WHERE idvocab=" . $data->idvocab . "";
                 $builder = $this->db->table('tmppropabilityvocab');
                 $builder->where('idvocab', $data->idvocab);
                 $builder->delete();
+                $arr = '<p>Keluhan kamu tidak dapat dimenegrti.';
             } else {
                 if ($jumtmpvocab == 0) {
                     $builder = $this->db->table('tmppropabilityvocab');
@@ -692,8 +555,7 @@ class User extends BaseController
                     ];
                     $builder->insert($insert);
                 } else {
-                    // $update = "UPDATE `tmppropabilityvocab` SET `jumpprobability`=" . $hasil . " WHERE (`idvocab`='" . $data->idvocab . "') AND (`idcustomer`='" . $idcustomer . "')";
-                    // $this->db->query($update);
+
 
                     $builder = $this->db->table('tmppropabilityvocab');
                     $builder->set('jumpprobability', $hasil);
@@ -712,45 +574,14 @@ class User extends BaseController
 
         foreach ($tampil->getResult('array') as $data) {
             $tmpteks = session()->get('ask');
+            // dd($data['jumpprobability']);
 
-            // d($data);
-            // if (trim($data['answer']) <> '') {
-            //     $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih';
-            //     $data = array('idvocab' => $data['idvocab']);
-            //     session()->set('answer', $data);
-            //     session()->set('idvocab', $data['idvocab']);
-            // } else {
-            //     $teks = $tmpkata;
-            //     $idcustomer = session()->get('idcustomer');
-            //     $email = session()->get('email');
-            //     $cekCsProduct = $this->UserModel->cekCsProduct($idcustomer);
-            //     $csproduct = $cekCsProduct['csproduct'];
-            //     $getProject1 = $this->UserModel->getProject1($idcustomer);
-            //     $csNama = $this->UserModel->csNama($idcustomer);
-
-            //     $data = [
-            //         'csnama' => $csNama['csnama'],
-            //         'csproduct' => $getProject1['namaproject'],
-            //         'warantyperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['uatend']))),
-            //         'contractperiod'  => date('Y-m-d', strtotime("+2 years", strtotime($getProject1['billstartdate']))),
-            //         'reportdate'  => date('Y-m-d '),
-            //         'reportby'  => $csNama['pic'],
-            //         'problemsummary'  => $teks,
-            //         'status'  => 'Not Approve',
-            //         'idcustomer' => $idcustomer
-            //     ];
-
-            //     $builder = $this->db->table('while_ticket');
-            //     if ($builder->insert($data)) {
-            //         $arr = '<p>Teknisi kami akan segera menangani atas pertanyaan yang anda ajukan. Selanjutnya ticket aduan akan dibuat secara otomatis.';
-            //     } else {
-            //         $arr = '<p>Tiket belum berhasil dibuat. Silakan coba beberapa saat lagi';
-            //     }
-            // }
             if ($data['jumpprobability'] >= 0.30000000) {
                 $arr = $data['answer'] . '. Bagaimana, Bisa tidak? jika bisa ketik `YA` tapi jika tidak bisa ketikkan `TIDAK`, Terima Kasih123';
                 $data = array('idvocab' => $data['idvocab']);
                 session()->set($data);
+            } else if ($data['jumpprobability'] == 0) {
+                $arr = '<p>Keluhan kamu tidak dapat dimenegrti.';
             } else {
                 $idcustomer = session()->get('idcustomer');
                 $email = session()->get('email');
@@ -790,7 +621,6 @@ class User extends BaseController
         echo $arr;
 
         $data = array('kataterakhir' => $teks);
-        // session()->set($data);
         session()->set('kataterakhir', $data);
     }
 }

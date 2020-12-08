@@ -55,4 +55,18 @@ class LoginModel extends Model
             ->where(array('token' => $token))
             ->get()->getRowArray();
     }
+
+    public function cekOtp($codeotp)
+    {
+        return $this->db->table('user_otp')
+            ->where(array('otp' => $codeotp))
+            ->get()->getRowArray();
+    }
+
+    public function cekLevel($email)
+    {
+        return $this->db->table('users')
+            ->where(array('email' => $email))
+            ->get()->getRowArray();
+    }
 }
